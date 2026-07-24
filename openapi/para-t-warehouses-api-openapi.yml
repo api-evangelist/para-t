@@ -1,0 +1,673 @@
+swagger: '2.0'
+info:
+  version: 4.0.0
+  title: Paraşüt - API V4 Accounts Warehouses API
+  x-logo:
+    url: https://apidocs.parasut.com/logo.png
+    backgroundColor: null
+  description: "\n# CHANGE LOG\n### **2021-10-11**\n#### Added\n- Belirli Firmalar İçin Özel Gereksinimler alanına Amazon için gerekli özel alanlar eklendi.\n\n#### Changed\n- Fatura oluşturmada `order_no` ve `order_date` alanlarının tanımlamaları değiştirildi.\n\n\n# GİRİŞ\n\n## API Hakkında\n\nParaşüt API'yi kullanmak veya görüşlerinizi bizimle paylaşmak isterseniz lütfen bizimle destek@parasut.com adresi üzerinden iletişime geçiniz.\n\nAPI'yi kullanarak Paraşüt verilerine ulaşabilir ve kendi yazdığınız uygulamalar ile entegre edebilirsiniz. API vasıtasıyla Paraşüt Web arayüzü ile yapılan hemen her işlemi gerçekleştirebilirsiniz.\n\n\n- API geliştirmesinde çoğunlukla JSONAPI (http://jsonapi.org/) standartlarına uymaya çalıştık.\n\n- Dökümantasyon oluşturulmasında ise OpenAPI-Swagger 2.0 kullandık.\n\n- API hizmetimizin `BASE_URL`i `https://api.parasut.com` şeklindedir.\n\n- V4 endpointlerine ulaşmak için `https://api.parasut.com/v4` şeklinde kullanabilirsiniz.\n\n## Genel Bilgiler\n\n- API metodlarına erişmek için baz URL olarak `https://api.parasut.com/v4/firma_no` adresi kullanılır.\n  - Bu yapıda kullanılan `firma_no` parametresi bilgisine erişilmek istenin firmanın Paraşüt veritabanındaki kayıt numarasıdır.\n  - Örneğin 115 numaralı firmanın müşteri/tedarikçi listesine erişmek için `https://api.parasut.com/v4/115/contacts` adresi kullanılır.\n- İstekleri gönderirken `Content-Type` header'ı olarak `application/json` veya `application/vnd.api+json` göndermelisiniz.\n- Yeni bir kayıt oluştururken **ilgili** kaydın `ID` parametresini boş göndermeli veya hiç göndermemelisiniz.\n  - Örnek: Satış faturası oluştururken `data->id` boş olmalı, ama `relationships->contact->data->id` dolu olmalı, çünkü gönderdiğiniz müşterinizin ID'si daha önceden elinizde bulunmalıdır. Aynı şekilde `relationships->details->data` içerisinde tanımladığınız ID'ler de boş olmalı, çünkü henüz fatura kalemi yaratmadınız.\n- API endpointlerine ulaşmak için, aldığınız `access_token`'ı sorgulara `Authorization` header'ı olarak `Bearer access_token` şeklinde göndermelisiniz.\n- 10 saniyede 10 adet istek gönderebilirsiniz.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->\n\nParaşüt API kimlik doğrulama için oAuth2 kullanmaktadır. Bu protokolü destekleyen istemci kütüphanelerini kullanarak oturum açabilir ve API'yi kullanabilirsiniz.\n\nGerekli CLIENT_ID, CLIENT_SECRET ve REDIRECT_URL bilgilerini almak için destek@parasut.com adresine mail atabilirsiniz.\n\nKimlik doğrulama işleminin başarılı olması durumunda bir adet kimlik jetonu (authentication token) ve bir adet de yenileme jetonu (refresh token) gönderilecektir. Kimlik jetonu 2 saat süreyle geçerlidir ve her istekte http başlık bilgilerinin içerisinde gönderilmelidir. Bu sürenin sonunda kimlik jetonu geçerliliğini yitirecektir ve yenileme jetonu kullanılarak tekrar üretilmesi gerekmektedir.\n\n## access_token almak:\n\naccess_token almanız için iki farklı seçenek bulunmaktadır.\n\nKullanım şeklinize bağlı olarak iki yöntemden birini tercih etmelisiniz.\n\n### 1. grant_type=authorization_code\n\nBu yöntemi kullanabilmek için öncelikle aşağıda belirtildiği gibi kullanıcıyı başarılı authentication işleminin ardından yönlendirmek istediğiniz `REDIRECT_URL`'i bize ulaşarak kayıt ettirmeniz gerekmektedir. `REDIRECT_URL` varsayılan olarak `urn:ietf:wg:oauth:2.0:oob` gelmektedir.\n\nSize özel bir REDIRECT_URL tanımlamak isterseniz destek@parasut.com adresine mail atabilirsiniz.\n\n1. Kullanıcıyı şu adrese yönlendirin:\n\n  ```\n  BASE_URL/oauth/authorize?client_id=CLIENT_ID&redirect_uri=REDIRECT_URL&response_type=code\n  ```\n\n2. Oturum açmışsa ve uygulamayı kabul ederse, kullanıcı sizin tanımladığınız REDIRECT_URL'e şu şekilde gelmesi gerekiyor:\n  `REDIRECT_URL?code=xxxxxxx`\n\n3. Burada size gelen \"code\" parametresi ile access token almalısınız.\n\n```bash\ncurl -F grant_type=authorization_code \\\n-F client_id=CLIENT_ID \\\n-F client_secret=CLIENT_SECRET \\\n-F code=RETURNED_CODE \\\n-F redirect_uri=REDIRECT_URL \\\n-X POST BASE_URL/oauth/token\n```\n\n### 2. grant_type=password\n\nE-posta ve şifre ile access_token almanız için aşağıdaki istekte size özel alanları doldurarak POST isteği atmanız gerekmektedir.\n\n```bash\ncurl -F grant_type=password \\\n-F client_id=CLIENT_ID \\\n-F client_secret=CLIENT_SECRET \\\n-F username=YOUREMAIL \\\n-F password=YOURPASSWORD \\\n-F redirect_uri=urn:ietf:wg:oauth:2.0:oob \\\n-X POST BASE_URL/oauth/token\n```\n\n### Sonuç\n\nHer iki yöntem sonucunda size aşağıdaki gibi bir sonuç dönecektir:\n\n```json\n{\n \"access_token\": \"XYZXYZXYZ\",\n \"token_type\": \"bearer\",\n \"expires_in\": 7200,\n \"refresh_token\": \"ABCABCABC\"\n}\n```\n\nBurada dönen `access_token`'ı API endpointlerine ulaşmak için gönderdiğiniz sorgulara `Authorization` header'ı olarak `Bearer XYZXYZXYZ` şeklinde eklemeniz gerekiyor.\n\n\n#### Refresh token ile yeni access_token alma örneği:\n\n`access_token` geçerliliğini 2 saat içerisinde yitirdiği için `refresh_token` ile yeni token alabilirsiniz.\n\n```bash\ncurl -F grant_type=refresh_token \\\n-F client_id=CLIENT_ID \\\n-F client_secret=CLIENT_SECRET \\\n-F refresh_token=REFRESH_TOKEN \\\n-X POST BASE_URL/oauth/token\n```\n\n`refresh_token` ile yeni bir `access_token` alırken aynı zamanda yeni bir `refresh_token` da almaktasınız. Dolayısıyla, daha sonra yeniden bir `access_token` alma isteğinizde size dönen yeni `refresh_token`ı kullanmalısınız.\n\n# SIK KULLANILAN İŞLEMLER\n\n## Kullanıcı Bilgisi\n\n`access_token` aldığınız kullanıcının genel bilgilerini görmek için [/me](/#operation/showMe) adresini kullanabilirsiniz.\n\n## Satış Faturası Oluşturma\n\nSatış faturası oluşturmak için bir müşteri (`contact`) `id`'si ve bir veya birden fazla ürün (`product`) `id`'sine ihtiyacınız vardır.\n\n### Müşteri\n\n##### Yeni bir müşteri ile\n\nEğer ihtiyaç duyduğunuz müşteri bilgisi henüz yoksa, öncelikle müşteri oluşturmanız gereklidir. Bunun için [Müşteri oluşturma](/#operation/createContact) endpoint'ini kullanmalısınız. Başarılı bir şekilde müşteri oluşturulursa size dönecek olan yanıt ihtiyaç duyacağınız müşteri `id`'sini içerir.\n\n##### Mevcut bir müşteri ile\n\nEğer daha önceden zaten oluşturduğunuz bir müşteri ile ilişkili bir satış faturası oluşturacaksanız öncelikle o müşterinin `id`'sini öğrenmeniz gerekir. Bunun için [Müşteri listesi](/#operation/listContacts) endpoint'ini kullanabilirsiniz. Müşteri listesi endpoint'i isim, e-posta, vergi numarası gibi çeşitli filtreleri destekler. Bunları kullanarak aradığınız müşteriyi bulabilirsiniz.\n\n### Ürün\n\n##### Yeni bir ürün ile\n\nEğer ihtiyaç duyduğunuz ürün bilgisi henüz yoksa, öncelikle ürün oluşturmanız gereklidir. Bunun için [Ürün oluşturma](/#operation/createProduct) endpoint'ini kullanmalısınız. Başarılı bir şekilde ürün oluşturulursa size dönecek olan yanıt ihtiyaç duyacağınız ürün `id`'sini içerir.\n\n##### Mevcut bir ürün ile\n\nEğer daha önceden oluşturduğunuz bir ürünü kullanarak bir satış faturası oluşturacaksanız öncelikle o ürünün `id`'sini öğrenmeniz gerekir. Bunun için [Ürün listesi](/#operation/listProducts) endpoint'ini kullanabilirsiniz. Ürün listesi endpoint'i isim, kod gibi çeşitli filtreleri destekler. Bunları kullanarak aradığınız ürünü bulabilirsiniz.\n\n---\n\nİhtiyaç duyduğunuz müşteri ve ürün `id`'lerini aldıktan sonra [Satış Faturası Oluşturma](/#operation/createSalesInvoice) endpoint'i ile satış faturası oluşturabilirsiniz. Endpoint'in tanımında sağ tarafta beklediğimiz veri şekli bulunmaktadır, aşağıdaki bilgileri verinin şekli ile kıyaslamak daha açıklayıcı olabilir.\n\nDikkat edilecek noktalar:\n* `relationships` altındaki `contact`'te bulunan `id` alanına müşteri `id`'sini girmeniz gereklidir.\n* `relationships` altındaki `details` kısmı bir listedir (`array`) ve fatura kalemlerini temsil eder. Bu listenin her elemanının ilişkili olduğu bir ürün vardır. Yani `details` altındaki her elemanın kendine ait bir `relationships` kısmı mevcuttur. Buradaki `product` `id` alanı üstteki ürün adımlarında elde ettiğiniz `id`'yi koymanız gereken yerdir.\n\n## Satış Faturasına Tahsilat Ekleme\n\n[Tahsilat ekleme](/#operation/paySalesInvoice) kısmındaki ilgili alanları doldurarak satış faturasına tahsilat ekleyebilirsiniz.\n\n## Satış Faturasının Tahsilatını Silme\n\nBir satış faturasının tahsilatını silmek aslında o tahsilatı oluşturan para akış işlemini silmek demektir. Bir işlemi silmeden önce o işlemin `id`'sine ihtiyacınız vardır.\n\nBir satış faturasına ait tahsilatları almak için [Satış faturası bilgilerini alma (show)](/#operation/showSalesInvoice) endpoint'ine istek atarken `?include=payments` parametresini de eklemelisiniz. Bu size satış faturası bilgilerine ilave olarak tahsilatları da verir.\n\nTahsilatlar ile birlikte o tahsilatları oluşturan işlemleri de almak için yine aynı endpoint'e `?include=payments.transaction` parametresini ekleyerek istek yapmanız gerekir. Bu size hem satış faturası bilgilerini, hem tahsilat bilgilerini hem de tahsilatı oluşturan işlemlerin bilgilerini verir.\n\n`?include=payments.transaction` parametresini kullanarak yaptığınız istek ile işlem (`transaction`) `id`'sini aldıktan sonra [işlem silme](/#operation/deleteTransaction) endpoint'inde bu `id`'yi kullanarak silme işlemini yapabilirsiniz.\n\n## Satış Faturası Resmileştirme\n\nOluşturduğunuz bir satış faturası varsa onu e-Arşiv veya e-Fatura olarak resmileştirmek için aşağıdakileri yapmanız gereklidir.\n\n1. Öncelikle müşterinizin e-Fatura kullanıcısı olup olmadığını öğrenmelisiniz. Bunun için müşterinizin e-Fatura gelen kutusu olup olmadığına bakmak gereklidir. [e-Fatura gelen kutusu](/#operation/listEInvoiceInboxes) endpoint'ine müşterinin vkn'sini kullanarak bir istek yaptığınızda eğer bir gelen kutusu olduğuna dair yanıt alıyorsanız müşteri e-Fatura kullanıcısıdır. Müşteri e-Fatura kullanıcısı ise resmileştirme için e-Fatura oluşturmak, e-Fatura kullanıcısı değilse e-Arşiv oluşturmak gereklidir. İhracat Faturaları her zaman e-Fatura olarak resmileştirilmelidir.\n\nOluşturduğunuz e-Fatura, e-Arşiv ve e-Smm’nin düzenleme tarihi e-Fatura/e-Smm’ye geçiş sağladığınız aktivasyon tarihinden sonra olmalıdır. Aynı zamanda oluşturduğunuz e-Fatura’nın düzenleme tarihi alıcının etiketi kullanmaya başladığı tarihten de önce olamaz. Alıcının etiketi kullanmaya başladığı tarihi e-Fatura gelen kutusunu çekerek görüntüleyebilirsiniz.\n\n2. e-Fatura / e-Arşiv / e-Smm oluşturma:\n   * Önceki adımda müşterinin e-Fatura kullanıcısı olduğu öğrenildiyse,  [e-Fatura oluşturma endpoint'i](/#operation/createEInvoice) kullanılarak e-Fatura oluşturmak gereklidir.\n   * Önceki adımda müşterinin e-Arşiv kullanıcısı olduğu öğrenildiyse,  [e-Arşiv oluşturma endpoint'i](/#operation/createEArchive) kullanılarak e-Arşiv oluşturmak gereklidir.\n   * Eğer makbuz kullanıcısı iseniz, [e-Smm oluşturma endpoint'ini](/#operation/createESmm) kullanarak e-Smm oluşturmanız gereklidir.\n\n   e-Fatura / e-Arşiv / e-Smm oluşturma işlemi synchronous değildir. Yani istek arka planda yerine getirilir. Bu yüzden e-Fatura / e-Arşiv / e-Smm oluşturma endpoint'leri cevap olarak oluşturma işleminin durumunu takip edebileceğiniz bir işlem `id`'si döner. Bu işlem `id`'sini [sorgulama](/#tag/TrackableJobs) endpoint'inde belirli aralıklarla(`id`'nin kullanım süresi oluşturulduktan sonra 15 dakikadır) kullanıp oluşturma işleminin durumunu takip etmeniz gerekmektedir. İşlem durumu ile ilgili aşağıdaki yanıtları alabilirsiniz:\n   * `status: \"pending\"` işlemin sırada olduğunu, henüz başlamadığını gösterir.\n   * `status: \"running\"` işlemin yapılmakta olduğunu ancak henüz sonuçlanmadığını gösterir.\n   * `status: \"error\"` işlemde bir hata olduğu anlamına gelir. Dönen yanıtta hata mesajını inceleyebilirsiniz.\n   * `status: \"done\"` işlemin başarılı bir şekilde sonuçlandığını gösterir.\n3. e-Fatura / e-Arşiv / e-Smm işleminin başarılı bir şekilde sonuçlandığını gördükten sonra e-Fatura / e-Arşiv / e-Smm bilgilerini almak için [Satış faturası bilgilerini alma (show)](/#operation/showSalesInvoice) endpoint'ine `?include=active_e_document` parametresi ile istek yapmanız gerekmektedir. Buradan sıradaki adımda ihtiyaç duyacağınız e-Fatura / e-Arşiv / e-Smm `id`'lerini ve başka bilgileri de alabilirsiniz.\n4. e-Fatura / e-Arşiv / e-Smm başarıyla resmileştirildikten sonra müşterilerinize PDF olarak göndermek isteyebilirsiniz. Bunun için:\n   * e-Arşiv için, 4. adımda elde edeceğiniz e-Arşiv `id`'sini kullanarak [e-Arşiv PDF](/#operation/showEArchivePdf) endpoint'ine istek atabilirsiniz. Bu endpoint PDF henüz yoksa boş bir yanıt ile birlikte 204 döner. Yani 204 almayana kadar belirli aralıklarla bu endpoint'e istek yapmanız gerekmektedir. Geçerli yanıt aldığınızda size dönecek olan PDF URL 1 saat için geçerlidir. Bu yüzden bu linki direk olarak müşterinizle **paylaşmamalısınız**. İndirip müşterinize kendiniz göndermelisiniz.\n   * e-Arşiv için anlatılan senaryonun aynısı e-Fatura için de geçerlidir. Tek farklı kısım isteği yapacağınız endpoint'tir: [e-Fatura PDF](/#operation/showEInvoicePdf)\n   * e-Arşiv için anlatılan senaryonun aynısı e-Smm için de geçerlidir. Tek farklı kısım isteği yapacağınız endpoint'tir: [e-Smm PDF](/#operation/showESmmPdf)\n\n## Tekliften Satış Faturası Oluşturma\nOluşturduğunuz Tekliften Fatura oluşturma süreci şu şekilde gerçekleşir:\n1. Öncelikle, faturası oluşturulmak istenilen teklife bir GET isteği gönderilir ve yanıtı alınır.\n2. Sonrasında, gerekli alanlar doldurularak satış faturası endpointine bir POST isteği gönderilir ve fatura oluşturulur.\n\nDikkat edilecek noktalar: \n  * Teklif ve satış faturası arasında çoğu alan benzerdir, bu yüzden teklif yanıtındaki alanlar satış faturası için uygun bir şekilde POST request verisi olarak aktarılabilir.\n  * Teklif faturası response’unda, included array’inde 'contacts', 'sales_offer_details' ve 'products' türlerinde objeler bulunur. Bu objeler satış faturası POST request data’sı içindeki relationships alanına uygun bir şekilde aktarılabilir.\n  * Satış faturası POST requestinde, data > relationships > sales_offer > data nesnesi bulunur. Bu nesnenin id alanına teklifin id'si; type alanına ise \"sales_offers\" değeri string formatında yazılması gerekmektedir.\n\n## Belirli Firmalar İçin Özel Gereksinimler\n\nEğer özel gereksinim duyan bir firmaya e-fatura kesiyorsanız, bu kısmı detaylı bir şekilde gözden geçiriniz. Aşağıda desteklediğimiz özel firmaların kendi ihtiyaçlarına göre oluşturduğumuz alanları görebilirsiniz.\n\n### SGK için gerekli özel alanlar\n\nSGK'ya fatura kesebilmek için aşağıdaki json'u inceleyebilirsiniz.\n\n``` json\ncustom_requirement_params: {\n  integration: {\n    data: {\n      additional_invoice_type: 'SAGLIK_ECZ',\n      tax_payer_code: 'xx',\n      tax_payer_name: 'xx',\n      file_number: 'xx',\n      term_start_date: '2021-01-02',\n      term_end_date: '2021-01-04'\n    }\n  }\n}\n```\n\nBuradaki data'nın içindeki alanların anlamları:\n\n- `additional_invoice_type`: ilave fatura tipi\n- `tax_payer_code`: mükellef kodu\n- `tax_payer_name`: mükellef adı\n- `file_number`: dosya numarası\n- `term_start_date`: dönem başlangıç\n- `term_end_date`: dönem bitiş\n\nEk olarak `additional_invoice_type` aşağıdaki değerlerden biri olmalıdır.\n\nAvailable: *SAGLIK_ECZ, SAGLIK_HAS, SAGLIK_OPT, SAGLIK_MED, ABONELIK, MAL_HIZMET, DIGER*\n### Amazon için gerekli özel alanlar\nAmazon'a kesilen faturalarda adres bilgisi doğru girilmelidir. Uygulamada kullanılan adres bilgileri:\n\n- `billing_address`: Esentepe Mahallesi, Bahar Sk. No: 13/52\n- `billing_postal_code`: 34394\n- `tax_office`: Zincirlikuyu\n- `district`: Şişli\n- `city`: İstanbul\n- Amazon'a kesilen faturalarda sipariş bilgileri (`order_no` ve `order_date`) doldurulmalıdır.\n\nTedarikçi kodu ve EAN / ASIN kodlarını girebileceğiniz alan `custom_requirement_params` alanıdır. `product_id` yerine ürünlerin  paraşüt üzerindeki id sini girebilirsiniz. Örnek olarak aşağıdaki json'u inceleyebilirsiniz.\n```json\ncustom_requirement_params: {\n  integration: {\n    data: {\n      supplier_code: '210'\n    }\n  },\n  products: [\n    {\n      product_id: 1,\n      data: {\n        buyer_code: 'B01M7UN8RS'\n      }\n    },\n    {\n      product_id: 2,\n      data: {\n        buyer_code: 'B0186FESVC'\n      }\n    }\n  ]\n}\n```\nBuradaki data'nın içindeki alanların anlamları:\n- `supplier_code`: tedarikçi kodu\n- `product_id`: paraşüt ürün id\n- `buyer_code`: ürün AEN / ASIN kodu\n\n## İrsaliye Oluşturma\n\nİrsaliye oluşturmak için bir müşteri/tedarikçi (`contact`) `id`'si ve bir veya birden fazla ürün (`product`) `id`'sine ihtiyacınız vardır.\n\n### Müşteri/Tedarikçi\n\n##### Yeni bir müşteri/tedarikçi ile\n\nEğer ihtiyaç duyduğunuz müşteri/tedarikçi bilgisi henüz yoksa, öncelikle müşteri/tedarikçi oluşturmanız gereklidir. Bunun için [Müşteri/Tedarikçi oluşturma](/#operation/createContact) endpoint'ini kullanmalısınız. Başarılı bir şekilde müşteri/tedarikçi oluşturulursa size dönecek olan yanıt ihtiyaç duyacağınız müşteri/tedarikçi `id`'sini içerir.\n\n##### Mevcut bir müşteri/tedarikçi ile\n\nEğer daha önceden zaten oluşturduğunuz bir müşteri/tedarikçi ile ilişkili bir irsaliye oluşturacaksanız öncelikle o müşteri/tedarikçinin `id`'sini öğrenmeniz gerekir. Bunun için [Müşteri/tedarikçi listesi](/#operation/listContacts) endpoint'ini kullanabilirsiniz. Müşteri/tedarikçi listesi endpoint'i isim, e-posta, vergi numarası gibi çeşitli filtreleri destekler. Bunları kullanarak aradığınız müşteri/tedarikçiyi bulabilirsiniz.\n\n### Ürün\n\n##### Yeni bir ürün ile\n\nEğer ihtiyaç duyduğunuz ürün bilgisi henüz yoksa, öncelikle ürün oluşturmanız gereklidir. Bunun için [Ürün oluşturma](/#operation/createProduct) endpoint'ini kullanmalısınız. Başarılı bir şekilde ürün oluşturulursa size dönecek olan yanıt ihtiyaç duyacağınız ürün `id`'sini içerir.\n\n##### Mevcut bir ürün ile\n\nEğer daha önceden oluşturduğunuz bir ürünü kullanarak bir irsaliye oluşturacaksanız öncelikle o ürünün `id`'sini öğrenmeniz gerekir. Bunun için [Ürün listesi](/#operation/listProducts) endpoint'ini kullanabilirsiniz. Ürün listesi endpoint'i isim, kod gibi çeşitli filtreleri destekler. Bunları kullanarak aradığınız ürünü bulabilirsiniz.\n\n---\n\nİhtiyaç duyduğunuz müşteri/tedarikçi ve ürün `id`'lerini aldıktan sonra [İrsaliye Oluşturma](/#operation/createShipmentDocument) endpoint'i ile irsaliye oluşturabilirsiniz. Endpoint'in tanımında sağ tarafta beklediğimiz veri şekli bulunmaktadır, aşağıdaki bilgileri verinin şekli ile kıyaslamak daha açıklayıcı olabilir.\n\nDikkat edilecek noktalar:\n* `relationships` altındaki `contact`'te bulunan `id` alanına müşteri/tedarikçi `id`'sini girmeniz gereklidir.\n* `relationships` altındaki `stock_movements` kısmı bir listedir (`array`) ve irsaliye kalemlerini temsil eder. Bu listenin her elemanının ilişkili olduğu bir ürün vardır. Yani `stock_movements` altındaki her elemanın kendine ait bir `relationships` kısmı mevcuttur. Buradaki `product` `id` alanı üstteki ürün adımlarında elde ettiğiniz `id`'yi koymanız gereken yerdir.\n"
+host: api.parasut.com
+basePath: /v4
+schemes:
+- https
+consumes:
+- application/vnd.api+json
+produces:
+- application/vnd.api+json
+security:
+- parasut_auth: []
+tags:
+- name: Warehouses
+  x-displayName: DEPO
+paths:
+  /{company_id}/warehouses:
+    parameters:
+    - name: company_id
+      type: integer
+      description: Firma ID
+      in: path
+      required: true
+    get:
+      tags:
+      - Warehouses
+      operationId: listWarehouses
+      summary: Index
+      description: ''
+      parameters:
+      - name: filter[name]
+        type: string
+        in: query
+        description: ''
+      - name: filter[archived]
+        type: boolean
+        in: query
+        description: ''
+      - name: sort
+        type: string
+        in: query
+        description: 'Sortable parameters - *Available: id, name*'
+        default: -id
+      - name: page[number]
+        type: integer
+        in: query
+        description: Page Number
+        default: 1
+      - name: page[size]
+        type: integer
+        in: query
+        description: Page Size
+        default: 15
+        minimum: 1
+        maximum: 25
+      - name: include
+        type: string
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: inventory_levels*'
+      responses:
+        '200':
+          description: Depolar
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Warehouse'
+              included:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - inventory_levels
+                    attributes:
+                      type: object
+                    relationships:
+                      type: object
+              meta:
+                $ref: '#/definitions/ListMeta'
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '401':
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '403':
+          description: Forbidden
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+    post:
+      tags:
+      - Warehouses
+      operationId: createWarehouse
+      summary: Create
+      description: ''
+      parameters:
+      - name: include
+        type: string
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: inventory_levels*'
+      - name: product_form
+        schema:
+          type: object
+          required:
+          - data
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  type: string
+                  maxLength: 255
+                type:
+                  type: string
+                  maxLength: 255
+                  description: Type of the resource
+                  enum:
+                  - warehouses
+                attributes:
+                  $ref: '#/definitions/WarehouseAttributes'
+                relationships:
+                  type: object
+                  properties:
+                    inventory_levels:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                maxLength: 255
+                              type:
+                                type: string
+                                maxLength: 255
+                                description: Type of the resource
+                                enum:
+                                - inventory_levels
+        in: body
+        required: true
+      responses:
+        '201':
+          description: Depo
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Warehouse'
+              included:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - inventory_levels
+                    attributes:
+                      type: object
+                    relationships:
+                      type: object
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '401':
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '403':
+          description: Forbidden
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+  /{company_id}/warehouses/{id}:
+    parameters:
+    - name: company_id
+      type: integer
+      description: Firma ID
+      in: path
+      required: true
+    - name: id
+      type: integer
+      description: Depo ID
+      in: path
+      required: true
+    get:
+      tags:
+      - Warehouses
+      operationId: showWarehouse
+      summary: Show
+      description: ''
+      parameters:
+      - name: include
+        type: string
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: inventory_levels*'
+      responses:
+        '200':
+          description: Depo
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Warehouse'
+              included:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - inventory_levels
+                    attributes:
+                      type: object
+                    relationships:
+                      type: object
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '401':
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '403':
+          description: Forbidden
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+    put:
+      tags:
+      - Warehouses
+      operationId: updateWarehouse
+      summary: Edit
+      description: ''
+      parameters:
+      - name: include
+        type: string
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: inventory_levels*'
+      - name: product_form
+        schema:
+          type: object
+          required:
+          - data
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  type: string
+                  maxLength: 255
+                type:
+                  type: string
+                  maxLength: 255
+                  description: Type of the resource
+                  enum:
+                  - warehouses
+                attributes:
+                  $ref: '#/definitions/WarehouseAttributes'
+                relationships:
+                  type: object
+                  properties:
+                    inventory_levels:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                maxLength: 255
+                              type:
+                                type: string
+                                maxLength: 255
+                                description: Type of the resource
+                                enum:
+                                - inventory_levels
+        in: body
+        required: true
+      responses:
+        '200':
+          description: Depo
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Warehouse'
+              included:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - inventory_levels
+                    attributes:
+                      type: object
+                    relationships:
+                      type: object
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '401':
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '403':
+          description: Forbidden
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+    delete:
+      tags:
+      - Warehouses
+      operationId: deleteWarehouse
+      summary: Delete
+      description: ''
+      responses:
+        '204':
+          description: No content
+          schema:
+            type: object
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '401':
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '403':
+          description: Forbidden
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '404':
+          description: Not Found
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/definitions/Error'
+definitions:
+  Error:
+    type: object
+    properties:
+      title:
+        type: string
+      detail:
+        type: string
+  ListMeta:
+    type: object
+    properties:
+      current_page:
+        type: integer
+      total_pages:
+        type: integer
+      total_count:
+        type: integer
+  Warehouse:
+    type: object
+    properties:
+      id:
+        type: string
+        maxLength: 255
+      type:
+        type: string
+        maxLength: 255
+        description: Type of the resource
+        enum:
+        - warehouses
+      attributes:
+        $ref: '#/definitions/WarehouseAttributes'
+      relationships:
+        type: object
+        properties:
+          inventory_levels:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    maxLength: 255
+                  type:
+                    type: string
+                    maxLength: 255
+                    description: Type of the resource
+                    enum:
+                    - inventory_levels
+    required:
+    - attributes
+  WarehouseAttributes:
+    type: object
+    properties:
+      created_at:
+        type: string
+        format: date
+        readOnly: true
+      updated_at:
+        type: string
+        format: date
+        readOnly: true
+      name:
+        type: string
+        readOnly: false
+        description: Depo İsmi
+      address:
+        type: string
+        readOnly: false
+        description: Adres
+      city:
+        type: string
+        readOnly: false
+        description: İl
+      district:
+        type: string
+        readOnly: false
+        description: İlçe
+      is_abroad:
+        type: boolean
+        readOnly: false
+        description: Yurt dışında
+      archived:
+        type: boolean
+        readOnly: false
+        description: Arşivlenme durumu
+    required:
+    - name
+securityDefinitions:
+  parasut_auth:
+    type: oauth2
+    tokenUrl: https://api.parasut.com/oauth/token
+    authorizationUrl: https://api.parasut.com/oauth/authorize
+    flow: accessCode
+    scopes: {}
+x-tagGroups:
+- name: Satışlar
+  tags:
+  - SalesOffers
+  - SalesInvoices
+  - Contacts
+- name: Giderler
+  tags:
+  - PurchaseBills
+  - BankFees
+  - Salaries
+  - Taxes
+  - Contacts
+  - Employees
+- name: Resmileştirme
+  tags:
+  - EInvoiceInboxes
+  - EArchives
+  - EInvoices
+  - ESmms
+- name: Nakit
+  tags:
+  - Accounts
+  - Transactions
+- name: Stok
+  tags:
+  - Products
+  - Warehouses
+  - ShipmentDocuments
+  - StockMovements
+  - InventoryLevels
+  - StockUpdates
+- name: Ayarlar
+  tags:
+  - ItemCategories
+  - Tags
+- name: Diğer
+  tags:
+  - ApiHome
+  - TrackableJobs
