@@ -1,0 +1,54 @@
+generated: '2026-07-20'
+method: searched
+source: https://apidocs.parasut.com/
+# Cross-cutting request/response semantics for the Paraşüt API V4, harvested from the
+# official API documentation (apidocs.parasut.com) and derived from the OpenAPI.
+standard: JSON:API (jsonapi.org)
+base_url: https://api.parasut.com/v4/{company_id}
+content_type:
+  request: [application/json, application/vnd.api+json]
+  response: application/vnd.api+json
+authentication:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  token_lifetime: 2h
+  refresh: rotating refresh_token (a new refresh_token is issued on every refresh)
+  see: authentication/para-t-authentication.yml
+idempotency:
+  supported: false
+  notes: No Idempotency-Key header or idempotent-retry contract is documented.
+pagination:
+  style: page-number
+  params:
+    number: page[number]
+    size: page[size]
+  meta: response includes a JSON:API `meta` object (ListMeta) with total counts.
+filtering:
+  style: jsonapi-filter
+  param: filter[<attribute>]
+sorting:
+  param: sort
+  notes: comma-separated attribute list; prefix with `-` for descending.
+expansion:
+  style: jsonapi-include
+  param: include
+  notes: 'Compound documents via ?include=; nested paths supported, e.g. include=payments.transaction.'
+metadata:
+  list_meta: ListMeta (total_pages, total_count, current_page, per_page)
+rate_limiting:
+  limit: 10 requests per 10 seconds
+  signalling: documented policy; per the API docs "10 saniyede 10 adet istek gönderebilirsiniz".
+async_jobs:
+  pattern: TrackableJobs
+  notes: >
+    e-Document creation (e-Fatura / e-Arşiv / e-SMM) is asynchronous. The create call
+    returns a trackable job id; poll showTrackableJob until completion. The job id is
+    valid for 15 minutes after creation. Generated PDF URLs are valid for 1 hour.
+  operations: [showTrackableJob]
+versioning:
+  scheme: uri-path
+  current: v4
+  see: lifecycle/para-t-lifecycle.yml
+errors:
+  envelope: errors[] (JSON:API)
+  see: errors/para-t-problem-types.yml

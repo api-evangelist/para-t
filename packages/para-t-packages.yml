@@ -1,0 +1,44 @@
+generated: '2026-07-20'
+method: searched
+source: https://apidocs.parasut.com/ , public package registries
+# Paraşüt does not publish first-party client SDKs. The libraries below are
+# community-maintained clients for the Paraşüt API V4 (official: false). No
+# `SDKs` pointer is emitted because no first-party SDK was found.
+packages:
+- language: php
+  registry: packagist
+  name: mkiyak/parasut-api-v4
+  url: https://packagist.org/packages/mkiyak/parasut-api-v4
+  install: composer require mkiyak/parasut-api-v4
+  official: false
+- language: php
+  registry: github
+  name: ekoseoglu/php-parasut-api-v4
+  url: https://github.com/ekoseoglu/php-parasut-api-v4
+  official: false
+- language: dotnet
+  registry: github
+  name: ozgur-soft/Parasut.NET
+  url: https://github.com/ozgur-soft/Parasut.NET
+  official: false
+- language: go
+  registry: pkg.go.dev
+  name: github.com/parevo-lab/parasut
+  url: https://pkg.go.dev/github.com/parevo-lab/parasut
+  install: go get github.com/parevo-lab/parasut
+  official: false
+- language: go
+  registry: github
+  name: ozgur-yalcin/parasut.go
+  url: https://github.com/ozgur-yalcin/parasut.go
+  official: false
+- language: java
+  registry: github
+  name: easikoglu/parasut-java-client-api
+  url: https://easikoglu.github.io/parasut-java-client-api/
+  official: false
+- language: elixir
+  registry: hex
+  name: parasut
+  url: https://hexdocs.pm/parasut/api-reference.html
+  official: false

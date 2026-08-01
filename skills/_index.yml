@@ -1,0 +1,16 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/para-t-openapi-original.yml
+skills:
+- file: para-t-invoice-a-customer.md
+  name: Create a contact and issue a sales invoice
+  api: openapi/para-t-openapi-original.yml
+  operations: [createContact, createProduct, createSalesInvoice, showSalesInvoice, paySalesInvoice]
+- file: para-t-officialize-e-document.md
+  name: Officialize a sales invoice as an e-Arşiv / e-Fatura document
+  api: openapi/para-t-openapi-original.yml
+  operations: [listEInvoiceInboxes, createEArchive, createEInvoice, showTrackableJob, showEArchivePdf]
+- file: para-t-manage-products-stock.md
+  name: Manage products, warehouses and stock levels
+  api: openapi/para-t-openapi-original.yml
+  operations: [createProduct, listProducts, createWarehouse, createStockUpdate, listInventoryLevels]

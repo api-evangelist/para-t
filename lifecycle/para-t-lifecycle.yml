@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: searched
+source: https://apidocs.parasut.com/
+versioning:
+  scheme: uri-path
+  current: v4
+  base: https://api.parasut.com/v4
+  docs: https://apidocs.parasut.com/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No public deprecation policy or RFC 8594 Sunset/Deprecation header support documented.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+support:
+  email: destek@parasut.com
+  help_center: https://www.parasut.com/destek
+deprecated_operations: []
+notes: >
+  Paraşüt exposes a single stable major version (V4). No public status page, SLA, or
+  formal deprecation policy was found. Support and change communication happen via
+  the docs change log and destek@parasut.com.

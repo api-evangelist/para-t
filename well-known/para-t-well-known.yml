@@ -1,0 +1,30 @@
+generated: '2026-07-20'
+method: searched
+# Probed /.well-known/ discovery surface on the API + website + docs hosts.
+# No documents were served (404 on the API host; the marketing/docs hosts sit behind
+# a WAF returning 403 to automated clients). Empty is valid, expected data.
+hosts:
+- host: https://api.parasut.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://parasut.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+- host: https://apidocs.parasut.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 404

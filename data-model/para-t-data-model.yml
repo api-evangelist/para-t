@@ -1,0 +1,179 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/para-t-openapi-original.yml
+# Entity-relationship graph derived from the JSON:API `relationships` blocks in the
+# Paraşüt API V4 OpenAPI definitions.
+format: json:api
+entities:
+- name: Account
+  relationships: []
+- name: AccountDebitCreditTransactionForm
+  relationships: []
+- name: Address
+  relationships:
+  - { via: addressable, kind: has_one }
+- name: BankFee
+  relationships:
+  - { via: category, kind: has_one }
+  - { via: tags, kind: has_many }
+- name: Company
+  relationships:
+  - { via: address, kind: has_one }
+  - { via: default_warehouse, kind: has_one }
+  - { via: owner, kind: has_one }
+- name: Contact
+  relationships:
+  - { via: category, kind: has_one }
+  - { via: contact_people, kind: has_many }
+  - { via: contact_portal, kind: has_one }
+- name: ContactCollectionForm
+  relationships: []
+- name: ContactPaymentForm
+  relationships: []
+- name: ContactPerson
+  relationships: []
+- name: EArchive
+  relationships:
+  - { via: sales_invoice, kind: has_one }
+- name: EArchiveForm
+  relationships: []
+- name: EDocumentCommonForm
+  relationships: []
+- name: EDocumentPdf
+  relationships: []
+- name: EInvoice
+  relationships:
+  - { via: invoice, kind: has_one }
+- name: EInvoiceForm
+  relationships: []
+- name: EInvoiceInbox
+  relationships: []
+- name: ESmm
+  relationships:
+  - { via: sales_invoice, kind: has_one }
+- name: ESmmCommonForm
+  relationships: []
+- name: Employee
+  relationships:
+  - { via: category, kind: has_one }
+  - { via: managed_by_user, kind: has_one }
+  - { via: managed_by_user_role, kind: has_one }
+- name: InventoryLevel
+  relationships:
+  - { via: product, kind: has_one }
+  - { via: warehouse, kind: has_one }
+- name: ItemCategory
+  relationships:
+  - { via: parent_category, kind: has_one }
+  - { via: subcategories, kind: has_many }
+- name: Me
+  relationships:
+  - { via: companies, kind: has_many }
+  - { via: profile, kind: has_one }
+  - { via: user_roles, kind: has_many }
+- name: Payment
+  relationships:
+  - { via: payable, kind: has_one }
+  - { via: transaction, kind: has_one }
+- name: PaymentForm
+  relationships: []
+- name: Product
+  relationships:
+  - { via: category, kind: has_one }
+  - { via: inventory_levels, kind: has_one }
+- name: Profile
+  relationships:
+  - { via: user, kind: has_one }
+- name: PurchaseBill
+  relationships:
+  - { via: active_e_document, kind: has_one }
+  - { via: category, kind: has_one }
+  - { via: details, kind: has_many }
+  - { via: pay_to, kind: has_one }
+  - { via: payments, kind: has_many }
+  - { via: recurrence_plan, kind: has_one }
+  - { via: spender, kind: has_one }
+  - { via: supplier, kind: has_one }
+  - { via: tags, kind: has_many }
+- name: PurchaseBillBasicForm
+  relationships: []
+- name: PurchaseBillDetail
+  relationships:
+  - { via: product, kind: has_one }
+  - { via: warehouse, kind: has_one }
+- name: PurchaseBillDetailedForm
+  relationships: []
+- name: Salary
+  relationships:
+  - { via: category, kind: has_one }
+  - { via: employee, kind: has_one }
+  - { via: tags, kind: has_many }
+- name: SalesInvoice
+  relationships:
+  - { via: active_e_document, kind: has_one }
+  - { via: category, kind: has_one }
+  - { via: contact, kind: has_one }
+  - { via: details, kind: has_many }
+  - { via: payments, kind: has_many }
+  - { via: recurrence_plan, kind: has_one }
+  - { via: sales_offer, kind: has_one }
+  - { via: sharings, kind: has_many }
+  - { via: tags, kind: has_many }
+- name: SalesInvoiceCreateUpdate
+  relationships: []
+- name: SalesInvoiceDetail
+  relationships:
+  - { via: product, kind: has_one }
+  - { via: warehouse, kind: has_one }
+- name: SalesOffers
+  relationships:
+  - { via: activities, kind: has_many }
+  - { via: contact, kind: has_one }
+  - { via: details, kind: has_many }
+  - { via: sales_invoice, kind: has_one }
+  - { via: sharings, kind: has_many }
+- name: SalesOffersDetails
+  relationships:
+  - { via: product, kind: has_one }
+- name: SalesOffersPdf
+  relationships: []
+- name: ShipmentDocument
+  relationships:
+  - { via: contact, kind: has_one }
+  - { via: invoices, kind: has_many }
+  - { via: stock_movements, kind: has_many }
+  - { via: tags, kind: has_many }
+- name: StockMovement
+  relationships:
+  - { via: contact, kind: has_one }
+  - { via: product, kind: has_one }
+  - { via: source, kind: has_one }
+  - { via: warehouse, kind: has_one }
+- name: StockUpdate
+  relationships:
+  - { via: details, kind: has_many }
+- name: StockUpdateDetail
+  relationships:
+  - { via: product, kind: has_one }
+  - { via: warehouse, kind: has_one }
+- name: Tag
+  relationships: []
+- name: Tax
+  relationships:
+  - { via: category, kind: has_one }
+  - { via: tags, kind: has_many }
+- name: TrackableJob
+  relationships: []
+- name: Transaction
+  relationships:
+  - { via: credit_account, kind: has_one }
+  - { via: debit_account, kind: has_one }
+  - { via: payments, kind: has_many }
+- name: UserRole
+  relationships:
+  - { via: company, kind: has_one }
+  - { via: managed_employee, kind: has_one }
+  - { via: user, kind: has_one }
+- name: Warehouse
+  relationships:
+  - { via: inventory_levels, kind: has_one }

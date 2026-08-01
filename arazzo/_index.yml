@@ -1,0 +1,8 @@
+generated: '2026-07-20'
+method: derived
+source: arazzo/*.yml
+workflows:
+- file: para-t-invoice-and-officialize.yml
+  workflowId: invoiceAndOfficialize
+  title: Invoice a customer and officialize as e-Arşiv
+  summary: Create a contact, issue a sales invoice, officialize it as an e-Arşiv document, and poll the trackable job until done.

@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/para-t-openapi-original.yml
+standards:
+- id: jsonapi
+  conforms: true
+  evidence: 'API docs state adherence to jsonapi.org; page[number]/page[size] pagination, filter[], include, sort, application/vnd.api+json media type.'
+- id: oauth2
+  conforms: true
+  evidence: securityDefinitions declares oauth2 with accessCode (authorization_code) flow; docs also document password + refresh_token grants.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect discovery document or id_token issuance documented.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the JSON:API errors[] envelope (title/detail), not application/problem+json.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset/Deprecation header support documented.
+- id: pagination
+  conforms: true
+  evidence: JSON:API page-number pagination with ListMeta totals.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key contract documented.
+# No published external compliance certification program (SOC 2 / ISO 27001 / PCI) was
+# located, so no `Compliance` pointer is emitted.

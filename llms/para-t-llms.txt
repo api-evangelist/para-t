@@ -1,0 +1,31 @@
+# Paraşüt API V4
+
+> Paraşüt is a Turkish cloud pre-accounting (ön muhasebe) and e-invoicing SaaS. Its API V4 lets applications read and write nearly everything the Paraşüt web UI can do: contacts, products, inventory/warehouses, sales invoices and offers, purchase bills, bank/cash accounts and transactions, employees and salaries, taxes, and the official Turkish e-document flows (e-Fatura / e-Arşiv / e-SMM). The API follows JSON:API conventions and is authenticated with OAuth2.
+
+## Key facts
+
+- Base URL: https://api.parasut.com/v4/{company_id}
+- Standard: JSON:API (jsonapi.org); media type application/vnd.api+json
+- Auth: OAuth2 (authorization_code and password grants); Bearer access_token valid 2 hours; rotating refresh_token. Client credentials are requested from destek@parasut.com.
+- Rate limit: 10 requests per 10 seconds
+- Pagination: page[number] / page[size]; filtering via filter[...]; sorting via sort; compound documents via include
+- Async: e-document creation is asynchronous via TrackableJobs (poll showTrackableJob; job id valid 15 minutes; generated PDF URLs valid 1 hour)
+- Errors: JSON:API errors[] envelope with title/detail
+
+## Docs
+
+- API Reference (Swagger/OpenAPI 2.0): https://apidocs.parasut.com/
+- Docs source repo: https://github.com/parasutcom/api-doc
+- Product site: https://www.parasut.com/on-muhasebe-programi
+- Pricing: https://www.parasut.com/on-muhasebe-fiyatlari
+- Support: https://www.parasut.com/destek (destek@parasut.com)
+
+## Specs
+
+- OpenAPI (Swagger 2.0): openapi/para-t-openapi-original.yml
+- Authentication profile: authentication/para-t-authentication.yml
+- API conventions: conventions/para-t-conventions.yml
+- Error catalog: errors/para-t-problem-types.yml
+- Data model: data-model/para-t-data-model.yml
+- MCP candidate tools: mcp/para-t-mcp.yml
+- Agent skills: skills/_index.yml

@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Paraşüt API V4
+  version: 1.0.0
+extends: openapi/para-t-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-standard: JSON:API
+    x-apievangelist-auth: oauth2 (authorization_code + password grants, 2h access token, rotating refresh)
+    x-apievangelist-rate-limit: 10 requests / 10 seconds
+    x-apievangelist-async-pattern: TrackableJobs (poll showTrackableJob; job id valid 15m)
+    x-apievangelist-error-format: jsonapi-errors
+- target: $.info
+  update:
+    x-apievangelist-artifacts:
+      conventions: conventions/para-t-conventions.yml
+      errors: errors/para-t-problem-types.yml
+      authentication: authentication/para-t-authentication.yml
+      data-model: data-model/para-t-data-model.yml
+      lifecycle: lifecycle/para-t-lifecycle.yml

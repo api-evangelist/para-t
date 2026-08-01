@@ -1,0 +1,11 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/para-t-openapi-original.yml
+schemes:
+- name: parasut_auth
+  source: openapi/para-t-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.parasut.com/oauth/authorize
+    tokenUrl: https://api.parasut.com/oauth/token
+scopes: []

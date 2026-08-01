@@ -1,0 +1,34 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/para-t-openapi-original.yml
+# Paraşüt API V4 follows the JSON:API (jsonapi.org) error convention. Errors are
+# returned as a top-level `errors[]` array whose members carry `title` and `detail`
+# (the OpenAPI `Error` definition). This is NOT RFC 9457 problem+json.
+format: jsonapi
+envelope:
+  field: errors
+  member_schema:
+    title: Short, human-readable summary of the problem.
+    detail: Human-readable explanation specific to this occurrence.
+  content_type: application/vnd.api+json
+problems:
+- status: 400
+  title: Bad Request
+  detail: The request was malformed or contained invalid JSON:API parameters.
+  applies_to: all operations
+- status: 401
+  title: Unauthorized
+  detail: Missing, invalid, or expired Bearer access_token (tokens expire after 2 hours; refresh via the refresh_token).
+  applies_to: all operations
+- status: 403
+  title: Forbidden
+  detail: The authenticated user lacks permission for the requested company (firma_no) or resource.
+  applies_to: all operations
+- status: 404
+  title: Not Found
+  detail: The requested resource id does not exist within the company scope.
+  applies_to: all operations
+- status: 422
+  title: Unprocessable Entity
+  detail: Validation failed for the submitted resource attributes (JSON:API validation errors).
+  applies_to: all write operations

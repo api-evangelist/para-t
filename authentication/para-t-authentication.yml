@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/para-t-openapi-original.yml
+docs: https://apidocs.parasut.com/
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - password
+  token_lifetime: 2h
+  refresh: rotating refresh_token
+  header: 'Authorization: Bearer <access_token>'
+  credential_provisioning: client_id/client_secret requested from destek@parasut.com
+schemes:
+- name: parasut_auth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.parasut.com/oauth/authorize
+    tokenUrl: https://api.parasut.com/oauth/token
+    scopes: 0
+  - flow: password
+    tokenUrl: https://api.parasut.com/oauth/token
+    notes: 'grant_type=password with client_id, client_secret, username, password, redirect_uri=urn:ietf:wg:oauth:2.0:oob'
+  sources:
+  - openapi/para-t-openapi-original.yml
+notes: >
+  Bearer access_token is valid for 2 hours; refresh with the rotating refresh_token
+  (a new refresh_token is returned on each refresh). No OAuth scopes are defined — a
+  successful token grants full access within the company (firma_no) scope.

@@ -1,25 +1,402 @@
 aid: para-t
 name: Paraşüt
-description: Paraşüt is a company surfaced as a portfolio company of 500-global and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Paraşüt is a Turkish cloud pre-accounting (ön muhasebe) and e-invoicing SaaS for
+  small businesses, freelancers and accountants. Its REST API V4 exposes nearly
+  everything the Paraşüt web app can do — contacts, products, inventory and
+  warehouses, sales invoices and offers, purchase bills, bank and cash accounts and
+  transactions, employees, salaries and taxes — plus Turkey's official electronic
+  document flows (e-Fatura, e-Arşiv and e-SMM). The API follows JSON:API conventions,
+  is authenticated with OAuth2, and handles e-document creation asynchronously via
+  trackable jobs. Backed by 500 Global.
 url: https://raw.githubusercontent.com/api-evangelist/para-t/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://apidocs.parasut.com/logo.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Accounting
+- Pre-Accounting
+- e-Invoicing
+- Invoicing
+- Fintech
+- SaaS
+- Turkey
+- ERP
+- JSON:API
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: para-t:para-t-accounts-api
+  name: Paraşüt Accounts API
+  description: The Accounts API from Paraşüt — 5 operation(s) for accounts.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-accounts-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-apihome-api
+  name: Paraşüt ApiHome API
+  description: The ApiHome API from Paraşüt — 1 operation(s) for apihome.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - ApiHome
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-apihome-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-bankfees-api
+  name: Paraşüt BankFees API
+  description: The BankFees API from Paraşüt — 5 operation(s) for bankfees.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - BankFees
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-bankfees-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-contacts-api
+  name: Paraşüt Contacts API
+  description: The Contacts API from Paraşüt — 4 operation(s) for contacts.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-contacts-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-earchives-api
+  name: Paraşüt EArchives API
+  description: The EArchives API from Paraşüt — 3 operation(s) for earchives.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - EArchives
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-earchives-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-einvoiceinboxes-api
+  name: Paraşüt EInvoiceInboxes API
+  description: The EInvoiceInboxes API from Paraşüt — 1 operation(s) for einvoiceinboxes.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - EInvoiceInboxes
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-einvoiceinboxes-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-einvoices-api
+  name: Paraşüt EInvoices API
+  description: The EInvoices API from Paraşüt — 3 operation(s) for einvoices.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - EInvoices
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-einvoices-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-employees-api
+  name: Paraşüt Employees API
+  description: The Employees API from Paraşüt — 4 operation(s) for employees.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Employees
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-employees-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-esmms-api
+  name: Paraşüt ESmms API
+  description: The ESmms API from Paraşüt — 3 operation(s) for esmms.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - ESmms
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-esmms-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-inventorylevels-api
+  name: Paraşüt InventoryLevels API
+  description: The InventoryLevels API from Paraşüt — 1 operation(s) for inventorylevels.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - InventoryLevels
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-inventorylevels-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-itemcategories-api
+  name: Paraşüt ItemCategories API
+  description: The ItemCategories API from Paraşüt — 2 operation(s) for itemcategories.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - ItemCategories
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-itemcategories-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-products-api
+  name: Paraşüt Products API
+  description: The Products API from Paraşüt — 2 operation(s) for products.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-products-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-purchasebills-api
+  name: Paraşüt PurchaseBills API
+  description: The PurchaseBills API from Paraşüt — 11 operation(s) for purchasebills.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - PurchaseBills
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-purchasebills-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-salaries-api
+  name: Paraşüt Salaries API
+  description: The Salaries API from Paraşüt — 5 operation(s) for salaries.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Salaries
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-salaries-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-salesinvoices-api
+  name: Paraşüt SalesInvoices API
+  description: The SalesInvoices API from Paraşüt — 8 operation(s) for salesinvoices.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - SalesInvoices
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-salesinvoices-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-salesoffers-api
+  name: Paraşüt SalesOffers API
+  description: The SalesOffers API from Paraşüt — 8 operation(s) for salesoffers.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - SalesOffers
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-salesoffers-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-shipmentdocuments-api
+  name: Paraşüt ShipmentDocuments API
+  description: The ShipmentDocuments API from Paraşüt — 2 operation(s) for shipmentdocuments.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - ShipmentDocuments
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-shipmentdocuments-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-stockmovements-api
+  name: Paraşüt StockMovements API
+  description: The StockMovements API from Paraşüt — 1 operation(s) for stockmovements.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - StockMovements
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-stockmovements-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-stockupdates-api
+  name: Paraşüt StockUpdates API
+  description: The StockUpdates API from Paraşüt — 1 operation(s) for stockupdates.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - StockUpdates
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-stockupdates-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-tags-api
+  name: Paraşüt Tags API
+  description: The Tags API from Paraşüt — 2 operation(s) for tags.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-tags-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-taxes-api
+  name: Paraşüt Taxes API
+  description: The Taxes API from Paraşüt — 5 operation(s) for taxes.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Taxes
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-taxes-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-trackablejobs-api
+  name: Paraşüt TrackableJobs API
+  description: The TrackableJobs API from Paraşüt — 1 operation(s) for trackablejobs.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - TrackableJobs
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-trackablejobs-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-transactions-api
+  name: Paraşüt Transactions API
+  description: The Transactions API from Paraşüt — 1 operation(s) for transactions.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-transactions-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-warehouses-api
+  name: Paraşüt Warehouses API
+  description: The Warehouses API from Paraşüt — 2 operation(s) for warehouses.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Warehouses
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-warehouses-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
 common:
+- type: DeveloperPortal
+  url: https://apidocs.parasut.com/
+- type: Documentation
+  url: https://apidocs.parasut.com/
+- type: APIReference
+  url: https://apidocs.parasut.com/
+- type: GettingStarted
+  url: https://www.parasut.com/kullanim-kilavuzu
+- type: GitHubOrganization
+  url: https://github.com/parasutcom
+- type: Support
+  url: https://www.parasut.com/destek
+- type: Blog
+  url: https://www.parasut.com/blog
+- type: Pricing
+  url: https://www.parasut.com/on-muhasebe-fiyatlari
+- type: Login
+  url: https://uygulama.parasut.com
+- type: TermsOfService
+  url: https://www.parasut.com/kullanim-kosullari
+- type: PrivacyPolicy
+  url: https://www.parasut.com/politikalarimiz
+- type: Authentication
+  url: authentication/para-t-authentication.yml
+- type: OAuthScopes
+  url: scopes/para-t-scopes.yml
+- type: DomainSecurity
+  url: security/para-t-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/para-t-agentic-access.yml
+- type: Conventions
+  url: conventions/para-t-conventions.yml
+- type: ErrorCatalog
+  url: errors/para-t-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/para-t-lifecycle.yml
+- type: ChangeLog
+  url: changelog/para-t-changelog.yml
+- type: Conformance
+  url: conformance/para-t-conformance.yml
+- type: DataModel
+  url: data-model/para-t-data-model.yml
+- type: MCPServer
+  url: mcp/para-t-mcp.yml
+- type: Packages
+  url: packages/para-t-packages.yml
+- type: LLMsTxt
+  url: llms/para-t-llms.txt
+- type: Overlay
+  url: overlays/para-t-openapi-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Invoice a customer and officialize as e-Arşiv
+  url: arazzo/para-t-invoice-and-officialize.yml
 - type: Website
   url: https://parasut.com
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1

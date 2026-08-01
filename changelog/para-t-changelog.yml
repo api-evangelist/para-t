@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+source: https://apidocs.parasut.com/
+# The Paraşüt API V4 embeds a dated CHANGE LOG at the top of its OpenAPI description.
+scheme: date-based
+current_version: v4 (4.0.0)
+docs: https://apidocs.parasut.com/
+entries:
+- date: '2021-10-11'
+  version: 4.0.0
+  breaking: false
+  additions:
+  - Added special fields required for Amazon under the company-specific requirements area.
+  changes:
+  - Redefined the `order_no` and `order_date` fields in invoice creation.
+  highlights: Amazon-specific company fields; invoice order_no/order_date field redefinitions.
+notes: >
+  Only the most recent entry embedded in the published spec description is captured here.
+  The live change log at apidocs.parasut.com is the source of truth.

@@ -1,0 +1,65 @@
+arazzo: 1.0.1
+info:
+  title: Paraşüt — invoice a customer and officialize as e-Arşiv
+  version: 1.0.0
+  summary: Create a contact, issue a sales invoice, officialize it as an e-Arşiv document, and poll the trackable job until done.
+sourceDescriptions:
+- name: parasut
+  url: ../openapi/para-t-openapi-original.yml
+  type: openapi
+workflows:
+- workflowId: invoiceAndOfficialize
+  summary: End-to-end billing — contact, sales invoice, e-Arşiv officialization.
+  description: >
+    Registers a customer, issues a sales invoice referencing a product, then
+    officializes it as an e-Arşiv document and polls the asynchronous TrackableJob.
+  inputs:
+    type: object
+    properties:
+      company_id: { type: string }
+      contact_name: { type: string }
+      product_id: { type: string }
+  steps:
+  - stepId: createContact
+    operationId: createContact
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: contacts
+          attributes:
+            name: $inputs.contact_name
+            contact_type: person
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      contact_id: $response.body#/data/id
+  - stepId: createSalesInvoice
+    operationId: createSalesInvoice
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: sales_invoices
+          relationships:
+            contact:
+              data: { type: contacts, id: $steps.createContact.outputs.contact_id }
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      invoice_id: $response.body#/data/id
+  - stepId: createEArchive
+    operationId: createEArchive
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      job_id: $response.body#/data/id
+  - stepId: pollJob
+    operationId: showTrackableJob
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/attributes/status
+  outputs:
+    invoice_id: $steps.createSalesInvoice.outputs.invoice_id
+    job_id: $steps.createEArchive.outputs.job_id
