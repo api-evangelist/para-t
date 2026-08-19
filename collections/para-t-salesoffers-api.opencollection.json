@@ -1,0 +1,348 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts SalesOffers API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SalesOffers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/sales_offers",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "filter[archived]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[query]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[invoice_status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sortable parameters - *Available: id, issue_date, description, net_total_in_trl, sales_invoice_id*"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page Number"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: contact, sales_invoice*"
+              }
+            ]
+          },
+          "docs": "Index"
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/sales_offers",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: sales_invoice,contact.category,contact.contact_people.contact,sharings.collaborator,activities.item,activities.done_by *"
+              }
+            ]
+          },
+          "docs": "Create"
+        },
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/sales_offers/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Teklif ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: details.product contact.contact_people.contact contact.category sales_invoice activities.item activities.done_by sharings.collaborator*"
+              }
+            ]
+          },
+          "docs": "Show"
+        },
+        {
+          "info": {
+            "name": "Edit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/:company_id/sales_offers/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Teklif ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: sales_invoice,contact.category,contact.contact_people.contact,sharings.collaborator,activities.item,activities.done_by*"
+              }
+            ]
+          },
+          "docs": "Edit"
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/:company_id/sales_offers/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Teklif ID"
+              }
+            ]
+          },
+          "docs": "Delete"
+        },
+        {
+          "info": {
+            "name": "PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/sales_offers/:id/pdf",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Teklif ID"
+              }
+            ]
+          },
+          "docs": "Oluşan PDF'in URL'ine trackable_jobs response'unun içerisinde data > attributes > url alanından erişebilirsiniz."
+        },
+        {
+          "info": {
+            "name": "Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/sales_offers/:id/archive",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Teklif ID"
+              }
+            ]
+          },
+          "docs": "Archive"
+        },
+        {
+          "info": {
+            "name": "Unarchive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/sales_offers/:id/unarchive",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Teklif ID"
+              }
+            ]
+          },
+          "docs": "Unarchive"
+        },
+        {
+          "info": {
+            "name": "Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/sales_offers/:id/details",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Teklif ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: product*"
+              }
+            ]
+          },
+          "docs": "Details"
+        },
+        {
+          "info": {
+            "name": "Update Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/sales_offers/:id/update_status",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Teklif ID"
+              }
+            ]
+          },
+          "docs": "Update Status"
+        },
+        {
+          "info": {
+            "name": "e-mail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/sharings",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: collaborator.contact_portal.accounts*"
+              }
+            ]
+          },
+          "docs": "E-mail status erişimi aşağıdaki şekilde sağlanır:\n\nÖncelikle, mevcut teklife bir GET isteği gönderilir. Ardından, yanıtta bulunan 'included' içinde 'sharings' türünde bir obje bulunur. Bu obje açılarak içindeki 'attributes' alanına bakılır. 'email_status' alanı, şu anda e-postanın durumunu sağlayacaktır."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,223 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts BankFees API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BankFees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/bank_fees",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, tags*"
+              }
+            ]
+          },
+          "docs": "Create"
+        },
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/bank_fees/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Banka Gideri ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, tags*"
+              }
+            ]
+          },
+          "docs": "Show"
+        },
+        {
+          "info": {
+            "name": "Edit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/:company_id/bank_fees/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Banka Gideri ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, tags*"
+              }
+            ]
+          },
+          "docs": "Edit"
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/:company_id/bank_fees/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Banka Gideri ID"
+              }
+            ]
+          },
+          "docs": "Delete"
+        },
+        {
+          "info": {
+            "name": "Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/bank_fees/:id/archive",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Banka Gideri ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, tags*"
+              }
+            ]
+          },
+          "docs": "Archive"
+        },
+        {
+          "info": {
+            "name": "Unarchive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/bank_fees/:id/unarchive",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Banka Gideri ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, tags*"
+              }
+            ]
+          },
+          "docs": "Unarchive"
+        },
+        {
+          "info": {
+            "name": "Pay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/bank_fees/:id/payments",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Banka Gideri ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: payable, transaction*"
+              }
+            ]
+          },
+          "docs": "Pay"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

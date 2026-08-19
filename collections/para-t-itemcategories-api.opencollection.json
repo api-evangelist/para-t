@@ -1,0 +1,183 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts ItemCategories API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ItemCategories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/item_categories",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[category_type]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sortable parameters - *Available: id, name, category_type*"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page Number"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Page Size"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: parent_category, subcategories*"
+              }
+            ]
+          },
+          "docs": "Index"
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/item_categories",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: parent_category, subcategories*"
+              }
+            ]
+          },
+          "docs": "Create"
+        },
+        {
+          "info": {
+            "name": "Kategori bilgisini gösterir.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/item_categories/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Kategori ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: parent_category, subcategories*"
+              }
+            ]
+          },
+          "docs": "Ayrıntısını görmek istediğiniz kategorinin id'sini göndererek gerekli bilgilere ulaşabilirsiniz."
+        },
+        {
+          "info": {
+            "name": "Edit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/:company_id/item_categories/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Kategori ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: parent_category, subcategories*"
+              }
+            ]
+          },
+          "docs": "Edit"
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/:company_id/item_categories/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Kategori ID"
+              }
+            ]
+          },
+          "docs": "Delete"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

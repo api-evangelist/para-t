@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts StockMovements API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "StockMovements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/stock_movements",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sortable parameters - *Available: id, date*"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page Number"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Page Size"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: product, source, contact, warehouse*"
+              }
+            ]
+          },
+          "docs": "Tüm stok hareketlerini listeler. Her irsaliye oluşturulurken stok hareketi de oluşturulur. Buna ilave olarak, irsaliyeli satış faturası veya irsaliyeli alış faturası oluşturulduğunda stok takibi yapılan bir ürün içeren her fatura kalemine karşılık otomatik olarak bir stok hareketi oluşur."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

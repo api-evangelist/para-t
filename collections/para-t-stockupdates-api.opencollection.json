@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts StockUpdates API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "StockUpdates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/stock_updates",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: details, details.product, details.warehouse*"
+              }
+            ]
+          },
+          "docs": "Create"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

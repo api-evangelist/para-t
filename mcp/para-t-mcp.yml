@@ -2,319 +2,323 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/para-t-openapi-original.yml
-# No official hosted/remote MCP server was found for Paraşüt. The tools below are a
-# candidate surface derived 1:1 from the OpenAPI V4 operations for MCP generation.
 server:
   name: parasut
   transport: http
   url: null
 tools:
 - name: listAccounts
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listAccounts
 - name: createAccount
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createAccount
 - name: showAccount
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showAccount
 - name: updateAccount
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateAccount
 - name: deleteAccount
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteAccount
 - name: listAccountTransactions
-  description: "Transactions"
+  description: Transactions
   source_operation: openapi/para-t-openapi-original.yml#listAccountTransactions
 - name: createDebitTransaction
-  description: "Debit Transaction"
+  description: Debit Transaction
   source_operation: openapi/para-t-openapi-original.yml#createDebitTransaction
 - name: createCreditTransaction
-  description: "Credit Transaction"
+  description: Credit Transaction
   source_operation: openapi/para-t-openapi-original.yml#createCreditTransaction
 - name: showMe
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showMe
 - name: createBankFee
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createBankFee
 - name: showBankFee
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showBankFee
 - name: updateBankFee
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateBankFee
 - name: deleteBankFee
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteBankFee
 - name: payBankFee
-  description: "Pay"
+  description: Pay
   source_operation: openapi/para-t-openapi-original.yml#payBankFee
 - name: listContacts
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listContacts
 - name: createContact
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createContact
 - name: showContact
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showContact
 - name: updateContact
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateContact
 - name: deleteContact
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteContact
 - name: collectFromContact
-  description: "Tahsilat"
+  description: Tahsilat
   source_operation: openapi/para-t-openapi-original.yml#collectFromContact
 - name: payToContact
-  description: "Ödeme"
+  description: Ödeme
   source_operation: openapi/para-t-openapi-original.yml#payToContact
 - name: createEArchive
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createEArchive
 - name: showEArchive
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showEArchive
 - name: showEArchivePdf
-  description: "Show PDF"
+  description: Show PDF
   source_operation: openapi/para-t-openapi-original.yml#showEArchivePdf
 - name: listEInvoiceInboxes
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listEInvoiceInboxes
 - name: createEInvoice
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createEInvoice
 - name: showEInvoice
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showEInvoice
 - name: showEInvoicePdf
-  description: "Show PDF"
+  description: Show PDF
   source_operation: openapi/para-t-openapi-original.yml#showEInvoicePdf
 - name: createESmm
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createESmm
 - name: showESmm
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showESmm
 - name: showESmmPdf
-  description: "Show PDF"
+  description: Show PDF
   source_operation: openapi/para-t-openapi-original.yml#showESmmPdf
 - name: listEmployees
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listEmployees
 - name: createEmployee
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createEmployee
 - name: showEmployee
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showEmployee
 - name: updateEmployee
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateEmployee
 - name: deleteEmployee
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteEmployee
 - name: listInventoryLevels
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listInventoryLevels
 - name: listItemCategories
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listItemCategories
 - name: createItemCategory
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createItemCategory
 - name: showItemCategory
-  description: "Kategori bilgisini gösterir."
+  description: Kategori bilgisini gösterir.
   source_operation: openapi/para-t-openapi-original.yml#showItemCategory
 - name: updateItemCategory
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateItemCategory
 - name: deleteItemCategory
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteItemCategory
 - name: listProducts
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listProducts
 - name: createProduct
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createProduct
 - name: showProduct
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showProduct
 - name: updateProduct
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateProduct
 - name: deleteProduct
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteProduct
 - name: listPurchaseBills
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listPurchaseBills
 - name: createPurchaseBillBasic
-  description: "Create Basic PurchaseBill"
+  description: Create Basic PurchaseBill
   source_operation: openapi/para-t-openapi-original.yml#createPurchaseBillBasic
 - name: createPurchaseBillDetailed
-  description: "Create Detailed PurchaseBill"
+  description: Create Detailed PurchaseBill
   source_operation: openapi/para-t-openapi-original.yml#createPurchaseBillDetailed
 - name: showPurchaseBill
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showPurchaseBill
 - name: deletePurchaseBill
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deletePurchaseBill
 - name: updatePurchaseBillBasic
-  description: "Edit Basic PurchaseBill"
+  description: Edit Basic PurchaseBill
   source_operation: openapi/para-t-openapi-original.yml#updatePurchaseBillBasic
 - name: updatePurchaseBillDetailed
-  description: "Edit Detailed PurchaseBill"
+  description: Edit Detailed PurchaseBill
   source_operation: openapi/para-t-openapi-original.yml#updatePurchaseBillDetailed
 - name: payPurchaseBill
-  description: "Pay"
+  description: Pay
   source_operation: openapi/para-t-openapi-original.yml#payPurchaseBill
 - name: cancelPurchaseBill
-  description: "Cancel"
+  description: Cancel
   source_operation: openapi/para-t-openapi-original.yml#cancelPurchaseBill
 - name: listSalaries
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listSalaries
 - name: createSalary
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createSalary
 - name: showSalary
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showSalary
 - name: updateSalary
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateSalary
 - name: deleteSalary
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteSalary
 - name: paySalary
-  description: "Pay"
+  description: Pay
   source_operation: openapi/para-t-openapi-original.yml#paySalary
 - name: listSalesInvoices
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listSalesInvoices
 - name: createSalesInvoice
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createSalesInvoice
 - name: showSalesInvoice
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showSalesInvoice
 - name: updateSalesInvoice
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateSalesInvoice
 - name: deleteSalesInvoice
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteSalesInvoice
 - name: paySalesInvoice
-  description: "Pay"
+  description: Pay
   source_operation: openapi/para-t-openapi-original.yml#paySalesInvoice
 - name: cancelSalesInvoice
-  description: "Cancel"
+  description: Cancel
   source_operation: openapi/para-t-openapi-original.yml#cancelSalesInvoice
 - name: listSalesOffers
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listSalesOffers
 - name: createSalesOffers
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createSalesOffers
 - name: showSalesOffers
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showSalesOffers
 - name: updateSalesOffers
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateSalesOffers
 - name: deleteSalesOffers
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteSalesOffers
 - name: showSalesOffersPdf
-  description: "PDF"
+  description: PDF
   source_operation: openapi/para-t-openapi-original.yml#showSalesOffersPdf
 - name: showSalesOffersDetails
-  description: "Details"
+  description: Details
   source_operation: openapi/para-t-openapi-original.yml#showSalesOffersDetails
 - name: e-mailSalesOffers
-  description: "e-mail"
+  description: e-mail
   source_operation: openapi/para-t-openapi-original.yml#e-mailSalesOffers
 - name: listShipmentDocuments
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listShipmentDocuments
 - name: createShipmentDocument
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createShipmentDocument
 - name: showShipmentDocument
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showShipmentDocument
 - name: updateShipmentDocument
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateShipmentDocument
 - name: deleteShipmentDocument
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteShipmentDocument
 - name: listStockMovements
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listStockMovements
 - name: createStockUpdate
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createStockUpdate
 - name: listTags
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listTags
 - name: createTag
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createTag
 - name: showTag
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showTag
 - name: updateTag
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateTag
 - name: deleteTag
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteTag
 - name: listTaxes
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listTaxes
 - name: createTax
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createTax
 - name: showTax
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showTax
 - name: updateTax
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateTax
 - name: deleteTax
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteTax
 - name: payTax
-  description: "Pay"
+  description: Pay
   source_operation: openapi/para-t-openapi-original.yml#payTax
 - name: showTrackableJob
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showTrackableJob
 - name: showTransaction
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showTransaction
 - name: deleteTransaction
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteTransaction
 - name: listWarehouses
-  description: "Index"
+  description: Index
   source_operation: openapi/para-t-openapi-original.yml#listWarehouses
 - name: createWarehouse
-  description: "Create"
+  description: Create
   source_operation: openapi/para-t-openapi-original.yml#createWarehouse
 - name: showWarehouse
-  description: "Show"
+  description: Show
   source_operation: openapi/para-t-openapi-original.yml#showWarehouse
 - name: updateWarehouse
-  description: "Edit"
+  description: Edit
   source_operation: openapi/para-t-openapi-original.yml#updateWarehouse
 - name: deleteWarehouse
-  description: "Delete"
+  description: Delete
   source_operation: openapi/para-t-openapi-original.yml#deleteWarehouse
+deployment:
+  mode: none
+  verified: derived
+  tools: 103
+  checked: '2026-08-12'
+  source: catalog MCP census

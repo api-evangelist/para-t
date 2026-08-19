@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts InventoryLevels API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "InventoryLevels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/product/:product_id/inventory_levels",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Ürün ID"
+              },
+              {
+                "name": "filter[warehouses.name]",
+                "value": "",
+                "type": "query",
+                "description": "Sonuçların filtrelenmesini istediğiniz depo ismi."
+              },
+              {
+                "name": "filter[archived]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[has_stock]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[stock_count]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sortable parameters - *Available: id, stock_count*"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page Number"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Page Size"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: product, warehouse*"
+              }
+            ]
+          },
+          "docs": "Ürünün varolan depolardaki tüm stok seviyelerini listeler."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,402 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts SalesInvoices API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SalesInvoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/sales_invoices",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "filter[issue_date]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[due_date]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[contact_id]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[invoice_id]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[invoice_series]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[item_type]",
+                "value": "",
+                "type": "query",
+                "description": "Default value is *'invoice, refund, estimate'*. Available: *invoice, refund, estimate, export*\n"
+              },
+              {
+                "name": "filter[print_status]",
+                "value": "",
+                "type": "query",
+                "description": "Available: *printed, not_printed, invoices_not_sent, e_invoice_sent, e_archive_sent, e_smm_sent*\n"
+              },
+              {
+                "name": "filter[payment_status]",
+                "value": "",
+                "type": "query",
+                "description": "Available: *overdue, not_due, unscheduled, paid*\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sortable parameters - *Available: id, issue_date, due_date, remaining, remaining_in_trl, description, net_total*"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page Number"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Page Size"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Index"
+        },
+        {
+          "info": {
+            "name": "Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/sales_invoices",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Create"
+        },
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Show"
+        },
+        {
+          "info": {
+            "name": "Edit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Edit"
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              }
+            ]
+          },
+          "docs": "Delete"
+        },
+        {
+          "info": {
+            "name": "Pay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id/payments",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: payable, transaction*"
+              }
+            ]
+          },
+          "docs": "Pay"
+        },
+        {
+          "info": {
+            "name": "Cancel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id/cancel",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Cancel"
+        },
+        {
+          "info": {
+            "name": "Recover",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id/recover",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Recover"
+        },
+        {
+          "info": {
+            "name": "Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id/archive",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Archive"
+        },
+        {
+          "info": {
+            "name": "Unarchive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id/unarchive",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Unarchive"
+        },
+        {
+          "info": {
+            "name": "Convert estimate to invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/sales_invoices/:id/convert_to_invoice",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*"
+              }
+            ]
+          },
+          "docs": "Ürünlerinizin stok hareketleri varsayılan deponuz üzerinden oluşturulacaktır."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts TrackableJobs API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TrackableJobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/trackable_jobs/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Trackable Job ID"
+              }
+            ]
+          },
+          "docs": "Show"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

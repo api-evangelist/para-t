@@ -1,0 +1,410 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts PurchaseBills API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PurchaseBills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/purchase_bills",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "filter[issue_date]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[due_date]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[supplier_id]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[item_type]",
+                "value": "",
+                "type": "query",
+                "description": "Available: *purchase_bill, refund, cancelled*\n"
+              },
+              {
+                "name": "filter[spender_id]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sortable parameters - *Available: id, issue_date, due_date, remaining, remaining_in_trl*"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page Number"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Page Size"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Index"
+        },
+        {
+          "info": {
+            "name": "Create Basic PurchaseBill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/purchase_bills#basic",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Create Basic PurchaseBill"
+        },
+        {
+          "info": {
+            "name": "Create Detailed PurchaseBill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/purchase_bills#detailed",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Create Detailed PurchaseBill"
+        },
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Show"
+        },
+        {
+          "info": {
+            "name": "Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              }
+            ]
+          },
+          "docs": "Delete"
+        },
+        {
+          "info": {
+            "name": "Edit Basic PurchaseBill",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id#basic",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Edit Basic PurchaseBill"
+        },
+        {
+          "info": {
+            "name": "Edit Detailed PurchaseBill",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id#detailed",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Edit Detailed PurchaseBill"
+        },
+        {
+          "info": {
+            "name": "Pay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id/payments",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: payable, transaction*"
+              }
+            ]
+          },
+          "docs": "Pay"
+        },
+        {
+          "info": {
+            "name": "Cancel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id/cancel",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Cancel"
+        },
+        {
+          "info": {
+            "name": "Recover",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id/recover",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Recover"
+        },
+        {
+          "info": {
+            "name": "Archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id/archive",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Archive"
+        },
+        {
+          "info": {
+            "name": "Unarchive",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/:company_id/purchase_bills/:id/unarchive",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Fatura ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, spender, details, details.product, details.warehouse, payments, payments.transaction, tags, recurrence_plan, active_e_document, pay_to*"
+              }
+            ]
+          },
+          "docs": "Unarchive"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

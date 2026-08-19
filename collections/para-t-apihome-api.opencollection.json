@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts ApiHome API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ApiHome",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/me",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: user_roles, companies, profile*"
+              }
+            ]
+          },
+          "docs": "Show"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

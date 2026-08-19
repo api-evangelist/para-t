@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Paraşüt - API V4 Accounts EInvoiceInboxes API",
+    "version": "4.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "EInvoiceInboxes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/:company_id/e_invoice_inboxes",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Firma ID"
+              },
+              {
+                "name": "filter[vkn]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page Number"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Page Size"
+              }
+            ]
+          },
+          "docs": "Index"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
