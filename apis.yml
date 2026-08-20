@@ -36,6 +36,17 @@ tags:
 - Company
 - Accounting
 - Pre-Accounting
+- E-Invoicing
+- Invoicing
+- Fintech
+- Software-as-a-Service
+- Turkey
+- ERP
+- JSON:API
+tags_raw:
+- Company
+- Accounting
+- Pre-Accounting
 - e-Invoicing
 - Invoicing
 - Fintech
@@ -55,6 +66,8 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -163,6 +176,8 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
+  - Inventory Levels
+  tags_raw:
   - InventoryLevels
   properties:
   - type: OpenAPI
@@ -175,6 +190,8 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
+  - Item Categories
+  tags_raw:
   - ItemCategories
   properties:
   - type: OpenAPI
@@ -187,6 +204,8 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -223,6 +242,8 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
+  - Sales Invoices
+  tags_raw:
   - SalesInvoices
   properties:
   - type: OpenAPI
@@ -319,6 +340,8 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
