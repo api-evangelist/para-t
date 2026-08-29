@@ -4,8 +4,17 @@ info:
   version: 1.0.0
   summary: Create a contact, issue a sales invoice, officialize it as an e-Arşiv document, and poll the trackable job until done.
 sourceDescriptions:
-- name: parasut
-  url: ../openapi/para-t-openapi-original.yml
+- name: contactsApi
+  url: ../openapi/para-t-contacts-api-openapi.yml
+  type: openapi
+- name: earchivesApi
+  url: ../openapi/para-t-earchives-api-openapi.yml
+  type: openapi
+- name: salesinvoicesApi
+  url: ../openapi/para-t-salesinvoices-api-openapi.yml
+  type: openapi
+- name: trackablejobsApi
+  url: ../openapi/para-t-trackablejobs-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: invoiceAndOfficialize
@@ -16,9 +25,9 @@ workflows:
   inputs:
     type: object
     properties:
-      company_id: { type: string }
-      contact_name: { type: string }
-      product_id: { type: string }
+      company_id: {type: string}
+      contact_name: {type: string}
+      product_id: {type: string}
   steps:
   - stepId: createContact
     operationId: createContact
@@ -43,7 +52,7 @@ workflows:
           type: sales_invoices
           relationships:
             contact:
-              data: { type: contacts, id: $steps.createContact.outputs.contact_id }
+              data: {type: contacts, id: $steps.createContact.outputs.contact_id}
     successCriteria:
     - condition: $statusCode == 201
     outputs:
