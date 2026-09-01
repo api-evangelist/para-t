@@ -48,7 +48,7 @@ tags:
 - Company
 - Accounting
 - Pre-Accounting
-- e-Invoicing
+- E-Invoicing
 - Invoicing
 - Fintech
 - Software-as-a-Service
@@ -188,7 +188,7 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
-  - InventoryLevels
+  - Inventory Levels
   tags_raw:
   - InventoryLevels
   properties:
@@ -202,7 +202,7 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
-  - ItemCategories
+  - Item Categories
   tags_raw:
   - ItemCategories
   properties:
@@ -254,7 +254,7 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
-  - SalesInvoices
+  - Sales Invoices
   tags_raw:
   - SalesInvoices
   properties:
