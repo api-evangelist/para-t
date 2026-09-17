@@ -182,34 +182,6 @@ apis:
     url: openapi/para-t-esmms-api-openapi.yml
   - type: APIReference
     url: https://apidocs.parasut.com/
-- aid: para-t:para-t-inventorylevels-api
-  name: Paraşüt InventoryLevels API
-  description: The InventoryLevels API from Paraşüt — 1 operation(s) for inventorylevels.
-  humanURL: https://apidocs.parasut.com/
-  baseURL: https://api.parasut.com/v4
-  tags:
-  - Inventory Levels
-  tags_raw:
-  - InventoryLevels
-  properties:
-  - type: OpenAPI
-    url: openapi/para-t-inventorylevels-api-openapi.yml
-  - type: APIReference
-    url: https://apidocs.parasut.com/
-- aid: para-t:para-t-itemcategories-api
-  name: Paraşüt ItemCategories API
-  description: The ItemCategories API from Paraşüt — 2 operation(s) for itemcategories.
-  humanURL: https://apidocs.parasut.com/
-  baseURL: https://api.parasut.com/v4
-  tags:
-  - Item Categories
-  tags_raw:
-  - ItemCategories
-  properties:
-  - type: OpenAPI
-    url: openapi/para-t-itemcategories-api-openapi.yml
-  - type: APIReference
-    url: https://apidocs.parasut.com/
 - aid: para-t:para-t-products-api
   name: Paraşüt Products API
   description: The Products API from Paraşüt — 2 operation(s) for products.
@@ -248,48 +220,6 @@ apis:
     url: openapi/para-t-salaries-api-openapi.yml
   - type: APIReference
     url: https://apidocs.parasut.com/
-- aid: para-t:para-t-salesinvoices-api
-  name: Paraşüt SalesInvoices API
-  description: The SalesInvoices API from Paraşüt — 8 operation(s) for salesinvoices.
-  humanURL: https://apidocs.parasut.com/
-  baseURL: https://api.parasut.com/v4
-  tags:
-  - Sales Invoices
-  tags_raw:
-  - SalesInvoices
-  properties:
-  - type: OpenAPI
-    url: openapi/para-t-salesinvoices-api-openapi.yml
-  - type: APIReference
-    url: https://apidocs.parasut.com/
-- aid: para-t:para-t-salesoffers-api
-  name: Paraşüt SalesOffers API
-  description: The SalesOffers API from Paraşüt — 8 operation(s) for salesoffers.
-  humanURL: https://apidocs.parasut.com/
-  baseURL: https://api.parasut.com/v4
-  tags:
-  - Sales Offers
-  tags_raw:
-  - SalesOffers
-  properties:
-  - type: OpenAPI
-    url: openapi/para-t-salesoffers-api-openapi.yml
-  - type: APIReference
-    url: https://apidocs.parasut.com/
-- aid: para-t:para-t-shipmentdocuments-api
-  name: Paraşüt ShipmentDocuments API
-  description: The ShipmentDocuments API from Paraşüt — 2 operation(s) for shipmentdocuments.
-  humanURL: https://apidocs.parasut.com/
-  baseURL: https://api.parasut.com/v4
-  tags:
-  - Shipment documents
-  tags_raw:
-  - ShipmentDocuments
-  properties:
-  - type: OpenAPI
-    url: openapi/para-t-shipmentdocuments-api-openapi.yml
-  - type: APIReference
-    url: https://apidocs.parasut.com/
 - aid: para-t:para-t-stockmovements-api
   name: Paraşüt StockMovements API
   description: The StockMovements API from Paraşüt — 1 operation(s) for stockmovements.
@@ -300,18 +230,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/para-t-stockmovements-api-openapi.yml
-  - type: APIReference
-    url: https://apidocs.parasut.com/
-- aid: para-t:para-t-stockupdates-api
-  name: Paraşüt StockUpdates API
-  description: The StockUpdates API from Paraşüt — 1 operation(s) for stockupdates.
-  humanURL: https://apidocs.parasut.com/
-  baseURL: https://api.parasut.com/v4
-  tags:
-  - StockUpdates
-  properties:
-  - type: OpenAPI
-    url: openapi/para-t-stockupdates-api-openapi.yml
   - type: APIReference
     url: https://apidocs.parasut.com/
 - aid: para-t:para-t-tags-api
@@ -374,6 +292,78 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/para-t-warehouses-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-inventory-levels-api
+  name: Paraşüt Inventory Levels API
+  description: The Inventory Levels API from Paraşüt — 1 operation(s) for inventory levels.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Inventory Levels
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-inventory-levels-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-item-categories-api
+  name: Paraşüt Item Categories API
+  description: The Item Categories API from Paraşüt — 2 operation(s) for item categories.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Item Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-item-categories-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-sales-invoices-api
+  name: Paraşüt Sales Invoices API
+  description: The Sales Invoices API from Paraşüt — 8 operation(s) for sales invoices.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Sales Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-sales-invoices-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-sales-offers-api
+  name: Paraşüt Sales Offers API
+  description: The Sales Offers API from Paraşüt — 8 operation(s) for sales offers.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Sales Offers
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-sales-offers-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-shipment-documents-api
+  name: Paraşüt Shipment documents API
+  description: The Shipment documents API from Paraşüt — 2 operation(s) for shipment documents.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Shipment documents
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-shipment-documents-api-openapi.yml
+  - type: APIReference
+    url: https://apidocs.parasut.com/
+- aid: para-t:para-t-stock-updates-api
+  name: Paraşüt Stock Updates API
+  description: The Stock Updates API from Paraşüt — 1 operation(s) for stock updates.
+  humanURL: https://apidocs.parasut.com/
+  baseURL: https://api.parasut.com/v4
+  tags:
+  - Stock Updates
+  properties:
+  - type: OpenAPI
+    url: openapi/para-t-stock-updates-api-openapi.yml
   - type: APIReference
     url: https://apidocs.parasut.com/
 common:
