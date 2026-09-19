@@ -250,6 +250,8 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
+  - Tax
+  tags_raw:
   - Taxes
   properties:
   - type: OpenAPI
@@ -288,6 +290,8 @@ apis:
   humanURL: https://apidocs.parasut.com/
   baseURL: https://api.parasut.com/v4
   tags:
+  - Warehouse
+  tags_raw:
   - Warehouses
   properties:
   - type: OpenAPI
