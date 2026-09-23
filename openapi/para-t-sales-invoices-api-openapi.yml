@@ -1,0 +1,2409 @@
+openapi: 3.2.0
+info:
+  version: 4.0.0
+  title: Paraşüt - API V4 Sales Invoices API
+  x-logo:
+    url: https://apidocs.parasut.com/logo.png
+    backgroundColor: null
+  description: '# CHANGE LOG
+
+    ### **2021-10-11**
+
+    #### Added
+
+    - Belirli Firmalar İçin Özel Gereksinimler alanına Amazon için gerekli özel alanlar eklendi.'
+servers:
+- url: https://api.parasut.com/v4
+security:
+- parasut_auth: []
+tags:
+- name: Sales Invoices
+  x-displayName: SATIŞ FATURASI
+paths:
+  /{company_id}/sales_invoices:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+      - Sales Invoices
+      operationId: listSalesInvoices
+      summary: Index
+      description: ''
+      parameters:
+      - name: filter[issue_date]
+        in: query
+        description: ''
+        schema:
+          type: string
+      - name: filter[due_date]
+        in: query
+        description: ''
+        schema:
+          type: string
+      - name: filter[contact_id]
+        in: query
+        description: ''
+        schema:
+          type: integer
+      - name: filter[invoice_id]
+        in: query
+        description: ''
+        schema:
+          type: integer
+      - name: filter[invoice_series]
+        in: query
+        description: ''
+        schema:
+          type: string
+      - name: filter[item_type]
+        in: query
+        description: 'Default value is *''invoice, refund, estimate''*. Available: *invoice, refund, estimate, export*
+
+          '
+        schema:
+          type: string
+      - name: filter[print_status]
+        in: query
+        description: 'Available: *printed, not_printed, invoices_not_sent, e_invoice_sent, e_archive_sent, e_smm_sent*
+
+          '
+        schema:
+          type: string
+      - name: filter[payment_status]
+        in: query
+        description: 'Available: *overdue, not_due, unscheduled, paid*
+
+          '
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Sortable parameters - *Available: id, issue_date, due_date, remaining, remaining_in_trl, description, net_total*'
+        schema:
+          type: string
+          default: id
+      - name: page[number]
+        in: query
+        description: Page Number
+        schema:
+          type: integer
+          default: 1
+      - name: page[size]
+        in: query
+        description: Page Size
+        schema:
+          type: integer
+          default: 15
+          maximum: 25
+          minimum: 1
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Satış faturaları
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+                  meta:
+                    $ref: '#/components/schemas/ListMeta'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Sales Invoices
+      operationId: createSalesInvoice
+      summary: Create
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Fatura
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_invoices
+                    attributes:
+                      $ref: '#/components/schemas/SalesInvoiceCreateUpdateAttributes'
+                    relationships:
+                      type: object
+                      properties:
+                        details:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - sales_invoice_details
+                                  attributes:
+                                    $ref: '#/components/schemas/SalesInvoiceDetailAttributes'
+                                  relationships:
+                                    type: object
+                                    properties:
+                                      product:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                                maxLength: 255
+                                              type:
+                                                type: string
+                                                maxLength: 255
+                                                description: Type of the resource
+                                                enum:
+                                                - products
+                                      warehouse:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                                maxLength: 255
+                                              type:
+                                                type: string
+                                                maxLength: 255
+                                                description: Type of the resource
+                                                enum:
+                                                - warehouses
+                        contact:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - contacts
+                        category:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - item_categories
+                        tags:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - tags
+                        sales_offer:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - sales_offers
+        required: true
+  /{company_id}/sales_invoices/{id}:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: id
+      description: Fatura ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+      - Sales Invoices
+      operationId: showSalesInvoice
+      summary: Show
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Fatura
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Sales Invoices
+      operationId: updateSalesInvoice
+      summary: Edit
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Fatura
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_invoices
+                    attributes:
+                      $ref: '#/components/schemas/SalesInvoiceCreateUpdateAttributes'
+                    relationships:
+                      type: object
+                      properties:
+                        details:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - sales_invoice_details
+                                  attributes:
+                                    $ref: '#/components/schemas/SalesInvoiceDetailAttributes'
+                                  relationships:
+                                    type: object
+                                    properties:
+                                      product:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                                maxLength: 255
+                                              type:
+                                                type: string
+                                                maxLength: 255
+                                                description: Type of the resource
+                                                enum:
+                                                - products
+                                      warehouse:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                                maxLength: 255
+                                              type:
+                                                type: string
+                                                maxLength: 255
+                                                description: Type of the resource
+                                                enum:
+                                                - warehouses
+                        contact:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - contacts
+                        category:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - item_categories
+                        tags:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - tags
+                        sales_offer:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - sales_offers
+        required: true
+    delete:
+      tags:
+      - Sales Invoices
+      operationId: deleteSalesInvoice
+      summary: Delete
+      description: ''
+      responses:
+        '204':
+          description: No content
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+  /{company_id}/sales_invoices/{id}/payments:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: id
+      description: Fatura ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    post:
+      tags:
+      - Sales Invoices
+      operationId: paySalesInvoice
+      summary: Pay
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: payable, transaction*'
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Ödeme
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Payment'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - sales_invoices
+                          - purchase_bills
+                          - taxes
+                          - bank_fees
+                          - salaries
+                          - checks
+                          - transactions
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - payments
+                    attributes:
+                      $ref: '#/components/schemas/PaymentFormAttributes'
+        required: true
+  /{company_id}/sales_invoices/{id}/cancel:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: id
+      description: Fatura ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    delete:
+      tags:
+      - Sales Invoices
+      operationId: cancelSalesInvoice
+      summary: Cancel
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Fatura
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+  /{company_id}/sales_invoices/{id}/recover:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: id
+      description: Fatura ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      tags:
+      - Sales Invoices
+      operationId: recoverSalesInvoice
+      summary: Recover
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Fatura
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+  /{company_id}/sales_invoices/{id}/archive:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: id
+      description: Fatura ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      tags:
+      - Sales Invoices
+      operationId: archiveSalesInvoice
+      summary: Archive
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Fatura
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+  /{company_id}/sales_invoices/{id}/unarchive:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: id
+      description: Fatura ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      tags:
+      - Sales Invoices
+      operationId: unarchiveSalesInvoice
+      summary: Unarchive
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Fatura
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+  /{company_id}/sales_invoices/{id}/convert_to_invoice:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: id
+      description: Fatura ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      tags:
+      - Sales Invoices
+      operationId: convertEstimateToInvoice
+      summary: Convert estimate to invoice
+      description: Ürünlerinizin stok hareketleri varsayılan deponuz üzerinden oluşturulacaktır.
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: category, contact, details, details.product, details.warehouse, payments, payments.transaction, tags, sharings, recurrence_plan, active_e_document*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Fatura
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SalesInvoice'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - item_categories
+                          - contacts
+                          - sales_invoice_details
+                          - payments
+                          - tags
+                          - sales_offers
+                          - sharings
+                          - recurrence_plans
+                          - e_archives
+                          - e_invoices
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_invoices
+                    attributes:
+                      $ref: '#/components/schemas/SalesInvoiceAttributes'
+                    relationships:
+                      type: object
+                      properties:
+                        details:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - sales_invoice_details
+                                  attributes:
+                                    $ref: '#/components/schemas/SalesInvoiceDetailAttributes'
+                                  relationships:
+                                    type: object
+                                    properties:
+                                      product:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                                maxLength: 255
+                                              type:
+                                                type: string
+                                                maxLength: 255
+                                                description: Type of the resource
+                                                enum:
+                                                - products
+                                      warehouse:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                                maxLength: 255
+                                              type:
+                                                type: string
+                                                maxLength: 255
+                                                description: Type of the resource
+                                                enum:
+                                                - warehouses
+                        contact:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - contacts
+                        category:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - item_categories
+                        tags:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - tags
+                        sales_offer:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - sales_offers
+        required: true
+components:
+  schemas:
+    PaymentFormAttributes:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Ödeme/Tahsilat Açıklaması
+          readOnly: false
+        account_id:
+          type: integer
+          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
+          readOnly: false
+        date:
+          type: string
+          format: date
+          description: Ödeme/Tahsilat tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme/Tahsilat tutarı
+          readOnly: false
+        exchange_rate:
+          type: number
+          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
+          readOnly: false
+    SalesInvoiceDetailAttributes:
+      type: object
+      properties:
+        net_total:
+          type: number
+          readOnly: true
+          description: Ürün/hizmet net tutarı
+        vat_withholding:
+          type: number
+          readOnly: true
+          description: Tevkifat
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        quantity:
+          type: number
+          readOnly: false
+          description: Miktar
+        unit_price:
+          type: number
+          readOnly: false
+          description: Birim fiyatı
+        vat_rate:
+          type: number
+          readOnly: false
+          description: KDV oranı
+        vat_withholding_rate:
+          type: number
+          description: Tevkifat oranı
+          readOnly: false
+        discount_type:
+          type: string
+          enum:
+          - percentage
+          - amount
+          readOnly: false
+          description: İndirim türü
+        discount_value:
+          type: number
+          readOnly: false
+        excise_duty_type:
+          type: string
+          enum:
+          - percentage
+          - amount
+          readOnly: false
+          description: ÖTV tipi
+        excise_duty_value:
+          type: number
+          readOnly: false
+        communications_tax_rate:
+          type: number
+          readOnly: false
+          description: ÖİV oranı
+        description:
+          type: string
+          readOnly: false
+          description: Açıklama
+        delivery_method:
+          type: string
+          description: Teslim Şartı
+          enum:
+          - CFR
+          - CIF
+          - CIP
+          - CPT
+          - DAF
+          - DAP
+          - DPU
+          - DDP
+          - DDU
+          - DEQ
+          - DES
+          - EXW
+          - FAS
+          - FCA
+          - FOB
+          readOnly: false
+        shipping_method:
+          type: string
+          description: Gönderim Şekli
+          enum:
+          - Denizyolu
+          - Demiryolu
+          - Karayolu
+          - Havayolu
+          - Posta
+          - Çok araçlı
+          - Sabit taşıma tesisleri
+          - İç su taşımacılığı
+          readOnly: false
+      required:
+      - quantity
+      - unit_price
+      - vat_rate
+    SalesInvoiceCreateUpdateAttributes:
+      allOf:
+      - $ref: '#/components/schemas/SalesInvoiceAttributes'
+      - type: object
+        properties:
+          payment_account_id:
+            type: number
+            description: Peşin faturalar için ödeme oluşturma / güncellemede kullanılır.
+          payment_date:
+            type: string
+            description: Peşin faturalar için ödeme oluşturma / güncellemede kullanılır.
+          payment_description:
+            type: string
+    SalesInvoice:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - sales_invoices
+        attributes:
+          $ref: '#/components/schemas/SalesInvoiceAttributes'
+        relationships:
+          type: object
+          properties:
+            category:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - item_categories
+            contact:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - contacts
+            details:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - sales_invoice_details
+            payments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - payments
+            tags:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - tags
+            sales_offer:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_offers
+            sharings:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - sharings
+            recurrence_plan:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - recurrence_plans
+            active_e_document:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - e_archives
+                      - e_invoices
+      required:
+      - attributes
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
+    PaymentAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        date:
+          type: string
+          format: date
+          description: Ödeme tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme tutarı
+          readOnly: false
+        currency:
+          type: number
+          description: Para birimi
+          readOnly: false
+        notes:
+          type: string
+          readOnly: false
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - payments
+        attributes:
+          $ref: '#/components/schemas/PaymentAttributes'
+        relationships:
+          type: object
+          properties:
+            payable:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_invoices
+                      - purchase_bills
+                      - taxes
+                      - bank_fees
+                      - salaries
+                      - checks
+            transaction:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - transactions
+      required:
+      - attributes
+    SalesInvoiceAttributes:
+      type: object
+      properties:
+        archived:
+          type: boolean
+          readOnly: true
+        invoice_no:
+          type: string
+          readOnly: true
+          description: Fatura no
+        net_total:
+          type: number
+          readOnly: true
+          description: Genel Toplam
+        gross_total:
+          type: number
+          readOnly: true
+          description: Ara toplam
+        withholding:
+          type: number
+          readOnly: true
+          description: Stopaj
+        total_excise_duty:
+          type: number
+          readOnly: true
+        total_communications_tax:
+          type: number
+          readOnly: true
+        total_vat:
+          type: number
+          readOnly: true
+          description: Toplam KDV
+        total_vat_withholding:
+          type: number
+          readOnly: true
+          description: Tevkifat
+        total_discount:
+          type: number
+          readOnly: true
+          description: Toplam indirim
+        total_invoice_discount:
+          type: number
+          readOnly: true
+        before_taxes_total:
+          type: number
+          readOnly: true
+          description: Vergiler Hariç Toplam
+        remaining:
+          type: number
+          readOnly: true
+          description: Ödenmemiş tutar
+        remaining_in_trl:
+          type: number
+          readOnly: true
+        payment_status:
+          type: string
+          enum:
+          - paid
+          - overdue
+          - unpaid
+          - partially_paid
+          readOnly: true
+          description: Tahsilat durumu
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        item_type:
+          type: string
+          enum:
+          - invoice
+          - export
+          - estimate
+          - cancelled
+          - recurring_invoice
+          - recurring_estimate
+          - recurring_export
+          - refund
+          readOnly: false
+          description: Fatura türü
+        description:
+          type: string
+          readOnly: false
+          description: Fatura açıklaması
+        issue_date:
+          type: string
+          format: date
+          readOnly: false
+          description: Düzenleme tarihi
+        due_date:
+          type: string
+          format: date
+          readOnly: false
+          description: Son tahsilat tarihi
+        invoice_series:
+          type: string
+          readOnly: false
+          description: Fatura seri
+        invoice_id:
+          type: integer
+          readOnly: false
+          description: Fatura sıra
+        currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+          description: Döviz tipi
+        exchange_rate:
+          type: number
+          readOnly: false
+          description: Döviz kuru
+        withholding_rate:
+          type: number
+          readOnly: false
+          description: Stopaj oranı
+        invoice_discount_type:
+          type: string
+          enum:
+          - percentage
+          - amount
+          readOnly: false
+        invoice_discount:
+          type: number
+          readOnly: false
+        billing_address:
+          type: string
+          readOnly: false
+          description: Gönderim adresi
+        billing_postal_code:
+          type: string
+          readOnly: false
+          description: Gönderim posta kodu
+        billing_phone:
+          type: string
+          readOnly: false
+          description: Gönderim adresi telefonu
+        billing_fax:
+          type: string
+          readOnly: false
+          description: Gönderim adresi faksı
+        tax_office:
+          type: string
+          readOnly: false
+          description: Müşteri vergi dairesi
+        tax_number:
+          type: string
+          readOnly: false
+          description: Müşteri vergi numarası
+        country:
+          type: string
+          readOnly: false
+        city:
+          type: string
+          readOnly: false
+        district:
+          type: string
+          readOnly: false
+        is_abroad:
+          type: boolean
+          readOnly: false
+          description: Alıcı yurt dışı bilgisi
+        order_no:
+          type: string
+          readOnly: false
+          description: Sipariş no (resmileştirmek için order_date dolu ise bu alan zorunludur)
+        order_date:
+          type: string
+          format: date
+          readOnly: false
+          description: Sipariş tarihi (resmileştirmek için order_no dolu ise bu alan zorunludur)
+        shipment_addres:
+          type: string
+          readOnly: false
+        shipment_included:
+          type: boolean
+          readOnly: false
+          description: İrsaliyeli fatura
+        cash_sale:
+          type: boolean
+          readOnly: false
+          description: Peşin satış
+        payer_tax_numbers:
+          description: Kamu faturaları için zorunludur.
+          type: array
+          items:
+            type: string
+          readOnly: false
+        invoice_note:
+          type: string
+          readOnly: false
+          description: Fatura notu
+        append_contact_balance:
+          type: boolean
+          readOnly: false
+          description: Müşteri bakiyeniz faturaya eklenecektir.
+        e_document_accounts:
+          type: array
+          items:
+            type: Number
+          readOnly: false
+          description: Bu alana hesap ID'leri eklenebilir.
+      required:
+      - item_type
+      - issue_date
+  securitySchemes:
+    parasut_auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes: {}
+          authorizationUrl: https://api.parasut.com/oauth/authorize
+          tokenUrl: https://api.parasut.com/oauth/token
+x-tagGroups:
+- name: Satışlar
+  tags:
+  - SalesOffers
+  - SalesInvoices
+  - Contacts
+- name: Giderler
+  tags:
+  - PurchaseBills
+  - BankFees
+  - Salaries
+  - Taxes
+  - Contacts
+  - Employees
+- name: Resmileştirme
+  tags:
+  - EInvoiceInboxes
+  - EArchives
+  - EInvoices
+  - ESmms
+- name: Nakit
+  tags:
+  - Accounts
+  - Transactions
+- name: Stok
+  tags:
+  - Products
+  - Warehouses
+  - ShipmentDocuments
+  - StockMovements
+  - InventoryLevels
+  - StockUpdates
+- name: Ayarlar
+  tags:
+  - ItemCategories
+  - Tags
+- name: Diğer
+  tags:
+  - ApiHome
+  - TrackableJobs

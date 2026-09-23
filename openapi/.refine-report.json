@@ -1,30 +1,7 @@
 {
   "provider": "para-t",
   "sources": [
-    "para-t-accounts-api-openapi.yml",
-    "para-t-apihome-api-openapi.yml",
-    "para-t-bankfees-api-openapi.yml",
-    "para-t-contacts-api-openapi.yml",
-    "para-t-earchives-api-openapi.yml",
-    "para-t-einvoiceinboxes-api-openapi.yml",
-    "para-t-einvoices-api-openapi.yml",
-    "para-t-employees-api-openapi.yml",
-    "para-t-esmms-api-openapi.yml",
-    "para-t-inventorylevels-api-openapi.yml",
-    "para-t-itemcategories-api-openapi.yml",
-    "para-t-products-api-openapi.yml",
-    "para-t-purchasebills-api-openapi.yml",
-    "para-t-salaries-api-openapi.yml",
-    "para-t-salesinvoices-api-openapi.yml",
-    "para-t-salesoffers-api-openapi.yml",
-    "para-t-shipmentdocuments-api-openapi.yml",
-    "para-t-stockmovements-api-openapi.yml",
-    "para-t-stockupdates-api-openapi.yml",
-    "para-t-tags-api-openapi.yml",
-    "para-t-taxes-api-openapi.yml",
-    "para-t-trackablejobs-api-openapi.yml",
-    "para-t-transactions-api-openapi.yml",
-    "para-t-warehouses-api-openapi.yml"
+    "_original/para-t-openapi-original.yml"
   ],
   "outputs": [
     "para-t-accounts-api-openapi.yml",
@@ -34,8 +11,8 @@
     "para-t-earchives-api-openapi.yml",
     "para-t-einvoiceinboxes-api-openapi.yml",
     "para-t-einvoices-api-openapi.yml",
-    "para-t-employees-api-openapi.yml",
     "para-t-esmms-api-openapi.yml",
+    "para-t-employees-api-openapi.yml",
     "para-t-inventorylevels-api-openapi.yml",
     "para-t-itemcategories-api-openapi.yml",
     "para-t-products-api-openapi.yml",
@@ -52,9 +29,41 @@
     "para-t-transactions-api-openapi.yml",
     "para-t-warehouses-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 6 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "para-t-openapi-original.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: para-t-inventory-levels-api-openapi.yml, para-t-item-categories-api-openapi.yml, para-t-sales-invoices-api-openapi.yml, para-t-sales-offers-api-openapi.yml, para-t-shipment-documents-api-openapi.yml \u2026",
+    "apis.yml register: written (+6 apis, 24 total)"
+  ],
+  "skipped": [
+    "para-t-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-apihome-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-bankfees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-earchives-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-einvoiceinboxes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-einvoices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-employees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-esmms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-inventory-levels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-item-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-purchasebills-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-salaries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-sales-invoices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-sales-offers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-shipment-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-stock-updates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-stockmovements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-taxes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-trackablejobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "para-t-warehouses-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,0 +1,983 @@
+openapi: 3.2.0
+info:
+  version: 4.0.0
+  title: Paraşüt - API V4 Shipment Documents API
+  x-logo:
+    url: https://apidocs.parasut.com/logo.png
+    backgroundColor: null
+  description: '# CHANGE LOG
+
+    ### **2021-10-11**
+
+    #### Added
+
+    - Belirli Firmalar İçin Özel Gereksinimler alanına Amazon için gerekli özel alanlar eklendi.'
+servers:
+- url: https://api.parasut.com/v4
+security:
+- parasut_auth: []
+tags:
+- name: Shipment documents
+  x-displayName: İRSALİYE
+paths:
+  /{company_id}/shipment_documents:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+      - Shipment documents
+      operationId: listShipmentDocuments
+      summary: Index
+      description: ''
+      parameters:
+      - name: filter[flow_type]
+        in: query
+        description: ''
+        schema:
+          type: string
+      - name: filter[invoice_status]
+        in: query
+        description: ''
+        schema:
+          type: string
+      - name: filter[archived]
+        in: query
+        description: ''
+        schema:
+          type: boolean
+      - name: sort
+        in: query
+        description: 'Sortable parameters - *Available: id, issue_date, description, inflow*'
+        schema:
+          type: string
+          default: id
+      - name: page[number]
+        in: query
+        description: Page Number
+        schema:
+          type: integer
+          default: 1
+      - name: page[size]
+        in: query
+        description: Page Size
+        schema:
+          type: integer
+          default: 15
+          maximum: 25
+          minimum: 1
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: contact, stock_movements, stock_movements.product, tags, invoices*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: İrsaliyeler
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ShipmentDocument'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - contacts
+                          - tags
+                          - stock_movements
+                          - sales_invoices
+                          - purchase_bills
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+                  meta:
+                    $ref: '#/components/schemas/ListMeta'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Shipment documents
+      operationId: createShipmentDocument
+      summary: Create
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: contact, stock_movements, stock_movements.product, tags, invoices*'
+        schema:
+          type: string
+      responses:
+        '201':
+          description: İrsaliye
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ShipmentDocument'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - contacts
+                          - tags
+                          - stock_movements
+                          - sales_invoices
+                          - purchase_bills
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - shipment_documents
+                    attributes:
+                      $ref: '#/components/schemas/ShipmentDocumentAttributes'
+                    relationships:
+                      type: object
+                      properties:
+                        stock_movements:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - stock_movements
+                                  attributes:
+                                    $ref: '#/components/schemas/StockMovementAttributes'
+                                  relationships:
+                                    type: object
+                                    properties:
+                                      product:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                                maxLength: 255
+                                              type:
+                                                type: string
+                                                maxLength: 255
+                                                description: Type of the resource
+                                                enum:
+                                                - products
+                        contact:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - contact
+                        tags:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - tags
+        required: true
+  /{company_id}/shipment_documents/{id}:
+    parameters:
+    - name: company_id
+      description: Firma ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: id
+      description: İrsaliye ID
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+      - Shipment documents
+      operationId: showShipmentDocument
+      summary: Show
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: contact, stock_movements, stock_movements.product, tags, invoices*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: İrsaliye
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ShipmentDocument'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - contacts
+                          - tags
+                          - stock_movements
+                          - sales_invoices
+                          - purchase_bills
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Shipment documents
+      operationId: updateShipmentDocument
+      summary: Edit
+      description: ''
+      parameters:
+      - name: include
+        in: query
+        description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: contact, stock_movements, stock_movements.product, tags, invoices*'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: İrsaliye
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ShipmentDocument'
+                  included:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          maxLength: 255
+                        type:
+                          type: string
+                          maxLength: 255
+                          description: Type of the resource
+                          enum:
+                          - contacts
+                          - tags
+                          - stock_movements
+                          - sales_invoices
+                          - purchase_bills
+                        attributes:
+                          type: object
+                        relationships:
+                          type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - shipment_documents
+                    attributes:
+                      $ref: '#/components/schemas/ShipmentDocumentAttributes'
+                    relationships:
+                      type: object
+                      properties:
+                        stock_movements:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - stock_movements
+                                  attributes:
+                                    $ref: '#/components/schemas/StockMovementAttributes'
+                                  relationships:
+                                    type: object
+                                    properties:
+                                      product:
+                                        type: object
+                                        properties:
+                                          data:
+                                            type: object
+                                            properties:
+                                              id:
+                                                type: string
+                                                maxLength: 255
+                                              type:
+                                                type: string
+                                                maxLength: 255
+                                                description: Type of the resource
+                                                enum:
+                                                - products
+                        contact:
+                          type: object
+                          properties:
+                            data:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  maxLength: 255
+                                type:
+                                  type: string
+                                  maxLength: 255
+                                  description: Type of the resource
+                                  enum:
+                                  - contact
+                        tags:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    maxLength: 255
+                                  type:
+                                    type: string
+                                    maxLength: 255
+                                    description: Type of the resource
+                                    enum:
+                                    - tags
+        required: true
+    delete:
+      tags:
+      - Shipment documents
+      operationId: deleteShipmentDocument
+      summary: Delete
+      description: ''
+      responses:
+        '204':
+          description: No content
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
+    ShipmentDocument:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - shipment_documents
+        attributes:
+          $ref: '#/components/schemas/ShipmentDocumentAttributes'
+        relationships:
+          type: object
+          properties:
+            contact:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - contacts
+            tags:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - tags
+            stock_movements:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - stock_movements
+            invoices:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - sales_invoices
+                        - purchase_bills
+      required:
+      - attributes
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    ShipmentDocumentAttributes:
+      type: object
+      properties:
+        archived:
+          type: boolean
+          readOnly: true
+          description: Arşivlenme durumu
+        invoice_no:
+          type: string
+          readOnly: true
+          description: Yazdırmaya özel fatura numarası
+        print_note:
+          type: string
+          readOnly: true
+          description: Yazdırmaya özel not
+        printed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Yazdırılma tarihi
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        inflow:
+          type: boolean
+          readOnly: false
+          description: İrsaliye tipi
+        description:
+          type: string
+          readOnly: false
+          description: İrsaliye açıklaması
+        city:
+          type: string
+          readOnly: false
+          description: İl
+        district:
+          type: string
+          readOnly: false
+          description: İlçe
+        address:
+          type: string
+          readOnly: false
+          description: Adres
+        issue_date:
+          type: string
+          format: date
+          readOnly: false
+          description: Düzenleme tarihi
+        shipment_date:
+          type: string
+          format: date-time
+          readOnly: false
+          description: Fiili sevk tarihi
+        procurement_number:
+          type: string
+          readOnly: false
+          description: İrsaliye Numarası
+      required:
+      - issue_date
+    StockMovementAttributes:
+      type: object
+      properties:
+        detail_no:
+          type: number
+          readOnly: true
+          description: Detay sıra no
+        date:
+          type: string
+          format: date
+          readOnly: true
+          description: Hareket tarihi
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        quantity:
+          type: number
+          readOnly: false
+          description: Miktar
+      required:
+      - quantity
+  securitySchemes:
+    parasut_auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes: {}
+          authorizationUrl: https://api.parasut.com/oauth/authorize
+          tokenUrl: https://api.parasut.com/oauth/token
+x-tagGroups:
+- name: Satışlar
+  tags:
+  - SalesOffers
+  - SalesInvoices
+  - Contacts
+- name: Giderler
+  tags:
+  - PurchaseBills
+  - BankFees
+  - Salaries
+  - Taxes
+  - Contacts
+  - Employees
+- name: Resmileştirme
+  tags:
+  - EInvoiceInboxes
+  - EArchives
+  - EInvoices
+  - ESmms
+- name: Nakit
+  tags:
+  - Accounts
+  - Transactions
+- name: Stok
+  tags:
+  - Products
+  - Warehouses
+  - ShipmentDocuments
+  - StockMovements
+  - InventoryLevels
+  - StockUpdates
+- name: Ayarlar
+  tags:
+  - ItemCategories
+  - Tags
+- name: Diğer
+  tags:
+  - ApiHome
+  - TrackableJobs
