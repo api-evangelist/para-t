@@ -200,13 +200,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     TransactionAttributes:
       type: object
       properties:
@@ -327,6 +320,13 @@ components:
                         - payments
       required:
       - attributes
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

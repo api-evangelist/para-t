@@ -1050,30 +1050,42 @@ paths:
         required: true
 components:
   schemas:
-    PaymentFormAttributes:
+    PaymentAttributes:
       type: object
       properties:
-        description:
+        created_at:
           type: string
-          description: Ödeme/Tahsilat Açıklaması
-          readOnly: false
-        account_id:
-          type: integer
-          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
-          readOnly: false
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
         date:
           type: string
           format: date
-          description: Ödeme/Tahsilat tarihi
+          description: Ödeme tarihi
           readOnly: false
         amount:
           type: number
-          description: Ödeme/Tahsilat tutarı
+          description: Ödeme tutarı
           readOnly: false
-        exchange_rate:
+        currency:
           type: number
-          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
+          description: Para birimi
           readOnly: false
+        notes:
+          type: string
+          readOnly: false
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
     Payment:
       type: object
       properties:
@@ -1128,15 +1140,91 @@ components:
                       - transactions
       required:
       - attributes
-    ListMeta:
+    Error:
       type: object
       properties:
-        current_page:
+        title:
+          type: string
+        detail:
+          type: string
+    PaymentFormAttributes:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Ödeme/Tahsilat Açıklaması
+          readOnly: false
+        account_id:
           type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
+          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
+          readOnly: false
+        date:
+          type: string
+          format: date
+          description: Ödeme/Tahsilat tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme/Tahsilat tutarı
+          readOnly: false
+        exchange_rate:
+          type: number
+          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
+          readOnly: false
+    SalaryAttributes:
+      type: object
+      properties:
+        total_paid:
+          type: number
+          readOnly: true
+        archived:
+          type: boolean
+          readOnly: true
+        remaining:
+          type: number
+          readOnly: true
+        remaining_in_trl:
+          type: number
+          readOnly: true
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        description:
+          type: string
+          readOnly: false
+        currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+        issue_date:
+          type: string
+          format: date
+          readOnly: false
+        due_date:
+          type: string
+          format: date
+          readOnly: false
+        exchange_rate:
+          type: number
+          readOnly: false
+        net_total:
+          type: number
+          readOnly: false
+      required:
+      - description
+      - currency
+      - issue_date
+      - due_date
+      - net_total
     Salary:
       type: object
       properties:
@@ -1203,94 +1291,6 @@ components:
                         - tags
       required:
       - attributes
-    PaymentAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        date:
-          type: string
-          format: date
-          description: Ödeme tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme tutarı
-          readOnly: false
-        currency:
-          type: number
-          description: Para birimi
-          readOnly: false
-        notes:
-          type: string
-          readOnly: false
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-    SalaryAttributes:
-      type: object
-      properties:
-        total_paid:
-          type: number
-          readOnly: true
-        archived:
-          type: boolean
-          readOnly: true
-        remaining:
-          type: number
-          readOnly: true
-        remaining_in_trl:
-          type: number
-          readOnly: true
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        description:
-          type: string
-          readOnly: false
-        currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-        issue_date:
-          type: string
-          format: date
-          readOnly: false
-        due_date:
-          type: string
-          format: date
-          readOnly: false
-        exchange_rate:
-          type: number
-          readOnly: false
-        net_total:
-          type: number
-          readOnly: false
-      required:
-      - description
-      - currency
-      - issue_date
-      - due_date
-      - net_total
   securitySchemes:
     parasut_auth:
       type: oauth2

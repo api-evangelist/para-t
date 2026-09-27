@@ -612,13 +612,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     WarehouseAttributes:
       type: object
       properties:
@@ -665,6 +658,13 @@ components:
           type: integer
         total_count:
           type: integer
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     Warehouse:
       type: object
       properties:

@@ -942,49 +942,6 @@ paths:
         required: true
 components:
   schemas:
-    PaymentFormAttributes:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Ödeme/Tahsilat Açıklaması
-          readOnly: false
-        account_id:
-          type: integer
-          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
-          readOnly: false
-        date:
-          type: string
-          format: date
-          description: Ödeme/Tahsilat tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme/Tahsilat tutarı
-          readOnly: false
-        exchange_rate:
-          type: number
-          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
-          readOnly: false
-    ContactCollectionFormAttributes:
-      allOf:
-      - $ref: '#/components/schemas/PaymentFormAttributes'
-      - type: object
-        properties:
-          payable_ids:
-            description: Satış Faturası ID'leri - *Tahsilatınızın öncelikli olarak eşleşmesini istediğiniz faturalar*
-            type: array
-            items:
-              type: integer
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
     ContactAttributes:
       type: object
       properties:
@@ -1101,6 +1058,89 @@ components:
       required:
       - name
       - account_type
+    TransactionAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        description:
+          type: string
+          readOnly: false
+          description: Açıklama
+        transaction_type:
+          type: string
+          readOnly: false
+          description: İşlem türü
+        date:
+          type: string
+          format: date
+          readOnly: false
+          description: Tarih
+        amount_in_trl:
+          type: number
+          readOnly: false
+          description: TRL karşılığı meblağ
+        debit_amount:
+          type: number
+          readOnly: false
+          description: Borç meblağ
+        debit_currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+          description: Borç döviz cinsi
+        credit_amount:
+          type: number
+          readOnly: false
+          description: Alacak meblağ
+        credit_currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+          description: Alacak döviz cinsi
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
+    ContactPaymentFormAttributes:
+      allOf:
+      - $ref: '#/components/schemas/PaymentFormAttributes'
+      - type: object
+        properties:
+          payable_ids:
+            description: Alış Faturası ID'leri - *Ödemenizin öncelikli olarak eşleşmesini istediğiniz faturalar*
+            type: array
+            items:
+              type: integer
+    ContactCollectionFormAttributes:
+      allOf:
+      - $ref: '#/components/schemas/PaymentFormAttributes'
+      - type: object
+        properties:
+          payable_ids:
+            description: Satış Faturası ID'leri - *Tahsilatınızın öncelikli olarak eşleşmesini istediğiniz faturalar*
+            type: array
+            items:
+              type: integer
     Error:
       type: object
       properties:
@@ -1108,6 +1148,30 @@ components:
           type: string
         detail:
           type: string
+    PaymentFormAttributes:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Ödeme/Tahsilat Açıklaması
+          readOnly: false
+        account_id:
+          type: integer
+          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
+          readOnly: false
+        date:
+          type: string
+          format: date
+          description: Ödeme/Tahsilat tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme/Tahsilat tutarı
+          readOnly: false
+        exchange_rate:
+          type: number
+          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
+          readOnly: false
     Contact:
       type: object
       properties:
@@ -1174,7 +1238,7 @@ components:
                         - contact_people
       required:
       - attributes
-    TransactionAttributes:
+    ContactPersonAttributes:
       type: object
       properties:
         created_at:
@@ -1185,59 +1249,19 @@ components:
           type: string
           format: date
           readOnly: true
-        description:
+        name:
           type: string
           readOnly: false
-          description: Açıklama
-        transaction_type:
+        email:
+          type: string
+          format: email
+          readOnly: false
+        phone:
           type: string
           readOnly: false
-          description: İşlem türü
-        date:
+        notes:
           type: string
-          format: date
           readOnly: false
-          description: Tarih
-        amount_in_trl:
-          type: number
-          readOnly: false
-          description: TRL karşılığı meblağ
-        debit_amount:
-          type: number
-          readOnly: false
-          description: Borç meblağ
-        debit_currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-          description: Borç döviz cinsi
-        credit_amount:
-          type: number
-          readOnly: false
-          description: Alacak meblağ
-        credit_currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-          description: Alacak döviz cinsi
-    ContactPaymentFormAttributes:
-      allOf:
-      - $ref: '#/components/schemas/PaymentFormAttributes'
-      - type: object
-        properties:
-          payable_ids:
-            description: Alış Faturası ID'leri - *Ödemenizin öncelikli olarak eşleşmesini istediğiniz faturalar*
-            type: array
-            items:
-              type: integer
     Transaction:
       type: object
       properties:
@@ -1304,30 +1328,6 @@ components:
                         - payments
       required:
       - attributes
-    ContactPersonAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        name:
-          type: string
-          readOnly: false
-        email:
-          type: string
-          format: email
-          readOnly: false
-        phone:
-          type: string
-          readOnly: false
-        notes:
-          type: string
-          readOnly: false
   securitySchemes:
     parasut_auth:
       type: oauth2

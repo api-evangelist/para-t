@@ -646,71 +646,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
-    Product:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - products
-        attributes:
-          $ref: '#/components/schemas/ProductAttributes'
-        relationships:
-          type: object
-          properties:
-            inventory_levels:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - inventory_levels
-            category:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - item_categories
-      required:
-      - attributes
     ProductAttributes:
       type: object
       properties:
@@ -813,6 +748,71 @@ components:
           readOnly: false
       required:
       - name
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - products
+        attributes:
+          $ref: '#/components/schemas/ProductAttributes'
+        relationships:
+          type: object
+          properties:
+            inventory_levels:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - inventory_levels
+            category:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - item_categories
+      required:
+      - attributes
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2

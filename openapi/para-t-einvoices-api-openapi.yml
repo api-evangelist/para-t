@@ -337,83 +337,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    TrackableJob:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - trackable_jobs
-        attributes:
-          $ref: '#/components/schemas/TrackableJobAttributes'
-        relationships: {}
-      required:
-      - attributes
-    TrackableJobAttributes:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - running
-          - done
-          - error
-          readOnly: true
-        errors:
-          type: array
-          items:
-            type: string
-          readOnly: true
-    EDocumentCommonFormAttributes:
-      type: object
-      properties:
-        vat_withholding_params:
-          type: array
-          description: 'Tevkifat kodları - *Tevkifat faturadaki her kalem için ayrıdır. Tevkifat uygulanan her ürün için Tevkifat kodu göndermeniz gerekmektedir.* - *Bu dosyada ilgili kodları bulabilirsiniz: https://ebelge.gib.gov.tr/dosyalar/kilavuzlar/UBLTR_1.2.1_Kilavuzlar.zip*'
-          items:
-            type: object
-            properties:
-              detail_id:
-                type: integer
-                description: Fatura kalem ID
-              vat_withholding_code:
-                type: string
-                description: Tevkifat kodu
-          readOnly: false
-        vat_exemption_reason_code:
-          type: string
-          description: 'KDV''si %0 olan hizmet ve ürünlerin KDV muafiyet sebebi kodu. - *Bu dosyada ilgili kodları bulabilirsiniz: https://ebelge.gib.gov.tr/dosyalar/kilavuzlar/UBLTR_1.2.1_Kilavuzlar.zip*'
-          readOnly: false
-        vat_exemption_reason:
-          type: string
-          description: Eğer KDV muafiyet sebebi kodu 250 veya 350 ise KDV muafiyet sebebi açıklaması.
-          readOnly: false
-        excise_duty_codes:
-          type: array
-          description: ÖTV kodları - *Özel tüketim vergisi faturadaki her kalem için ayrıdır. ÖTV uygulanan her ürün için ÖTV kodu göndermeniz gerekmektedir.*
-          items:
-            type: object
-            properties:
-              product:
-                type: integer
-                description: Ürün ID
-              sales_excise_duty_code:
-                type: string
-                description: ÖTV kodu
-                enum:
-                - 57
-                - 59
-                - 60
-                - 61
-                - 62
-                - 63
-                - 9077
-          readOnly: false
     EInvoice:
       type: object
       properties:
@@ -449,13 +372,61 @@ components:
                       - purchase_bills
       required:
       - attributes
-    Error:
+    EInvoiceFormAttributes:
+      allOf:
+      - $ref: '#/components/schemas/EDocumentCommonFormAttributes'
+      - type: object
+        properties:
+          scenario:
+            type: string
+            description: Gönderim senaryosu
+            enum:
+            - basic
+            - commercial
+          to:
+            type: string
+            description: Alıcının e-Fatura gelen kutusu - *[e-Fatura Gelen Kutusu Öğrenme](/#operation/listEInvoiceInboxes)*
+          custom_requirement_params:
+            type: object
+            description: Özel gereksinimler - *[Detaylı bilgi](#section/SIK-KULLANILAN-ISLEMLER/Belirli-Firmalar-Icin-Ozel-Gereksinimler)*
+            properties:
+              integration:
+                type: object
+                properties:
+                  data:
+                    type: object
+    EDocumentPdf:
       type: object
       properties:
-        title:
+        id:
           type: string
-        detail:
+          maxLength: 255
+        type:
           type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - e_document_pdfs
+        attributes:
+          $ref: '#/components/schemas/EDocumentPdfAttributes'
+        relationships: {}
+      required:
+      - attributes
+    TrackableJobAttributes:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - running
+          - done
+          - error
+          readOnly: true
+        errors:
+          type: array
+          items:
+            type: string
+          readOnly: true
     EInvoiceAttributes:
       type: object
       properties:
@@ -564,40 +535,7 @@ components:
           type: string
           format: date
           readOnly: true
-    EInvoiceFormAttributes:
-      allOf:
-      - $ref: '#/components/schemas/EDocumentCommonFormAttributes'
-      - type: object
-        properties:
-          scenario:
-            type: string
-            description: Gönderim senaryosu
-            enum:
-            - basic
-            - commercial
-          to:
-            type: string
-            description: Alıcının e-Fatura gelen kutusu - *[e-Fatura Gelen Kutusu Öğrenme](/#operation/listEInvoiceInboxes)*
-          custom_requirement_params:
-            type: object
-            description: Özel gereksinimler - *[Detaylı bilgi](#section/SIK-KULLANILAN-ISLEMLER/Belirli-Firmalar-Icin-Ozel-Gereksinimler)*
-            properties:
-              integration:
-                type: object
-                properties:
-                  data:
-                    type: object
-    EDocumentPdfAttributes:
-      type: object
-      properties:
-        url:
-          type: string
-          readOnly: true
-        expires_at:
-          type: string
-          format: date-time
-          readOnly: true
-    EDocumentPdf:
+    TrackableJob:
       type: object
       properties:
         id:
@@ -608,12 +546,74 @@ components:
           maxLength: 255
           description: Type of the resource
           enum:
-          - e_document_pdfs
+          - trackable_jobs
         attributes:
-          $ref: '#/components/schemas/EDocumentPdfAttributes'
+          $ref: '#/components/schemas/TrackableJobAttributes'
         relationships: {}
       required:
       - attributes
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    EDocumentCommonFormAttributes:
+      type: object
+      properties:
+        vat_withholding_params:
+          type: array
+          description: 'Tevkifat kodları - *Tevkifat faturadaki her kalem için ayrıdır. Tevkifat uygulanan her ürün için Tevkifat kodu göndermeniz gerekmektedir.* - *Bu dosyada ilgili kodları bulabilirsiniz: https://ebelge.gib.gov.tr/dosyalar/kilavuzlar/UBLTR_1.2.1_Kilavuzlar.zip*'
+          items:
+            type: object
+            properties:
+              detail_id:
+                type: integer
+                description: Fatura kalem ID
+              vat_withholding_code:
+                type: string
+                description: Tevkifat kodu
+          readOnly: false
+        vat_exemption_reason_code:
+          type: string
+          description: 'KDV''si %0 olan hizmet ve ürünlerin KDV muafiyet sebebi kodu. - *Bu dosyada ilgili kodları bulabilirsiniz: https://ebelge.gib.gov.tr/dosyalar/kilavuzlar/UBLTR_1.2.1_Kilavuzlar.zip*'
+          readOnly: false
+        vat_exemption_reason:
+          type: string
+          description: Eğer KDV muafiyet sebebi kodu 250 veya 350 ise KDV muafiyet sebebi açıklaması.
+          readOnly: false
+        excise_duty_codes:
+          type: array
+          description: ÖTV kodları - *Özel tüketim vergisi faturadaki her kalem için ayrıdır. ÖTV uygulanan her ürün için ÖTV kodu göndermeniz gerekmektedir.*
+          items:
+            type: object
+            properties:
+              product:
+                type: integer
+                description: Ürün ID
+              sales_excise_duty_code:
+                type: string
+                description: ÖTV kodu
+                enum:
+                - 57
+                - 59
+                - 60
+                - 61
+                - 62
+                - 63
+                - 9077
+          readOnly: false
+    EDocumentPdfAttributes:
+      type: object
+      properties:
+        url:
+          type: string
+          readOnly: true
+        expires_at:
+          type: string
+          format: date-time
+          readOnly: true
   securitySchemes:
     parasut_auth:
       type: oauth2

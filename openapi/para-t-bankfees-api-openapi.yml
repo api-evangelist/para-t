@@ -874,7 +874,34 @@ paths:
         required: true
 components:
   schemas:
-    BankFee:
+    PaymentAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        date:
+          type: string
+          format: date
+          description: Ödeme tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme tutarı
+          readOnly: false
+        currency:
+          type: number
+          description: Para birimi
+          readOnly: false
+        notes:
+          type: string
+          readOnly: false
+    Payment:
       type: object
       properties:
         id:
@@ -885,13 +912,13 @@ components:
           maxLength: 255
           description: Type of the resource
           enum:
-          - bank_fees
+          - payments
         attributes:
-          $ref: '#/components/schemas/BankFeeAttributes'
+          $ref: '#/components/schemas/PaymentAttributes'
         relationships:
           type: object
           properties:
-            category:
+            payable:
               type: object
               properties:
                 data:
@@ -905,24 +932,27 @@ components:
                       maxLength: 255
                       description: Type of the resource
                       enum:
-                      - item_categories
-            tags:
+                      - sales_invoices
+                      - purchase_bills
+                      - taxes
+                      - bank_fees
+                      - salaries
+                      - checks
+            transaction:
               type: object
               properties:
                 data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - tags
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - transactions
       required:
       - attributes
     BankFeeAttributes:
@@ -1003,33 +1033,6 @@ components:
           type: number
           description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
           readOnly: false
-    PaymentAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        date:
-          type: string
-          format: date
-          description: Ödeme tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme tutarı
-          readOnly: false
-        currency:
-          type: number
-          description: Para birimi
-          readOnly: false
-        notes:
-          type: string
-          readOnly: false
     Error:
       type: object
       properties:
@@ -1037,7 +1040,7 @@ components:
           type: string
         detail:
           type: string
-    Payment:
+    BankFee:
       type: object
       properties:
         id:
@@ -1048,13 +1051,13 @@ components:
           maxLength: 255
           description: Type of the resource
           enum:
-          - payments
+          - bank_fees
         attributes:
-          $ref: '#/components/schemas/PaymentAttributes'
+          $ref: '#/components/schemas/BankFeeAttributes'
         relationships:
           type: object
           properties:
-            payable:
+            category:
               type: object
               properties:
                 data:
@@ -1068,27 +1071,24 @@ components:
                       maxLength: 255
                       description: Type of the resource
                       enum:
-                      - sales_invoices
-                      - purchase_bills
-                      - taxes
-                      - bank_fees
-                      - salaries
-                      - checks
-            transaction:
+                      - item_categories
+            tags:
               type: object
               properties:
                 data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - transactions
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - tags
       required:
       - attributes
   securitySchemes:

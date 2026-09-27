@@ -572,13 +572,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     ItemCategoryAttributes:
       type: object
       properties:
@@ -621,15 +614,6 @@ components:
       required:
       - name
       - category_type
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
     ItemCategory:
       type: object
       properties:
@@ -681,6 +665,22 @@ components:
                         - item_categories
       required:
       - attributes
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2

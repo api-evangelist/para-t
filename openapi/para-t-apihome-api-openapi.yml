@@ -127,6 +127,19 @@ components:
           type: string
         detail:
           type: string
+    MeAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        is_confirmed:
+          type: boolean
+          readOnly: true
     Me:
       type: object
       properties:
@@ -195,19 +208,6 @@ components:
                       - profiles
       required:
       - attributes
-    MeAttributes:
-      type: object
-      properties:
-        name:
-          type: string
-          readOnly: true
-        email:
-          type: string
-          format: email
-          readOnly: true
-        is_confirmed:
-          type: boolean
-          readOnly: true
   securitySchemes:
     parasut_auth:
       type: oauth2

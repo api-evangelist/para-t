@@ -154,13 +154,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     StockMovement:
       type: object
       properties:
@@ -242,15 +235,13 @@ components:
                       - contacts
       required:
       - attributes
-    ListMeta:
+    Error:
       type: object
       properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
+        title:
+          type: string
+        detail:
+          type: string
     StockMovementAttributes:
       type: object
       properties:
@@ -279,6 +270,15 @@ components:
           description: Miktar
       required:
       - quantity
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2
