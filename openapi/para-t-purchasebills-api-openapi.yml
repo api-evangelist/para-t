@@ -1877,258 +1877,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    PaymentAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        date:
-          type: string
-          format: date
-          description: Ödeme tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme tutarı
-          readOnly: false
-        currency:
-          type: number
-          description: Para birimi
-          readOnly: false
-        notes:
-          type: string
-          readOnly: false
-    PurchaseBillDetailAttributes:
-      type: object
-      properties:
-        net_total:
-          type: number
-          readOnly: true
-        vat_withholding:
-          type: number
-          readOnly: true
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        quantity:
-          type: number
-          readOnly: false
-        unit_price:
-          type: number
-          readOnly: false
-        vat_rate:
-          type: number
-          readOnly: false
-        vat_withholding_rate:
-          type: number
-          readOnly: false
-        discount_type:
-          type: string
-          enum:
-          - percentage
-          - amount
-          readOnly: false
-        discount_value:
-          type: number
-          readOnly: false
-        excise_duty_type:
-          type: string
-          enum:
-          - percentage
-          - amount
-          readOnly: false
-        excise_duty_value:
-          type: number
-          readOnly: false
-        communications_tax_rate:
-          type: number
-          readOnly: false
-        description:
-          type: string
-          readOnly: false
-      required:
-      - quantity
-      - unit_price
-      - vat_rate
-    PurchaseBillBasicFormAttributes:
-      type: object
-      properties:
-        item_type:
-          type: string
-          enum:
-          - purchase_bill
-          - refund
-          readOnly: false
-        description:
-          type: string
-          readOnly: false
-        issue_date:
-          type: string
-          format: date
-          readOnly: false
-        due_date:
-          type: string
-          format: date
-          readOnly: false
-        invoice_no:
-          type: string
-          readOnly: false
-        currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-        exchange_rate:
-          type: number
-          readOnly: false
-        net_total:
-          type: number
-          readOnly: false
-        total_vat:
-          type: number
-          readOnly: false
-      required:
-      - item_type
-      - issue_date
-      - due_date
-      - currency
-      - net_total
-      - total_vat
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
-    Payment:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - payments
-        attributes:
-          $ref: '#/components/schemas/PaymentAttributes'
-        relationships:
-          type: object
-          properties:
-            payable:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - sales_invoices
-                      - purchase_bills
-                      - taxes
-                      - bank_fees
-                      - salaries
-                      - checks
-            transaction:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - transactions
-      required:
-      - attributes
-    PurchaseBillDetailedFormAttributes:
-      type: object
-      properties:
-        item_type:
-          type: string
-          enum:
-          - purchase_bill
-          - refund
-          readOnly: false
-        description:
-          type: string
-          readOnly: false
-        issue_date:
-          type: string
-          format: date
-          readOnly: false
-        due_date:
-          type: string
-          format: date
-          readOnly: false
-        invoice_no:
-          type: string
-          readOnly: false
-        currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-        exchange_rate:
-          type: number
-          readOnly: false
-        withholding_rate:
-          type: number
-          readOnly: false
-        invoice_discount:
-          type: number
-          readOnly: false
-        invoice_discount_type:
-          type: string
-          enum:
-          - percentage
-          - amount
-          readOnly: false
-      required:
-      - item_type
-      - issue_date
-      - due_date
-      - currency
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     PaymentFormAttributes:
       type: object
       properties:
@@ -2314,6 +2062,151 @@ components:
                       - employees
       required:
       - attributes
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - payments
+        attributes:
+          $ref: '#/components/schemas/PaymentAttributes'
+        relationships:
+          type: object
+          properties:
+            payable:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_invoices
+                      - purchase_bills
+                      - taxes
+                      - bank_fees
+                      - salaries
+                      - checks
+            transaction:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - transactions
+      required:
+      - attributes
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    PaymentAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        date:
+          type: string
+          format: date
+          description: Ödeme tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme tutarı
+          readOnly: false
+        currency:
+          type: number
+          description: Para birimi
+          readOnly: false
+        notes:
+          type: string
+          readOnly: false
+    PurchaseBillDetailAttributes:
+      type: object
+      properties:
+        net_total:
+          type: number
+          readOnly: true
+        vat_withholding:
+          type: number
+          readOnly: true
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        quantity:
+          type: number
+          readOnly: false
+        unit_price:
+          type: number
+          readOnly: false
+        vat_rate:
+          type: number
+          readOnly: false
+        vat_withholding_rate:
+          type: number
+          readOnly: false
+        discount_type:
+          type: string
+          enum:
+          - percentage
+          - amount
+          readOnly: false
+        discount_value:
+          type: number
+          readOnly: false
+        excise_duty_type:
+          type: string
+          enum:
+          - percentage
+          - amount
+          readOnly: false
+        excise_duty_value:
+          type: number
+          readOnly: false
+        communications_tax_rate:
+          type: number
+          readOnly: false
+        description:
+          type: string
+          readOnly: false
+      required:
+      - quantity
+      - unit_price
+      - vat_rate
     PurchaseBillAttributes:
       type: object
       properties:
@@ -2427,6 +2320,113 @@ components:
           - amount
           readOnly: false
         invoice_discount:
+          type: number
+          readOnly: false
+      required:
+      - item_type
+      - issue_date
+      - due_date
+      - currency
+      - net_total
+      - total_vat
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
+    PurchaseBillDetailedFormAttributes:
+      type: object
+      properties:
+        item_type:
+          type: string
+          enum:
+          - purchase_bill
+          - refund
+          readOnly: false
+        description:
+          type: string
+          readOnly: false
+        issue_date:
+          type: string
+          format: date
+          readOnly: false
+        due_date:
+          type: string
+          format: date
+          readOnly: false
+        invoice_no:
+          type: string
+          readOnly: false
+        currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+        exchange_rate:
+          type: number
+          readOnly: false
+        withholding_rate:
+          type: number
+          readOnly: false
+        invoice_discount:
+          type: number
+          readOnly: false
+        invoice_discount_type:
+          type: string
+          enum:
+          - percentage
+          - amount
+          readOnly: false
+      required:
+      - item_type
+      - issue_date
+      - due_date
+      - currency
+    PurchaseBillBasicFormAttributes:
+      type: object
+      properties:
+        item_type:
+          type: string
+          enum:
+          - purchase_bill
+          - refund
+          readOnly: false
+        description:
+          type: string
+          readOnly: false
+        issue_date:
+          type: string
+          format: date
+          readOnly: false
+        due_date:
+          type: string
+          format: date
+          readOnly: false
+        invoice_no:
+          type: string
+          readOnly: false
+        currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+        exchange_rate:
+          type: number
+          readOnly: false
+        net_total:
+          type: number
+          readOnly: false
+        total_vat:
           type: number
           readOnly: false
       required:

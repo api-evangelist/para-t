@@ -1586,96 +1586,6 @@ paths:
         required: true
 components:
   schemas:
-    SalesOffersDetailAttributes:
-      type: object
-      properties:
-        description:
-          type: string
-          readOnly: false
-        net_total:
-          type: number
-          readOnly: false
-        unit_price:
-          type: number
-          readOnly: false
-        vat_rate:
-          type: number
-          readOnly: false
-        quantity:
-          type: number
-          readOnly: false
-        discount_type:
-          type: string
-          readOnly: false
-        discount_value:
-          type: number
-          readOnly: false
-        communications_tax_rate:
-          type: number
-          readOnly: false
-        excise_duty_type:
-          type: string
-          readOnly: false
-        invoice_discount:
-          type: number
-          readOnly: false
-        excise_duty:
-          type: number
-          readOnly: false
-        excise_duty_rate:
-          type: number
-          readOnly: false
-        discount:
-          type: number
-          readOnly: false
-        communications_tax:
-          type: number
-          readOnly: false
-        detail_no:
-          type: number
-          readOnly: false
-        net_total_without_invoice_discount:
-          type: number
-          readOnly: false
-        vat_withholding:
-          type: number
-          readOnly: false
-        vat_withholding_rate:
-          type: number
-          readOnly: false
-        accommodation_tax_rate:
-          type: number
-          readOnly: false
-        accommodation_tax:
-          type: number
-          readOnly: false
-        accommodation_tax_exempt:
-          type: boolean
-          readOnly: false
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        excise_duty_value:
-          type: number
-          readOnly: false
-    SalesOffersUpdateStatusAttributes:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Teklif durumu
-          enum:
-          - accepted
-          - rejected
-          - waiting
-          readOnly: false
-      required:
-      - status
     SalesOffers:
       type: object
       properties:
@@ -1776,131 +1686,6 @@ components:
                         - sharings
       required:
       - attributes
-    ContactAttributes:
-      type: object
-      properties:
-        balance:
-          type: number
-          readOnly: true
-          description: Bakiye
-        trl_balance:
-          type: number
-          readOnly: true
-          description: TL Bakiye
-        usd_balance:
-          type: number
-          readOnly: true
-          description: USD Bakiye
-        eur_balance:
-          type: number
-          readOnly: true
-          description: EUR Bakiye
-        gbp_balance:
-          type: number
-          readOnly: true
-          description: GBP Bakiye
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Kayıt tarihi
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Son güncelleme tarihi
-        email:
-          type: string
-          format: email
-          readOnly: false
-          description: E-posta
-        name:
-          type: string
-          readOnly: false
-          description: Müşteri/tedarikçi ismi
-        short_name:
-          type: string
-          readOnly: false
-        contact_type:
-          type: string
-          enum:
-          - person
-          - company
-          readOnly: false
-          description: Tip
-        tax_office:
-          type: string
-          readOnly: false
-          description: Vergi dairesi
-        tax_number:
-          type: string
-          readOnly: false
-          description: Vergi numarası/TC kimlik no
-        district:
-          type: string
-          readOnly: false
-          description: İlçe
-        postal_code:
-          type: string
-          readOnly: false
-          description: Posta kodu
-        city:
-          type: string
-          readOnly: false
-          description: İl
-        country:
-          type: string
-          readOnly: false
-        address:
-          type: string
-          readOnly: false
-        phone:
-          type: string
-          readOnly: false
-        fax:
-          type: string
-          readOnly: false
-        is_abroad:
-          type: boolean
-          readOnly: false
-          description: Müşteri/tedarikçi yurt dışı bilgisi
-        archived:
-          type: boolean
-          readOnly: false
-        iban:
-          type: string
-          readOnly: false
-        account_type:
-          type: string
-          enum:
-          - customer
-          - supplier
-          readOnly: false
-        untrackable:
-          type: boolean
-          readOnly: false
-          description: Listelenmemiş müşteri sonradan listelenebilir hale getirilemez
-        invoicing_preferences:
-          type: object
-          properties:
-            e_document_accounts:
-              description: Bu alana hesap ID'leri eklenebilir.
-              type: array
-              items:
-                type: integer
-          readOnly: false
-      required:
-      - name
-      - account_type
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
     SalesOffersUpdateStatusBody:
       type: object
       description: ''
@@ -1924,88 +1709,108 @@ components:
           description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: activities*'
       required:
       - data
-    SalesOffersPdfAttributes:
+    ProductAttributes:
       type: object
       properties:
-        url:
+        sales_excise_duty_code:
           type: string
           readOnly: true
+        sales_invoice_details_count:
+          type: integer
+          readOnly: true
+        purchase_invoice_details_count:
+          type: integer
+          readOnly: true
+        list_price_in_trl:
+          type: number
+          readOnly: true
+        buying_price_in_trl:
+          type: number
+          readOnly: true
+        stock_count:
+          type: number
+          readOnly: true
+          description: Stok Miktarı
         created_at:
           type: string
-          format: date-time
+          format: date
           readOnly: true
-        status:
+        updated_at:
           type: string
+          format: date
           readOnly: true
-        errors:
-          type: array
-          items:
-            type: string
-          readOnly: true
-        result:
+        code:
           type: string
-          readOnly: true
-        statistics:
+          readOnly: false
+          description: Ürün/hizmet kodu
+        name:
           type: string
-          readOnly: true
-    Error:
-      type: object
-      properties:
-        title:
+          readOnly: false
+          description: Ürün/hizmet ismi
+        vat_rate:
+          type: number
+          readOnly: false
+          description: KDV oranı
+        sales_excise_duty:
+          type: number
+          readOnly: false
+          description: Satış ÖTV
+        sales_excise_duty_type:
           type: string
-        detail:
+          readOnly: false
+          description: Satış ÖTV tipi
+        purchase_excise_duty:
+          type: number
+          readOnly: false
+          description: Alış ÖTV
+        purchase_excise_duty_type:
           type: string
-    SalesOffersDetails:
-      type: object
-      properties:
-        id:
+          readOnly: false
+          description: Alış ÖTV tipi
+        unit:
           type: string
-          maxLength: 255
-        type:
+          readOnly: false
+          description: Birim
+        communications_tax_rate:
+          type: number
+          readOnly: false
+          description: ÖİV oranı
+        archived:
+          type: boolean
+          readOnly: false
+        list_price:
+          type: number
+          readOnly: false
+          description: Satış fiyatı
+        currency:
           type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - sales_offers_details
-        attributes:
-          $ref: '#/components/schemas/SalesOffersDetailAttributes'
-        relationships:
-          type: object
-          properties:
-            product:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - products
+          readOnly: false
+          description: Satış döviz
+        buying_price:
+          type: number
+          readOnly: false
+          description: Alış fiyatı
+        buying_currency:
+          type: string
+          readOnly: false
+          description: Alış döviz
+        inventory_tracking:
+          type: boolean
+          readOnly: false
+        initial_stock_count:
+          type: number
+          readOnly: false
+          description: Başlangıç Stok Miktarı. Birden fazla deponuz varsa başlangıç stok miktarını, depo stok seviyesi (inventory_level) relationship'i üzerinden depo bazında göndermelisiniz.
+        gtip:
+          type: string
+          format: number
+          description: Ürünün GTIP kodu - *https://uygulama.gtb.gov.tr/Tara adresinden öğrenebilirsiniz*
+          readOnly: false
+        barcode:
+          type: string
+          readOnly: false
       required:
-      - attributes
-    SalesOffersPdf:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - sales_offers_pdfs
-        attributes:
-          $ref: '#/components/schemas/SalesOffersPdfAttributes'
-        relationships: {}
-      required:
-      - attributes
+      - name
     SalesOfferAttributes:
       type: object
       properties:
@@ -2152,108 +1957,13 @@ components:
       required:
       - item_type
       - issue_date
-    ProductAttributes:
+    Error:
       type: object
       properties:
-        sales_excise_duty_code:
+        title:
           type: string
-          readOnly: true
-        sales_invoice_details_count:
-          type: integer
-          readOnly: true
-        purchase_invoice_details_count:
-          type: integer
-          readOnly: true
-        list_price_in_trl:
-          type: number
-          readOnly: true
-        buying_price_in_trl:
-          type: number
-          readOnly: true
-        stock_count:
-          type: number
-          readOnly: true
-          description: Stok Miktarı
-        created_at:
+        detail:
           type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        code:
-          type: string
-          readOnly: false
-          description: Ürün/hizmet kodu
-        name:
-          type: string
-          readOnly: false
-          description: Ürün/hizmet ismi
-        vat_rate:
-          type: number
-          readOnly: false
-          description: KDV oranı
-        sales_excise_duty:
-          type: number
-          readOnly: false
-          description: Satış ÖTV
-        sales_excise_duty_type:
-          type: string
-          readOnly: false
-          description: Satış ÖTV tipi
-        purchase_excise_duty:
-          type: number
-          readOnly: false
-          description: Alış ÖTV
-        purchase_excise_duty_type:
-          type: string
-          readOnly: false
-          description: Alış ÖTV tipi
-        unit:
-          type: string
-          readOnly: false
-          description: Birim
-        communications_tax_rate:
-          type: number
-          readOnly: false
-          description: ÖİV oranı
-        archived:
-          type: boolean
-          readOnly: false
-        list_price:
-          type: number
-          readOnly: false
-          description: Satış fiyatı
-        currency:
-          type: string
-          readOnly: false
-          description: Satış döviz
-        buying_price:
-          type: number
-          readOnly: false
-          description: Alış fiyatı
-        buying_currency:
-          type: string
-          readOnly: false
-          description: Alış döviz
-        inventory_tracking:
-          type: boolean
-          readOnly: false
-        initial_stock_count:
-          type: number
-          readOnly: false
-          description: Başlangıç Stok Miktarı. Birden fazla deponuz varsa başlangıç stok miktarını, depo stok seviyesi (inventory_level) relationship'i üzerinden depo bazında göndermelisiniz.
-        gtip:
-          type: string
-          format: number
-          description: Ürünün GTIP kodu - *https://uygulama.gtb.gov.tr/Tara adresinden öğrenebilirsiniz*
-          readOnly: false
-        barcode:
-          type: string
-          readOnly: false
-      required:
-      - name
     SalesOffersCreateUpdateAttributes:
       type: object
       properties:
@@ -2391,6 +2101,296 @@ components:
       required:
       - item_type
       - issue_date
+    SalesOffersDetails:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - sales_offers_details
+        attributes:
+          $ref: '#/components/schemas/SalesOffersDetailAttributes'
+        relationships:
+          type: object
+          properties:
+            product:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - products
+      required:
+      - attributes
+    SalesOffersPdf:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - sales_offers_pdfs
+        attributes:
+          $ref: '#/components/schemas/SalesOffersPdfAttributes'
+        relationships: {}
+      required:
+      - attributes
+    ContactAttributes:
+      type: object
+      properties:
+        balance:
+          type: number
+          readOnly: true
+          description: Bakiye
+        trl_balance:
+          type: number
+          readOnly: true
+          description: TL Bakiye
+        usd_balance:
+          type: number
+          readOnly: true
+          description: USD Bakiye
+        eur_balance:
+          type: number
+          readOnly: true
+          description: EUR Bakiye
+        gbp_balance:
+          type: number
+          readOnly: true
+          description: GBP Bakiye
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        email:
+          type: string
+          format: email
+          readOnly: false
+          description: E-posta
+        name:
+          type: string
+          readOnly: false
+          description: Müşteri/tedarikçi ismi
+        short_name:
+          type: string
+          readOnly: false
+        contact_type:
+          type: string
+          enum:
+          - person
+          - company
+          readOnly: false
+          description: Tip
+        tax_office:
+          type: string
+          readOnly: false
+          description: Vergi dairesi
+        tax_number:
+          type: string
+          readOnly: false
+          description: Vergi numarası/TC kimlik no
+        district:
+          type: string
+          readOnly: false
+          description: İlçe
+        postal_code:
+          type: string
+          readOnly: false
+          description: Posta kodu
+        city:
+          type: string
+          readOnly: false
+          description: İl
+        country:
+          type: string
+          readOnly: false
+        address:
+          type: string
+          readOnly: false
+        phone:
+          type: string
+          readOnly: false
+        fax:
+          type: string
+          readOnly: false
+        is_abroad:
+          type: boolean
+          readOnly: false
+          description: Müşteri/tedarikçi yurt dışı bilgisi
+        archived:
+          type: boolean
+          readOnly: false
+        iban:
+          type: string
+          readOnly: false
+        account_type:
+          type: string
+          enum:
+          - customer
+          - supplier
+          readOnly: false
+        untrackable:
+          type: boolean
+          readOnly: false
+          description: Listelenmemiş müşteri sonradan listelenebilir hale getirilemez
+        invoicing_preferences:
+          type: object
+          properties:
+            e_document_accounts:
+              description: Bu alana hesap ID'leri eklenebilir.
+              type: array
+              items:
+                type: integer
+          readOnly: false
+      required:
+      - name
+      - account_type
+    SalesOffersDetailAttributes:
+      type: object
+      properties:
+        description:
+          type: string
+          readOnly: false
+        net_total:
+          type: number
+          readOnly: false
+        unit_price:
+          type: number
+          readOnly: false
+        vat_rate:
+          type: number
+          readOnly: false
+        quantity:
+          type: number
+          readOnly: false
+        discount_type:
+          type: string
+          readOnly: false
+        discount_value:
+          type: number
+          readOnly: false
+        communications_tax_rate:
+          type: number
+          readOnly: false
+        excise_duty_type:
+          type: string
+          readOnly: false
+        invoice_discount:
+          type: number
+          readOnly: false
+        excise_duty:
+          type: number
+          readOnly: false
+        excise_duty_rate:
+          type: number
+          readOnly: false
+        discount:
+          type: number
+          readOnly: false
+        communications_tax:
+          type: number
+          readOnly: false
+        detail_no:
+          type: number
+          readOnly: false
+        net_total_without_invoice_discount:
+          type: number
+          readOnly: false
+        vat_withholding:
+          type: number
+          readOnly: false
+        vat_withholding_rate:
+          type: number
+          readOnly: false
+        accommodation_tax_rate:
+          type: number
+          readOnly: false
+        accommodation_tax:
+          type: number
+          readOnly: false
+        accommodation_tax_exempt:
+          type: boolean
+          readOnly: false
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        excise_duty_value:
+          type: number
+          readOnly: false
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
+    SalesOffersPdfAttributes:
+      type: object
+      properties:
+        url:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        errors:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        result:
+          type: string
+          readOnly: true
+        statistics:
+          type: string
+          readOnly: true
+    SalesOffersUpdateStatusAttributes:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Teklif durumu
+          enum:
+          - accepted
+          - rejected
+          - waiting
+          readOnly: false
+      required:
+      - status
   securitySchemes:
     parasut_auth:
       type: oauth2

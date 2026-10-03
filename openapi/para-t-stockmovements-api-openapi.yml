@@ -154,6 +154,43 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
+    StockMovementAttributes:
+      type: object
+      properties:
+        detail_no:
+          type: number
+          readOnly: true
+          description: Detay sıra no
+        date:
+          type: string
+          format: date
+          readOnly: true
+          description: Hareket tarihi
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        quantity:
+          type: number
+          readOnly: false
+          description: Miktar
+      required:
+      - quantity
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
     StockMovement:
       type: object
       properties:
@@ -242,43 +279,6 @@ components:
           type: string
         detail:
           type: string
-    StockMovementAttributes:
-      type: object
-      properties:
-        detail_no:
-          type: number
-          readOnly: true
-          description: Detay sıra no
-        date:
-          type: string
-          format: date
-          readOnly: true
-          description: Hareket tarihi
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Kayıt tarihi
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Son güncelleme tarihi
-        quantity:
-          type: number
-          readOnly: false
-          description: Miktar
-      required:
-      - quantity
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2

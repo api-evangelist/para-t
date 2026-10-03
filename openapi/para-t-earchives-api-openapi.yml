@@ -336,70 +336,58 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    EDocumentPdf:
+    EArchiveAttributes:
       type: object
       properties:
-        id:
+        uuid:
           type: string
-          maxLength: 255
-        type:
+          readOnly: true
+        vkn:
           type: string
-          maxLength: 255
-          description: Type of the resource
+          readOnly: true
+        invoice_number:
+          type: string
+          readOnly: true
+        note:
+          type: string
+          readOnly: true
+        is_printed:
+          type: boolean
+          readOnly: true
+        status:
+          type: string
           enum:
-          - e_document_pdfs
-        attributes:
-          $ref: '#/components/schemas/EDocumentPdfAttributes'
-        relationships: {}
-      required:
-      - attributes
-    EArchiveFormAttributes:
-      allOf:
-      - $ref: '#/components/schemas/EDocumentCommonFormAttributes'
-      - type: object
-        properties:
-          internet_sale:
-            type: object
-            description: İnternet satışı bilgileri. İnternet üzerinden bir satış yapıyorsanız doldurmak zorunlu.
-            properties:
-              url:
-                type: string
-                description: İnternet adresi
-              payment_type:
-                type: string
-                description: Ödeme tipi
-                enum:
-                - KREDIKARTI/BANKAKARTI
-                - EFT/HAVALE
-                - KAPIDAODEME
-                - ODEMEARACISI
-              payment_platform:
-                type: string
-                description: Ödeme platformu - *(iyzico, payu gibi)*
-              payment_date:
-                type: string
-                format: date
-                pattern: YYYY-MM-DD
-                description: Ödeme tarihi
-          shipment:
-            type: object
-            description: Gönderi bilgileri. Gönderim yapılıyorsa doldurmak zorunlu. Örneğin bir hizmet satışı için kargolanan veya gönderilen birşey yoktur, bu durumda doldurulması zorunlu değil ancak bir e-ticaret sitesi olarak yapılan satışta müşteriye kargo / kurye ile bir ürün gönderimi vardır, bu durumda doldurmak zorunlu.
-            properties:
-              title:
-                type: string
-                description: Kargo şirketi adı *(Eğer kargo ile gönderiliyorsa)*
-              vkn:
-                type: string
-                description: Kargo şirketi VKN *(Eğer kargo ile gönderiliyorsa)*
-              name:
-                type: string
-                description: Kurye adı *(Eğer kurye ile gönderiliyorsa)*
-              tckn:
-                type: string
-                description: Kurye TCKN *(Eğer kurye ile gönderiliyorsa)*
-              date:
-                type: string
-                description: Gönderi tarihi
+          - bounced
+          - sent
+          - printed
+          - legalized
+          readOnly: true
+        printed_at:
+          type: string
+          format: date-time
+          readOnly: true
+        cancellable_until:
+          type: string
+          format: date-time
+          readOnly: true
+        is_signed:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     EArchive:
       type: object
       properties:
@@ -449,52 +437,64 @@ components:
           items:
             type: string
           readOnly: true
-    EArchiveAttributes:
+    EDocumentPdfAttributes:
       type: object
       properties:
-        uuid:
+        url:
           type: string
           readOnly: true
-        vkn:
-          type: string
-          readOnly: true
-        invoice_number:
-          type: string
-          readOnly: true
-        note:
-          type: string
-          readOnly: true
-        is_printed:
-          type: boolean
-          readOnly: true
-        status:
-          type: string
-          enum:
-          - bounced
-          - sent
-          - printed
-          - legalized
-          readOnly: true
-        printed_at:
+        expires_at:
           type: string
           format: date-time
           readOnly: true
-        cancellable_until:
-          type: string
-          format: date-time
-          readOnly: true
-        is_signed:
-          type: boolean
-          readOnly: true
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-    TrackableJob:
+    EArchiveFormAttributes:
+      allOf:
+      - $ref: '#/components/schemas/EDocumentCommonFormAttributes'
+      - type: object
+        properties:
+          internet_sale:
+            type: object
+            description: İnternet satışı bilgileri. İnternet üzerinden bir satış yapıyorsanız doldurmak zorunlu.
+            properties:
+              url:
+                type: string
+                description: İnternet adresi
+              payment_type:
+                type: string
+                description: Ödeme tipi
+                enum:
+                - KREDIKARTI/BANKAKARTI
+                - EFT/HAVALE
+                - KAPIDAODEME
+                - ODEMEARACISI
+              payment_platform:
+                type: string
+                description: Ödeme platformu - *(iyzico, payu gibi)*
+              payment_date:
+                type: string
+                format: date
+                pattern: YYYY-MM-DD
+                description: Ödeme tarihi
+          shipment:
+            type: object
+            description: Gönderi bilgileri. Gönderim yapılıyorsa doldurmak zorunlu. Örneğin bir hizmet satışı için kargolanan veya gönderilen birşey yoktur, bu durumda doldurulması zorunlu değil ancak bir e-ticaret sitesi olarak yapılan satışta müşteriye kargo / kurye ile bir ürün gönderimi vardır, bu durumda doldurmak zorunlu.
+            properties:
+              title:
+                type: string
+                description: Kargo şirketi adı *(Eğer kargo ile gönderiliyorsa)*
+              vkn:
+                type: string
+                description: Kargo şirketi VKN *(Eğer kargo ile gönderiliyorsa)*
+              name:
+                type: string
+                description: Kurye adı *(Eğer kurye ile gönderiliyorsa)*
+              tckn:
+                type: string
+                description: Kurye TCKN *(Eğer kurye ile gönderiliyorsa)*
+              date:
+                type: string
+                description: Gönderi tarihi
+    EDocumentPdf:
       type: object
       properties:
         id:
@@ -505,19 +505,12 @@ components:
           maxLength: 255
           description: Type of the resource
           enum:
-          - trackable_jobs
+          - e_document_pdfs
         attributes:
-          $ref: '#/components/schemas/TrackableJobAttributes'
+          $ref: '#/components/schemas/EDocumentPdfAttributes'
         relationships: {}
       required:
       - attributes
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     EDocumentCommonFormAttributes:
       type: object
       properties:
@@ -563,16 +556,23 @@ components:
                 - 63
                 - 9077
           readOnly: false
-    EDocumentPdfAttributes:
+    TrackableJob:
       type: object
       properties:
-        url:
+        id:
           type: string
-          readOnly: true
-        expires_at:
+          maxLength: 255
+        type:
           type: string
-          format: date-time
-          readOnly: true
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - trackable_jobs
+        attributes:
+          $ref: '#/components/schemas/TrackableJobAttributes'
+        relationships: {}
+      required:
+      - attributes
   securitySchemes:
     parasut_auth:
       type: oauth2

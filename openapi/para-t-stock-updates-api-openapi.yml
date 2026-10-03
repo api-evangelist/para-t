@@ -227,26 +227,6 @@ components:
           description: Yeni stok miktarı
       required:
       - new_total_inventory
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-    StockUpdateAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Stok güncelleme tarihi
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Son güncelleme tarihi
     StockUpdate:
       type: object
       properties:
@@ -283,6 +263,26 @@ components:
                         - stock_update_details
       required:
       - attributes
+    StockUpdateAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Stok güncelleme tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

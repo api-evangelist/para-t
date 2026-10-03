@@ -942,6 +942,223 @@ paths:
         required: true
 components:
   schemas:
+    PaymentFormAttributes:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Ödeme/Tahsilat Açıklaması
+          readOnly: false
+        account_id:
+          type: integer
+          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
+          readOnly: false
+        date:
+          type: string
+          format: date
+          description: Ödeme/Tahsilat tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme/Tahsilat tutarı
+          readOnly: false
+        exchange_rate:
+          type: number
+          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
+          readOnly: false
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - contacts
+        attributes:
+          $ref: '#/components/schemas/ContactAttributes'
+        relationships:
+          type: object
+          properties:
+            category:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - item_categories
+            contact_portal:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - contact_portals
+            contact_people:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - contact_people
+      required:
+      - attributes
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    TransactionAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        description:
+          type: string
+          readOnly: false
+          description: Açıklama
+        transaction_type:
+          type: string
+          readOnly: false
+          description: İşlem türü
+        date:
+          type: string
+          format: date
+          readOnly: false
+          description: Tarih
+        amount_in_trl:
+          type: number
+          readOnly: false
+          description: TRL karşılığı meblağ
+        debit_amount:
+          type: number
+          readOnly: false
+          description: Borç meblağ
+        debit_currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+          description: Borç döviz cinsi
+        credit_amount:
+          type: number
+          readOnly: false
+          description: Alacak meblağ
+        credit_currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+          description: Alacak döviz cinsi
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - transactions
+        attributes:
+          $ref: '#/components/schemas/TransactionAttributes'
+        relationships:
+          type: object
+          properties:
+            debit_account:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - accounts
+            credit_account:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - accounts
+            payments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - payments
+      required:
+      - attributes
     ContactAttributes:
       type: object
       properties:
@@ -1058,60 +1275,6 @@ components:
       required:
       - name
       - account_type
-    TransactionAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        description:
-          type: string
-          readOnly: false
-          description: Açıklama
-        transaction_type:
-          type: string
-          readOnly: false
-          description: İşlem türü
-        date:
-          type: string
-          format: date
-          readOnly: false
-          description: Tarih
-        amount_in_trl:
-          type: number
-          readOnly: false
-          description: TRL karşılığı meblağ
-        debit_amount:
-          type: number
-          readOnly: false
-          description: Borç meblağ
-        debit_currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-          description: Borç döviz cinsi
-        credit_amount:
-          type: number
-          readOnly: false
-          description: Alacak meblağ
-        credit_currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-          description: Alacak döviz cinsi
     ListMeta:
       type: object
       properties:
@@ -1131,113 +1294,6 @@ components:
             type: array
             items:
               type: integer
-    ContactCollectionFormAttributes:
-      allOf:
-      - $ref: '#/components/schemas/PaymentFormAttributes'
-      - type: object
-        properties:
-          payable_ids:
-            description: Satış Faturası ID'leri - *Tahsilatınızın öncelikli olarak eşleşmesini istediğiniz faturalar*
-            type: array
-            items:
-              type: integer
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-    PaymentFormAttributes:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Ödeme/Tahsilat Açıklaması
-          readOnly: false
-        account_id:
-          type: integer
-          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
-          readOnly: false
-        date:
-          type: string
-          format: date
-          description: Ödeme/Tahsilat tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme/Tahsilat tutarı
-          readOnly: false
-        exchange_rate:
-          type: number
-          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
-          readOnly: false
-    Contact:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - contacts
-        attributes:
-          $ref: '#/components/schemas/ContactAttributes'
-        relationships:
-          type: object
-          properties:
-            category:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - item_categories
-            contact_portal:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - contact_portals
-            contact_people:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - contact_people
-      required:
-      - attributes
     ContactPersonAttributes:
       type: object
       properties:
@@ -1262,72 +1318,16 @@ components:
         notes:
           type: string
           readOnly: false
-    Transaction:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - transactions
-        attributes:
-          $ref: '#/components/schemas/TransactionAttributes'
-        relationships:
-          type: object
-          properties:
-            debit_account:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - accounts
-            credit_account:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - accounts
-            payments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - payments
-      required:
-      - attributes
+    ContactCollectionFormAttributes:
+      allOf:
+      - $ref: '#/components/schemas/PaymentFormAttributes'
+      - type: object
+        properties:
+          payable_ids:
+            description: Satış Faturası ID'leri - *Tahsilatınızın öncelikli olarak eşleşmesini istediğiniz faturalar*
+            type: array
+            items:
+              type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2

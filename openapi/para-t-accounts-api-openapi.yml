@@ -921,6 +921,13 @@ components:
       required:
       - date
       - amount
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     Account:
       type: object
       properties:
@@ -992,6 +999,72 @@ components:
           - GBP
           readOnly: false
           description: Alacak döviz cinsi
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - transactions
+        attributes:
+          $ref: '#/components/schemas/TransactionAttributes'
+        relationships:
+          type: object
+          properties:
+            debit_account:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - accounts
+            credit_account:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - accounts
+            payments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - payments
+      required:
+      - attributes
     ListMeta:
       type: object
       properties:
@@ -1075,79 +1148,6 @@ components:
           readOnly: false
       required:
       - name
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-    Transaction:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - transactions
-        attributes:
-          $ref: '#/components/schemas/TransactionAttributes'
-        relationships:
-          type: object
-          properties:
-            debit_account:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - accounts
-            credit_account:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - accounts
-            payments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - payments
-      required:
-      - attributes
   securitySchemes:
     parasut_auth:
       type: oauth2

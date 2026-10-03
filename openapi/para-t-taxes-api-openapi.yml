@@ -1014,145 +1014,6 @@ paths:
         required: true
 components:
   schemas:
-    TaxAttributes:
-      type: object
-      properties:
-        total_paid:
-          type: number
-          readOnly: true
-        archived:
-          type: boolean
-          readOnly: true
-        remaining:
-          type: number
-          readOnly: true
-        remaining_in_trl:
-          type: number
-          readOnly: true
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        description:
-          type: string
-          readOnly: false
-        issue_date:
-          type: string
-          format: date
-          readOnly: false
-        due_date:
-          type: string
-          format: date
-          readOnly: false
-        net_total:
-          type: number
-          readOnly: false
-      required:
-      - description
-      - issue_date
-      - due_date
-      - net_total
-    PaymentAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        date:
-          type: string
-          format: date
-          description: Ödeme tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme tutarı
-          readOnly: false
-        currency:
-          type: number
-          description: Para birimi
-          readOnly: false
-        notes:
-          type: string
-          readOnly: false
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
-    Payment:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - payments
-        attributes:
-          $ref: '#/components/schemas/PaymentAttributes'
-        relationships:
-          type: object
-          properties:
-            payable:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - sales_invoices
-                      - purchase_bills
-                      - taxes
-                      - bank_fees
-                      - salaries
-                      - checks
-            transaction:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - transactions
-      required:
-      - attributes
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     PaymentFormAttributes:
       type: object
       properties:
@@ -1228,6 +1089,145 @@ components:
                         - tags
       required:
       - attributes
+    PaymentAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        date:
+          type: string
+          format: date
+          description: Ödeme tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme tutarı
+          readOnly: false
+        currency:
+          type: number
+          description: Para birimi
+          readOnly: false
+        notes:
+          type: string
+          readOnly: false
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - payments
+        attributes:
+          $ref: '#/components/schemas/PaymentAttributes'
+        relationships:
+          type: object
+          properties:
+            payable:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_invoices
+                      - purchase_bills
+                      - taxes
+                      - bank_fees
+                      - salaries
+                      - checks
+            transaction:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - transactions
+      required:
+      - attributes
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
+    TaxAttributes:
+      type: object
+      properties:
+        total_paid:
+          type: number
+          readOnly: true
+        archived:
+          type: boolean
+          readOnly: true
+        remaining:
+          type: number
+          readOnly: true
+        remaining_in_trl:
+          type: number
+          readOnly: true
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        description:
+          type: string
+          readOnly: false
+        issue_date:
+          type: string
+          format: date
+          readOnly: false
+        due_date:
+          type: string
+          format: date
+          readOnly: false
+        net_total:
+          type: number
+          readOnly: false
+      required:
+      - description
+      - issue_date
+      - due_date
+      - net_total
   securitySchemes:
     parasut_auth:
       type: oauth2

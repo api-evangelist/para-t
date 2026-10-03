@@ -838,56 +838,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    EmployeeAttributes:
-      type: object
-      properties:
-        balance:
-          type: number
-          readOnly: true
-          description: Bakiye
-        trl_balance:
-          type: number
-          readOnly: true
-        usd_balance:
-          type: number
-          readOnly: true
-        eur_balance:
-          type: number
-          readOnly: true
-        gbp_balance:
-          type: number
-          readOnly: true
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        name:
-          type: string
-          readOnly: false
-          description: Çalışan adı soyadı
-        email:
-          type: string
-          format: email
-          readOnly: false
-        archived:
-          type: boolean
-          readOnly: false
-        iban:
-          type: string
-          readOnly: false
-      required:
-      - name
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     Employee:
       type: object
       properties:
@@ -952,6 +902,49 @@ components:
                       - user_roles
       required:
       - attributes
+    EmployeeAttributes:
+      type: object
+      properties:
+        balance:
+          type: number
+          readOnly: true
+          description: Bakiye
+        trl_balance:
+          type: number
+          readOnly: true
+        usd_balance:
+          type: number
+          readOnly: true
+        eur_balance:
+          type: number
+          readOnly: true
+        gbp_balance:
+          type: number
+          readOnly: true
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        name:
+          type: string
+          readOnly: false
+          description: Çalışan adı soyadı
+        email:
+          type: string
+          format: email
+          readOnly: false
+        archived:
+          type: boolean
+          readOnly: false
+        iban:
+          type: string
+          readOnly: false
+      required:
+      - name
     ListMeta:
       type: object
       properties:
@@ -961,6 +954,13 @@ components:
           type: integer
         total_count:
           type: integer
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

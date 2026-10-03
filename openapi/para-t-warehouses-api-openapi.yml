@@ -649,22 +649,6 @@ components:
           description: Arşivlenme durumu
       required:
       - name
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     Warehouse:
       type: object
       properties:
@@ -699,6 +683,22 @@ components:
                       - inventory_levels
       required:
       - attributes
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

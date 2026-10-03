@@ -125,6 +125,13 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     EInvoiceInboxAttributes:
       type: object
       properties:
@@ -156,13 +163,15 @@ components:
           type: string
           format: date
           readOnly: true
-    Error:
+    ListMeta:
       type: object
       properties:
-        title:
-          type: string
-        detail:
-          type: string
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
     EInvoiceInbox:
       type: object
       properties:
@@ -180,15 +189,6 @@ components:
         relationships: {}
       required:
       - attributes
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2

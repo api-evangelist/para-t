@@ -737,109 +737,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
-    StockMovementAttributes:
-      type: object
-      properties:
-        detail_no:
-          type: number
-          readOnly: true
-          description: Detay sıra no
-        date:
-          type: string
-          format: date
-          readOnly: true
-          description: Hareket tarihi
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Kayıt tarihi
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Son güncelleme tarihi
-        quantity:
-          type: number
-          readOnly: false
-          description: Miktar
-      required:
-      - quantity
-    ShipmentDocumentAttributes:
-      type: object
-      properties:
-        archived:
-          type: boolean
-          readOnly: true
-          description: Arşivlenme durumu
-        invoice_no:
-          type: string
-          readOnly: true
-          description: Yazdırmaya özel fatura numarası
-        print_note:
-          type: string
-          readOnly: true
-          description: Yazdırmaya özel not
-        printed_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Yazdırılma tarihi
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Kayıt tarihi
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Son güncelleme tarihi
-        inflow:
-          type: boolean
-          readOnly: false
-          description: İrsaliye tipi
-        description:
-          type: string
-          readOnly: false
-          description: İrsaliye açıklaması
-        city:
-          type: string
-          readOnly: false
-          description: İl
-        district:
-          type: string
-          readOnly: false
-          description: İlçe
-        address:
-          type: string
-          readOnly: false
-          description: Adres
-        issue_date:
-          type: string
-          format: date
-          readOnly: false
-          description: Düzenleme tarihi
-        shipment_date:
-          type: string
-          format: date-time
-          readOnly: false
-          description: Fiili sevk tarihi
-        procurement_number:
-          type: string
-          readOnly: false
-          description: İrsaliye Numarası
-      required:
-      - issue_date
     Error:
       type: object
       properties:
@@ -933,6 +830,109 @@ components:
                         - purchase_bills
       required:
       - attributes
+    ShipmentDocumentAttributes:
+      type: object
+      properties:
+        archived:
+          type: boolean
+          readOnly: true
+          description: Arşivlenme durumu
+        invoice_no:
+          type: string
+          readOnly: true
+          description: Yazdırmaya özel fatura numarası
+        print_note:
+          type: string
+          readOnly: true
+          description: Yazdırmaya özel not
+        printed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Yazdırılma tarihi
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        inflow:
+          type: boolean
+          readOnly: false
+          description: İrsaliye tipi
+        description:
+          type: string
+          readOnly: false
+          description: İrsaliye açıklaması
+        city:
+          type: string
+          readOnly: false
+          description: İl
+        district:
+          type: string
+          readOnly: false
+          description: İlçe
+        address:
+          type: string
+          readOnly: false
+          description: Adres
+        issue_date:
+          type: string
+          format: date
+          readOnly: false
+          description: Düzenleme tarihi
+        shipment_date:
+          type: string
+          format: date-time
+          readOnly: false
+          description: Fiili sevk tarihi
+        procurement_number:
+          type: string
+          readOnly: false
+          description: İrsaliye Numarası
+      required:
+      - issue_date
+    StockMovementAttributes:
+      type: object
+      properties:
+        detail_no:
+          type: number
+          readOnly: true
+          description: Detay sıra no
+        date:
+          type: string
+          format: date
+          readOnly: true
+          description: Hareket tarihi
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        quantity:
+          type: number
+          readOnly: false
+          description: Miktar
+      required:
+      - quantity
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2
