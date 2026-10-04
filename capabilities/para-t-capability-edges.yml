@@ -1,0 +1,133 @@
+slug: para-t
+provider: Paraşüt
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 12
+edges:
+- tag: PurchaseBills
+  spec_file: para-t-purchasebills-api-openapi.yml
+  capability_id: BC-200.20
+  capability_id_l1: BC-200
+  capability_name: Accounts Payable Management
+  confidence: 0.9
+  evidence: POST /{company_id}/purchase_bills#detailed createPurchaseBillDetailed; POST /{company_id}/purchase_bills/{id}/payments
+    payPurchaseBill Pay
+  reason: Supplier bill capture, editing, cancellation and payment recording — the core of Accounts Payable
+    Management.
+- tag: Sales Invoices
+  spec_file: para-t-sales-invoices-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.9
+  evidence: POST /{company_id}/sales_invoices createSalesInvoice; POST /{company_id}/sales_invoices/{id}/payments
+    paySalesInvoice Pay
+  reason: Customer invoice issuance, cancellation and payment collection recording — Accounts Receivable
+    Management.
+- tag: EInvoices
+  spec_file: para-t-einvoices-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.75
+  evidence: POST /{company_id}/e_invoices createEInvoice Create; GET /{company_id}/e_invoices/{id}/pdf
+    showEInvoicePdf
+  reason: Issues Turkey's official e-Fatura electronic invoices to customers and renders them as PDF —
+    customer invoicing within Accounts Receivable.
+- tag: Stock Updates
+  spec_file: para-t-stock-updates-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.75
+  evidence: 'POST /{company_id}/stock_updates createStockUpdate; schemas: StockUpdateDetailAttributes,
+    StockUpdateAttributes'
+  reason: Creating stock updates with per-item detail attributes is inventory record adjustment in a pre-accounting
+    system, clearly Inventory Management; whether it is accuracy/count correction or level setting is
+    not evidenced, so no L2.
+- tag: StockMovements
+  spec_file: para-t-stockmovements-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.75
+  evidence: GET /{company_id}/stock_movements listStockMovements; schema StockMovement
+  reason: Listing stock movements is inventory ledger visibility over goods in/out, within Inventory Management.
+    Single read operation gives no basis for choosing a narrower sub-capability.
+- tag: Employees
+  spec_file: para-t-employees-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.72
+  evidence: GET /{company_id}/employees listEmployees; POST createEmployee; schema EmployeeAttributes
+  reason: CRUD plus archive/unarchive over employee master records in the pre-accounting system — employee
+    record keeping, i.e. HR Operations.
+- tag: Accounts
+  spec_file: para-t-accounts-api-openapi.yml
+  capability_id: BC-210.10
+  capability_id_l1: BC-210
+  capability_name: Cash Management
+  confidence: 0.7
+  evidence: POST /{company_id}/accounts/{id}/debit_transactions  createDebitTransaction; GET /{company_id}/accounts/{id}/transactions  listAccountTransactions
+  reason: Vendor describes 'bank and cash accounts and transactions'; these operations manage bank/cash
+    accounts and post debit/credit movements — cash management. Some chance it is better read as general
+    ledger, hence moderate confidence.
+- tag: EArchives
+  spec_file: para-t-earchives-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.7
+  evidence: POST /{company_id}/e_archives createEArchive Create; schemas EArchiveAttributes, EDocumentPdf
+  reason: e-Arşiv is Turkey's official electronic invoice document issued to end customers; creating and
+    rendering these documents is customer invoicing under Accounts Receivable Management, not a technical
+    artefact.
+- tag: Inventory Levels
+  spec_file: para-t-inventory-levels-api-openapi.yml
+  capability_id: BC-530.10
+  capability_id_l1: BC-530
+  capability_name: Stock Level Management
+  confidence: 0.7
+  evidence: GET /{company_id}/product/{product_id}/inventory_levels listInventoryLevels; schema InventoryLevelAttributes
+  reason: Exposes stock quantities per product (per warehouse) — inventory stock level visibility, matching
+    the vendor's stated 'inventory and warehouses' scope.
+- tag: Salaries
+  spec_file: para-t-salaries-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.7
+  evidence: POST /{company_id}/salaries createSalary; POST /{company_id}/salaries/{id}/payments paySalary
+    Pay
+  reason: Records employee salary entries and their payment — payroll administration within HR Operations
+    (vendor explicitly lists 'employees, salaries and taxes').
+- tag: Sales Offers
+  spec_file: para-t-sales-offers-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.7
+  evidence: POST /{company_id}/sales_offers createSalesOffers; PATCH .../update_status updateSalesOffersStatus;
+    schema SalesOffersPdf
+  reason: Creation, status tracking, PDF rendering and e-mailing of customer quotations/estimates (which
+    elsewhere convert to invoices) — quote management in the sales cycle.
+- tag: Taxes
+  spec_file: para-t-taxes-api-openapi.yml
+  capability_id: BC-220
+  capability_id_l1: BC-220
+  capability_name: Tax Management
+  confidence: 0.7
+  evidence: POST /{company_id}/taxes/{id}/payments payTax Pay; schemas Tax, TaxAttributes, PaymentAttributes
+  reason: The surface records tax obligations and settles them via payments, which is tax management in
+    the pre-accounting product. Whether these represent direct or indirect tax (or merely tax payment
+    compliance) is not stated, so only the L1 is asserted.

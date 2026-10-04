@@ -371,6 +371,9 @@ apis:
   - type: APIReference
     url: https://apidocs.parasut.com/
 common:
+- type: CapabilityMap
+  url: capabilities/para-t-capability-edges.yml
+  name: Paraşüt Business Capability Map
 - type: DeveloperPortal
   url: https://apidocs.parasut.com/
 - type: Documentation
