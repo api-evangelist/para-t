@@ -266,6 +266,13 @@ components:
                         - payments
       required:
       - attributes
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     TransactionAttributes:
       type: object
       properties:
@@ -320,13 +327,6 @@ components:
           - GBP
           readOnly: false
           description: Alacak döviz cinsi
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

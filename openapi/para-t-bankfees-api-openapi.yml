@@ -874,57 +874,6 @@ paths:
         required: true
 components:
   schemas:
-    PaymentFormAttributes:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Ödeme/Tahsilat Açıklaması
-          readOnly: false
-        account_id:
-          type: integer
-          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
-          readOnly: false
-        date:
-          type: string
-          format: date
-          description: Ödeme/Tahsilat tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme/Tahsilat tutarı
-          readOnly: false
-        exchange_rate:
-          type: number
-          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
-          readOnly: false
-    PaymentAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        date:
-          type: string
-          format: date
-          description: Ödeme tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme tutarı
-          readOnly: false
-        currency:
-          type: number
-          description: Para birimi
-          readOnly: false
-        notes:
-          type: string
-          readOnly: false
     Payment:
       type: object
       properties:
@@ -979,64 +928,33 @@ components:
                       - transactions
       required:
       - attributes
-    Error:
+    PaymentAttributes:
       type: object
       properties:
-        title:
+        created_at:
           type: string
-        detail:
+          format: date
+          readOnly: true
+        updated_at:
           type: string
-    BankFee:
-      type: object
-      properties:
-        id:
+          format: date
+          readOnly: true
+        date:
           type: string
-          maxLength: 255
-        type:
+          format: date
+          description: Ödeme tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme tutarı
+          readOnly: false
+        currency:
+          type: number
+          description: Para birimi
+          readOnly: false
+        notes:
           type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - bank_fees
-        attributes:
-          $ref: '#/components/schemas/BankFeeAttributes'
-        relationships:
-          type: object
-          properties:
-            category:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - item_categories
-            tags:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - tags
-      required:
-      - attributes
+          readOnly: false
     BankFeeAttributes:
       type: object
       properties:
@@ -1091,6 +1009,88 @@ components:
       - issue_date
       - due_date
       - net_total
+    BankFee:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - bank_fees
+        attributes:
+          $ref: '#/components/schemas/BankFeeAttributes'
+        relationships:
+          type: object
+          properties:
+            category:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - item_categories
+            tags:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - tags
+      required:
+      - attributes
+    PaymentFormAttributes:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Ödeme/Tahsilat Açıklaması
+          readOnly: false
+        account_id:
+          type: integer
+          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
+          readOnly: false
+        date:
+          type: string
+          format: date
+          description: Ödeme/Tahsilat tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme/Tahsilat tutarı
+          readOnly: false
+        exchange_rate:
+          type: number
+          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
+          readOnly: false
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

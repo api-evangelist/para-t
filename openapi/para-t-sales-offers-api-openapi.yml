@@ -1586,129 +1586,19 @@ paths:
         required: true
 components:
   schemas:
-    SalesOffers:
+    SalesOffersUpdateStatusAttributes:
       type: object
       properties:
-        id:
+        status:
           type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
+          description: Teklif durumu
           enum:
-          - sales_offers
-        attributes:
-          $ref: '#/components/schemas/SalesOfferAttributes'
-        relationships:
-          type: object
-          properties:
-            sales_invoice:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - sales_invoices
-            contact:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - contacts
-            details:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - sales_offer_details
-            activities:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - activities
-            sharings:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - sharings
+          - accepted
+          - rejected
+          - waiting
+          readOnly: false
       required:
-      - attributes
-    SalesOffersUpdateStatusBody:
-      type: object
-      description: ''
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-              maxLength: 255
-            type:
-              type: string
-              maxLength: 255
-              description: Type of the resource
-              enum:
-              - sales_offers
-            attributes:
-              $ref: '#/components/schemas/SalesOffersUpdateStatusAttributes'
-        include:
-          type: string
-          description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: activities*'
-      required:
-      - data
+      - status
     ProductAttributes:
       type: object
       properties:
@@ -1811,6 +1701,15 @@ components:
           readOnly: false
       required:
       - name
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
     SalesOfferAttributes:
       type: object
       properties:
@@ -1957,13 +1856,145 @@ components:
       required:
       - item_type
       - issue_date
-    Error:
+    SalesOffersUpdateStatusBody:
+      type: object
+      description: ''
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              maxLength: 255
+            type:
+              type: string
+              maxLength: 255
+              description: Type of the resource
+              enum:
+              - sales_offers
+            attributes:
+              $ref: '#/components/schemas/SalesOffersUpdateStatusAttributes'
+        include:
+          type: string
+          description: 'Response ile birlikte geri dönmesini istediğiniz ilişkiler - *Available: activities*'
+      required:
+      - data
+    ContactAttributes:
       type: object
       properties:
-        title:
+        balance:
+          type: number
+          readOnly: true
+          description: Bakiye
+        trl_balance:
+          type: number
+          readOnly: true
+          description: TL Bakiye
+        usd_balance:
+          type: number
+          readOnly: true
+          description: USD Bakiye
+        eur_balance:
+          type: number
+          readOnly: true
+          description: EUR Bakiye
+        gbp_balance:
+          type: number
+          readOnly: true
+          description: GBP Bakiye
+        created_at:
           type: string
-        detail:
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
           type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        email:
+          type: string
+          format: email
+          readOnly: false
+          description: E-posta
+        name:
+          type: string
+          readOnly: false
+          description: Müşteri/tedarikçi ismi
+        short_name:
+          type: string
+          readOnly: false
+        contact_type:
+          type: string
+          enum:
+          - person
+          - company
+          readOnly: false
+          description: Tip
+        tax_office:
+          type: string
+          readOnly: false
+          description: Vergi dairesi
+        tax_number:
+          type: string
+          readOnly: false
+          description: Vergi numarası/TC kimlik no
+        district:
+          type: string
+          readOnly: false
+          description: İlçe
+        postal_code:
+          type: string
+          readOnly: false
+          description: Posta kodu
+        city:
+          type: string
+          readOnly: false
+          description: İl
+        country:
+          type: string
+          readOnly: false
+        address:
+          type: string
+          readOnly: false
+        phone:
+          type: string
+          readOnly: false
+        fax:
+          type: string
+          readOnly: false
+        is_abroad:
+          type: boolean
+          readOnly: false
+          description: Müşteri/tedarikçi yurt dışı bilgisi
+        archived:
+          type: boolean
+          readOnly: false
+        iban:
+          type: string
+          readOnly: false
+        account_type:
+          type: string
+          enum:
+          - customer
+          - supplier
+          readOnly: false
+        untrackable:
+          type: boolean
+          readOnly: false
+          description: Listelenmemiş müşteri sonradan listelenebilir hale getirilemez
+        invoicing_preferences:
+          type: object
+          properties:
+            e_document_accounts:
+              description: Bu alana hesap ID'leri eklenebilir.
+              type: array
+              items:
+                type: integer
+          readOnly: false
+      required:
+      - name
+      - account_type
     SalesOffersCreateUpdateAttributes:
       type: object
       properties:
@@ -2101,6 +2132,123 @@ components:
       required:
       - item_type
       - issue_date
+    SalesOffersPdf:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - sales_offers_pdfs
+        attributes:
+          $ref: '#/components/schemas/SalesOffersPdfAttributes'
+        relationships: {}
+      required:
+      - attributes
+    SalesOffers:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - sales_offers
+        attributes:
+          $ref: '#/components/schemas/SalesOfferAttributes'
+        relationships:
+          type: object
+          properties:
+            sales_invoice:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_invoices
+            contact:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - contacts
+            details:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - sales_offer_details
+            activities:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - activities
+            sharings:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - sharings
+      required:
+      - attributes
     SalesOffersDetails:
       type: object
       properties:
@@ -2135,139 +2283,30 @@ components:
                       - products
       required:
       - attributes
-    SalesOffersPdf:
+    SalesOffersPdfAttributes:
       type: object
       properties:
-        id:
+        url:
           type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - sales_offers_pdfs
-        attributes:
-          $ref: '#/components/schemas/SalesOffersPdfAttributes'
-        relationships: {}
-      required:
-      - attributes
-    ContactAttributes:
-      type: object
-      properties:
-        balance:
-          type: number
           readOnly: true
-          description: Bakiye
-        trl_balance:
-          type: number
-          readOnly: true
-          description: TL Bakiye
-        usd_balance:
-          type: number
-          readOnly: true
-          description: USD Bakiye
-        eur_balance:
-          type: number
-          readOnly: true
-          description: EUR Bakiye
-        gbp_balance:
-          type: number
-          readOnly: true
-          description: GBP Bakiye
         created_at:
           type: string
-          format: date
+          format: date-time
           readOnly: true
-          description: Kayıt tarihi
-        updated_at:
+        status:
           type: string
-          format: date
           readOnly: true
-          description: Son güncelleme tarihi
-        email:
+        errors:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        result:
           type: string
-          format: email
-          readOnly: false
-          description: E-posta
-        name:
+          readOnly: true
+        statistics:
           type: string
-          readOnly: false
-          description: Müşteri/tedarikçi ismi
-        short_name:
-          type: string
-          readOnly: false
-        contact_type:
-          type: string
-          enum:
-          - person
-          - company
-          readOnly: false
-          description: Tip
-        tax_office:
-          type: string
-          readOnly: false
-          description: Vergi dairesi
-        tax_number:
-          type: string
-          readOnly: false
-          description: Vergi numarası/TC kimlik no
-        district:
-          type: string
-          readOnly: false
-          description: İlçe
-        postal_code:
-          type: string
-          readOnly: false
-          description: Posta kodu
-        city:
-          type: string
-          readOnly: false
-          description: İl
-        country:
-          type: string
-          readOnly: false
-        address:
-          type: string
-          readOnly: false
-        phone:
-          type: string
-          readOnly: false
-        fax:
-          type: string
-          readOnly: false
-        is_abroad:
-          type: boolean
-          readOnly: false
-          description: Müşteri/tedarikçi yurt dışı bilgisi
-        archived:
-          type: boolean
-          readOnly: false
-        iban:
-          type: string
-          readOnly: false
-        account_type:
-          type: string
-          enum:
-          - customer
-          - supplier
-          readOnly: false
-        untrackable:
-          type: boolean
-          readOnly: false
-          description: Listelenmemiş müşteri sonradan listelenebilir hale getirilemez
-        invoicing_preferences:
-          type: object
-          properties:
-            e_document_accounts:
-              description: Bu alana hesap ID'leri eklenebilir.
-              type: array
-              items:
-                type: integer
-          readOnly: false
-      required:
-      - name
-      - account_type
+          readOnly: true
     SalesOffersDetailAttributes:
       type: object
       properties:
@@ -2345,52 +2384,13 @@ components:
         excise_duty_value:
           type: number
           readOnly: false
-    ListMeta:
+    Error:
       type: object
       properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
-    SalesOffersPdfAttributes:
-      type: object
-      properties:
-        url:
+        title:
           type: string
-          readOnly: true
-        created_at:
+        detail:
           type: string
-          format: date-time
-          readOnly: true
-        status:
-          type: string
-          readOnly: true
-        errors:
-          type: array
-          items:
-            type: string
-          readOnly: true
-        result:
-          type: string
-          readOnly: true
-        statistics:
-          type: string
-          readOnly: true
-    SalesOffersUpdateStatusAttributes:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Teklif durumu
-          enum:
-          - accepted
-          - rejected
-          - waiting
-          readOnly: false
-      required:
-      - status
   securitySchemes:
     parasut_auth:
       type: oauth2

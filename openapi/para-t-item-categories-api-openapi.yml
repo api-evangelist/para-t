@@ -632,6 +632,13 @@ components:
           type: integer
         total_count:
           type: integer
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     ItemCategoryAttributes:
       type: object
       properties:
@@ -674,13 +681,6 @@ components:
       required:
       - name
       - category_type
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

@@ -612,43 +612,6 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    WarehouseAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        name:
-          type: string
-          readOnly: false
-          description: Depo İsmi
-        address:
-          type: string
-          readOnly: false
-          description: Adres
-        city:
-          type: string
-          readOnly: false
-          description: İl
-        district:
-          type: string
-          readOnly: false
-          description: İlçe
-        is_abroad:
-          type: boolean
-          readOnly: false
-          description: Yurt dışında
-        archived:
-          type: boolean
-          readOnly: false
-          description: Arşivlenme durumu
-      required:
-      - name
     Warehouse:
       type: object
       properties:
@@ -692,6 +655,43 @@ components:
           type: integer
         total_count:
           type: integer
+    WarehouseAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        name:
+          type: string
+          readOnly: false
+          description: Depo İsmi
+        address:
+          type: string
+          readOnly: false
+          description: Adres
+        city:
+          type: string
+          readOnly: false
+          description: İl
+        district:
+          type: string
+          readOnly: false
+          description: İlçe
+        is_abroad:
+          type: boolean
+          readOnly: false
+          description: Yurt dışında
+        archived:
+          type: boolean
+          readOnly: false
+          description: Arşivlenme durumu
+      required:
+      - name
     Error:
       type: object
       properties:
