@@ -1746,15 +1746,6 @@ paths:
         required: true
 components:
   schemas:
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
     Payment:
       type: object
       properties:
@@ -1807,196 +1798,6 @@ components:
                       description: Type of the resource
                       enum:
                       - transactions
-      required:
-      - attributes
-    PaymentAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        date:
-          type: string
-          format: date
-          description: Ödeme tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme tutarı
-          readOnly: false
-        currency:
-          type: number
-          description: Para birimi
-          readOnly: false
-        notes:
-          type: string
-          readOnly: false
-    SalesInvoice:
-      type: object
-      properties:
-        id:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          maxLength: 255
-          description: Type of the resource
-          enum:
-          - sales_invoices
-        attributes:
-          $ref: '#/components/schemas/SalesInvoiceAttributes'
-        relationships:
-          type: object
-          properties:
-            category:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - item_categories
-            contact:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - contacts
-            details:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - sales_invoice_details
-            payments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - payments
-            tags:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - tags
-            sales_offer:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - sales_offers
-            sharings:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        maxLength: 255
-                      type:
-                        type: string
-                        maxLength: 255
-                        description: Type of the resource
-                        enum:
-                        - sharings
-            recurrence_plan:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - recurrence_plans
-            active_e_document:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      maxLength: 255
-                    type:
-                      type: string
-                      maxLength: 255
-                      description: Type of the resource
-                      enum:
-                      - e_archives
-                      - e_invoices
       required:
       - attributes
     SalesInvoiceAttributes:
@@ -2213,50 +2014,6 @@ components:
       required:
       - item_type
       - issue_date
-    PaymentFormAttributes:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Ödeme/Tahsilat Açıklaması
-          readOnly: false
-        account_id:
-          type: integer
-          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
-          readOnly: false
-        date:
-          type: string
-          format: date
-          description: Ödeme/Tahsilat tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme/Tahsilat tutarı
-          readOnly: false
-        exchange_rate:
-          type: number
-          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
-          readOnly: false
-    SalesInvoiceCreateUpdateAttributes:
-      allOf:
-      - $ref: '#/components/schemas/SalesInvoiceAttributes'
-      - type: object
-        properties:
-          payment_account_id:
-            type: number
-            description: Peşin faturalar için ödeme oluşturma / güncellemede kullanılır.
-          payment_date:
-            type: string
-            description: Peşin faturalar için ödeme oluşturma / güncellemede kullanılır.
-          payment_description:
-            type: string
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     SalesInvoiceDetailAttributes:
       type: object
       properties:
@@ -2359,6 +2116,249 @@ components:
       - quantity
       - unit_price
       - vat_rate
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    PaymentAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        date:
+          type: string
+          format: date
+          description: Ödeme tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme tutarı
+          readOnly: false
+        currency:
+          type: number
+          description: Para birimi
+          readOnly: false
+        notes:
+          type: string
+          readOnly: false
+    SalesInvoiceCreateUpdateAttributes:
+      allOf:
+      - $ref: '#/components/schemas/SalesInvoiceAttributes'
+      - type: object
+        properties:
+          payment_account_id:
+            type: number
+            description: Peşin faturalar için ödeme oluşturma / güncellemede kullanılır.
+          payment_date:
+            type: string
+            description: Peşin faturalar için ödeme oluşturma / güncellemede kullanılır.
+          payment_description:
+            type: string
+    PaymentFormAttributes:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Ödeme/Tahsilat Açıklaması
+          readOnly: false
+        account_id:
+          type: integer
+          description: Kasa veya Banka - *Bu parametre ayrıca ödemenin/tahsilatın hangi döviz kuru ile yapılacağını belirler.*
+          readOnly: false
+        date:
+          type: string
+          format: date
+          description: Ödeme/Tahsilat tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme/Tahsilat tutarı
+          readOnly: false
+        exchange_rate:
+          type: number
+          description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
+          readOnly: false
+    SalesInvoice:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          maxLength: 255
+          description: Type of the resource
+          enum:
+          - sales_invoices
+        attributes:
+          $ref: '#/components/schemas/SalesInvoiceAttributes'
+        relationships:
+          type: object
+          properties:
+            category:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - item_categories
+            contact:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - contacts
+            details:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - sales_invoice_details
+            payments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - payments
+            tags:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - tags
+            sales_offer:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - sales_offers
+            sharings:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 255
+                      type:
+                        type: string
+                        maxLength: 255
+                        description: Type of the resource
+                        enum:
+                        - sharings
+            recurrence_plan:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - recurrence_plans
+            active_e_document:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      maxLength: 255
+                    type:
+                      type: string
+                      maxLength: 255
+                      description: Type of the resource
+                      enum:
+                      - e_archives
+                      - e_invoices
+      required:
+      - attributes
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2

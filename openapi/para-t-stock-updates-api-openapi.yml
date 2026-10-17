@@ -203,6 +203,37 @@ paths:
         required: true
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    StockUpdateDetailAttributes:
+      type: object
+      properties:
+        old_total_inventory:
+          type: number
+          required: true
+          readOnly: true
+          description: Eski stok miktarı
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Kayıt tarihi
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+          description: Son güncelleme tarihi
+        new_total_inventory:
+          type: number
+          readOnly: false
+          description: Yeni stok miktarı
+      required:
+      - new_total_inventory
     StockUpdate:
       type: object
       properties:
@@ -239,30 +270,6 @@ components:
                         - stock_update_details
       required:
       - attributes
-    StockUpdateDetailAttributes:
-      type: object
-      properties:
-        old_total_inventory:
-          type: number
-          required: true
-          readOnly: true
-          description: Eski stok miktarı
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Kayıt tarihi
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-          description: Son güncelleme tarihi
-        new_total_inventory:
-          type: number
-          readOnly: false
-          description: Yeni stok miktarı
-      required:
-      - new_total_inventory
     StockUpdateAttributes:
       type: object
       properties:
@@ -276,13 +283,6 @@ components:
           format: date
           readOnly: true
           description: Son güncelleme tarihi
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

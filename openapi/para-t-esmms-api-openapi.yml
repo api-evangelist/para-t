@@ -337,35 +337,15 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ESmmAttributes:
+    EDocumentPdfAttributes:
       type: object
       properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        printed_at:
-          type: string
-          format: date
-          readOnly: true
-        uuid:
+        url:
           type: string
           readOnly: true
-        vkn:
+        expires_at:
           type: string
-          readOnly: true
-        invoice_number:
-          type: number
-          readOnly: true
-        is_printed:
-          type: boolean
-          readOnly: true
-        pdf_url:
-          type: string
+          format: date-time
           readOnly: true
     ESmm:
       type: object
@@ -401,27 +381,13 @@ components:
                       - sales_invoices
       required:
       - attributes
-    ESmmCommonFormAttributes:
+    Error:
       type: object
       properties:
-        vat_withholding_code:
+        title:
           type: string
-          description: 'Tevkifat oranına ait vergi kodu. - *Bu dosyada ilgili kodları bulabilirsiniz: https://ebelge.gib.gov.tr/dosyalar/kilavuzlar/UBLTR_1.2.1_Kilavuzlar.zip*'
-          readOnly: false
-        note:
+        detail:
           type: string
-          description: Fatura notu
-          readOnly: false
-    EDocumentPdfAttributes:
-      type: object
-      properties:
-        url:
-          type: string
-          readOnly: true
-        expires_at:
-          type: string
-          format: date-time
-          readOnly: true
     EDocumentPdf:
       type: object
       properties:
@@ -439,13 +405,47 @@ components:
         relationships: {}
       required:
       - attributes
-    Error:
+    ESmmAttributes:
       type: object
       properties:
-        title:
+        created_at:
           type: string
-        detail:
+          format: date
+          readOnly: true
+        updated_at:
           type: string
+          format: date
+          readOnly: true
+        printed_at:
+          type: string
+          format: date
+          readOnly: true
+        uuid:
+          type: string
+          readOnly: true
+        vkn:
+          type: string
+          readOnly: true
+        invoice_number:
+          type: number
+          readOnly: true
+        is_printed:
+          type: boolean
+          readOnly: true
+        pdf_url:
+          type: string
+          readOnly: true
+    ESmmCommonFormAttributes:
+      type: object
+      properties:
+        vat_withholding_code:
+          type: string
+          description: 'Tevkifat oranına ait vergi kodu. - *Bu dosyada ilgili kodları bulabilirsiniz: https://ebelge.gib.gov.tr/dosyalar/kilavuzlar/UBLTR_1.2.1_Kilavuzlar.zip*'
+          readOnly: false
+        note:
+          type: string
+          description: Fatura notu
+          readOnly: false
   securitySchemes:
     parasut_auth:
       type: oauth2

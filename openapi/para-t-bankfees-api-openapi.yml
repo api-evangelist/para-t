@@ -928,33 +928,6 @@ components:
                       - transactions
       required:
       - attributes
-    PaymentAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        date:
-          type: string
-          format: date
-          description: Ödeme tarihi
-          readOnly: false
-        amount:
-          type: number
-          description: Ödeme tutarı
-          readOnly: false
-        currency:
-          type: number
-          description: Para birimi
-          readOnly: false
-        notes:
-          type: string
-          readOnly: false
     BankFeeAttributes:
       type: object
       properties:
@@ -1009,6 +982,40 @@ components:
       - issue_date
       - due_date
       - net_total
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+    PaymentAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        date:
+          type: string
+          format: date
+          description: Ödeme tarihi
+          readOnly: false
+        amount:
+          type: number
+          description: Ödeme tutarı
+          readOnly: false
+        currency:
+          type: number
+          description: Para birimi
+          readOnly: false
+        notes:
+          type: string
+          readOnly: false
     BankFee:
       type: object
       properties:
@@ -1084,13 +1091,6 @@ components:
           type: number
           description: Döviz kuru - *Eğer ödeme/tahsilat, faturadan farklı bir döviz kuru ile yapılacaksa; döviz kurunun TL karşılığını belirtin. Eğer ödeme/tahsilat, fatura ile aynı döviz kuru ile yapılacaksa; "1.0" değerini girin veya boş bırakın.*
           readOnly: false
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
   securitySchemes:
     parasut_auth:
       type: oauth2

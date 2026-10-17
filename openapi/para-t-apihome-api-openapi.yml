@@ -120,19 +120,13 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
-    MeAttributes:
+    Error:
       type: object
       properties:
-        name:
+        title:
           type: string
-          readOnly: true
-        email:
+        detail:
           type: string
-          format: email
-          readOnly: true
-        is_confirmed:
-          type: boolean
-          readOnly: true
     Me:
       type: object
       properties:
@@ -201,13 +195,19 @@ components:
                       - profiles
       required:
       - attributes
-    Error:
+    MeAttributes:
       type: object
       properties:
-        title:
+        name:
           type: string
-        detail:
+          readOnly: true
+        email:
           type: string
+          format: email
+          readOnly: true
+        is_confirmed:
+          type: boolean
+          readOnly: true
   securitySchemes:
     parasut_auth:
       type: oauth2

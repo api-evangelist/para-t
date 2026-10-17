@@ -176,6 +176,13 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     ListMeta:
       type: object
       properties:
@@ -185,6 +192,28 @@ components:
           type: integer
         total_count:
           type: integer
+    InventoryLevelAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        stock_count:
+          type: number
+          readOnly: true
+          description: Stok Miktarı
+        initial_stock_count:
+          type: number
+          readOnly: false
+          description: Başlangıç Stok Miktarı
+        critical_stock_count:
+          type: number
+          readOnly: false
     InventoryLevel:
       type: object
       properties:
@@ -234,35 +263,6 @@ components:
                       - warehouses
       required:
       - attributes
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-    InventoryLevelAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        stock_count:
-          type: number
-          readOnly: true
-          description: Stok Miktarı
-        initial_stock_count:
-          type: number
-          readOnly: false
-          description: Başlangıç Stok Miktarı
-        critical_stock_count:
-          type: number
-          readOnly: false
   securitySchemes:
     parasut_auth:
       type: oauth2

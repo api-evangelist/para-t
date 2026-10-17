@@ -838,6 +838,13 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     EmployeeAttributes:
       type: object
       properties:
@@ -881,22 +888,6 @@ components:
           readOnly: false
       required:
       - name
-    ListMeta:
-      type: object
-      properties:
-        current_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_count:
-          type: integer
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
     Employee:
       type: object
       properties:
@@ -961,6 +952,15 @@ components:
                       - user_roles
       required:
       - attributes
+    ListMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
   securitySchemes:
     parasut_auth:
       type: oauth2

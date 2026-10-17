@@ -200,6 +200,67 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
+    TransactionAttributes:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        description:
+          type: string
+          readOnly: false
+          description: Açıklama
+        transaction_type:
+          type: string
+          readOnly: false
+          description: İşlem türü
+        date:
+          type: string
+          format: date
+          readOnly: false
+          description: Tarih
+        amount_in_trl:
+          type: number
+          readOnly: false
+          description: TRL karşılığı meblağ
+        debit_amount:
+          type: number
+          readOnly: false
+          description: Borç meblağ
+        debit_currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+          description: Borç döviz cinsi
+        credit_amount:
+          type: number
+          readOnly: false
+          description: Alacak meblağ
+        credit_currency:
+          type: string
+          enum:
+          - TRL
+          - USD
+          - EUR
+          - GBP
+          readOnly: false
+          description: Alacak döviz cinsi
+    Error:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     Transaction:
       type: object
       properties:
@@ -266,67 +327,6 @@ components:
                         - payments
       required:
       - attributes
-    Error:
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-    TransactionAttributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date
-          readOnly: true
-        updated_at:
-          type: string
-          format: date
-          readOnly: true
-        description:
-          type: string
-          readOnly: false
-          description: Açıklama
-        transaction_type:
-          type: string
-          readOnly: false
-          description: İşlem türü
-        date:
-          type: string
-          format: date
-          readOnly: false
-          description: Tarih
-        amount_in_trl:
-          type: number
-          readOnly: false
-          description: TRL karşılığı meblağ
-        debit_amount:
-          type: number
-          readOnly: false
-          description: Borç meblağ
-        debit_currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-          description: Borç döviz cinsi
-        credit_amount:
-          type: number
-          readOnly: false
-          description: Alacak meblağ
-        credit_currency:
-          type: string
-          enum:
-          - TRL
-          - USD
-          - EUR
-          - GBP
-          readOnly: false
-          description: Alacak döviz cinsi
   securitySchemes:
     parasut_auth:
       type: oauth2
