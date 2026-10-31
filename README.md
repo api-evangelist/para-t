@@ -64,6 +64,177 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Paraşüt is a company surfaced as a portfolio company of 500-global and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Paraşüt is a Turkish cloud pre-accounting (ön muhasebe) and e-invoicing SaaS for small businesses, freelancers and accountants. Its REST API V4 exposes nearly everything the Paraşüt web app can do — contacts, products, inventory and warehouses, sales invoices and offers, purchase bills, bank and cash accounts and transactions, employees, salaries and taxes — plus Turkey's official electronic document flows (e-Fatura, e-Arşiv and e-SMM). The API follows JSON:API conventions, is authenticated with OAuth2, and handles e-document creation asynchronously via trackable jobs. Backed by 500 Global.
 
-Backed by: 500-global — https://parasut.com
+**Areas:** Company · Accounting · Pre-Accounting · E-Invoicing · Invoicing · Fintech · Software-as-a-Service · Turkey · ERP · JSON:API
+
+## Paraşüt on APIs.io
+
+Everything profiled for Paraşüt is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/para-t/](https://apis.io/providers/para-t/)** — or go straight to one of the APIs or properties below.
+
+### APIs (24)
+
+- [Paraşüt Accounts API](https://apis.io/apis/para-t/para-t-accounts-api/) — The Accounts API from Paraşüt — 5 operation(s) for accounts.
+- [Paraşüt ApiHome API](https://apis.io/apis/para-t/para-t-apihome-api/) — The ApiHome API from Paraşüt — 1 operation(s) for apihome.
+- [Paraşüt BankFees API](https://apis.io/apis/para-t/para-t-bankfees-api/) — The BankFees API from Paraşüt — 5 operation(s) for bankfees.
+- [Paraşüt Contacts API](https://apis.io/apis/para-t/para-t-contacts-api/) — The Contacts API from Paraşüt — 4 operation(s) for contacts.
+- [Paraşüt EArchives API](https://apis.io/apis/para-t/para-t-earchives-api/) — The EArchives API from Paraşüt — 3 operation(s) for earchives.
+- [Paraşüt EInvoiceInboxes API](https://apis.io/apis/para-t/para-t-einvoiceinboxes-api/) — The EInvoiceInboxes API from Paraşüt — 1 operation(s) for einvoiceinboxes.
+- [Paraşüt EInvoices API](https://apis.io/apis/para-t/para-t-einvoices-api/) — The EInvoices API from Paraşüt — 3 operation(s) for einvoices.
+- [Paraşüt Employees API](https://apis.io/apis/para-t/para-t-employees-api/) — The Employees API from Paraşüt — 4 operation(s) for employees.
+- [Paraşüt ESmms API](https://apis.io/apis/para-t/para-t-esmms-api/) — The ESmms API from Paraşüt — 3 operation(s) for esmms.
+- [Paraşüt Products API](https://apis.io/apis/para-t/para-t-products-api/) — The Products API from Paraşüt — 2 operation(s) for products.
+- [Paraşüt PurchaseBills API](https://apis.io/apis/para-t/para-t-purchasebills-api/) — The PurchaseBills API from Paraşüt — 11 operation(s) for purchasebills.
+- [Paraşüt Salaries API](https://apis.io/apis/para-t/para-t-salaries-api/) — The Salaries API from Paraşüt — 5 operation(s) for salaries.
+- [Paraşüt StockMovements API](https://apis.io/apis/para-t/para-t-stockmovements-api/) — The StockMovements API from Paraşüt — 1 operation(s) for stockmovements.
+- [Paraşüt Tags API](https://apis.io/apis/para-t/para-t-tags-api/) — The Tags API from Paraşüt — 2 operation(s) for tags.
+- [Paraşüt Taxes API](https://apis.io/apis/para-t/para-t-taxes-api/) — The Taxes API from Paraşüt — 5 operation(s) for taxes.
+- [Paraşüt TrackableJobs API](https://apis.io/apis/para-t/para-t-trackablejobs-api/) — The TrackableJobs API from Paraşüt — 1 operation(s) for trackablejobs.
+- [Paraşüt Transactions API](https://apis.io/apis/para-t/para-t-transactions-api/) — The Transactions API from Paraşüt — 1 operation(s) for transactions.
+- [Paraşüt Warehouses API](https://apis.io/apis/para-t/para-t-warehouses-api/) — The Warehouses API from Paraşüt — 2 operation(s) for warehouses.
+- [Paraşüt Inventory Levels API](https://apis.io/apis/para-t/para-t-inventory-levels-api/) — The Inventory Levels API from Paraşüt — 1 operation(s) for inventory levels.
+- [Paraşüt Item Categories API](https://apis.io/apis/para-t/para-t-item-categories-api/) — The Item Categories API from Paraşüt — 2 operation(s) for item categories.
+- [Paraşüt Sales Invoices API](https://apis.io/apis/para-t/para-t-sales-invoices-api/) — The Sales Invoices API from Paraşüt — 8 operation(s) for sales invoices.
+- [Paraşüt Sales Offers API](https://apis.io/apis/para-t/para-t-sales-offers-api/) — The Sales Offers API from Paraşüt — 8 operation(s) for sales offers.
+- [Paraşüt Shipment documents API](https://apis.io/apis/para-t/para-t-shipment-documents-api/) — The Shipment documents API from Paraşüt — 2 operation(s) for shipment documents.
+- [Paraşüt Stock Updates API](https://apis.io/apis/para-t/para-t-stock-updates-api/) — The Stock Updates API from Paraşüt — 1 operation(s) for stock updates.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (1)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Paraşüt — invoice a customer and officialize as e-Arşiv](https://apis.io/arazzos/para-t/para-t-invoice-and-officialize/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [parasut](https://apis.io/servers/para-t/parasut/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Para T Agentic Access](https://apis.io/agentic-access/para-t/para-t-agentic-access/)
+
+#### Collections (24)
+
+Postman and Open Collection request collections.
+
+- [Paraşüt - API V4 Accounts API](https://apis.io/collections/para-t/open-para-t-accounts-api/)
+- [Paraşüt - API V4 Accounts ApiHome API](https://apis.io/collections/para-t/open-para-t-apihome-api/)
+- [Paraşüt - API V4 Accounts BankFees API](https://apis.io/collections/para-t/open-para-t-bankfees-api/)
+- [Paraşüt - API V4 Accounts Contacts API](https://apis.io/collections/para-t/open-para-t-contacts-api/)
+- [Paraşüt - API V4 Accounts EArchives API](https://apis.io/collections/para-t/open-para-t-earchives-api/)
+- [Paraşüt - API V4 Accounts EInvoiceInboxes API](https://apis.io/collections/para-t/open-para-t-einvoiceinboxes-api/)
+- [Paraşüt - API V4 Accounts EInvoices API](https://apis.io/collections/para-t/open-para-t-einvoices-api/)
+- [Paraşüt - API V4 Accounts Employees API](https://apis.io/collections/para-t/open-para-t-employees-api/)
+- [Paraşüt - API V4 Accounts ESmms API](https://apis.io/collections/para-t/open-para-t-esmms-api/)
+- [Paraşüt - API V4 Accounts InventoryLevels API](https://apis.io/collections/para-t/open-para-t-inventorylevels-api/)
+- [Paraşüt - API V4 Accounts ItemCategories API](https://apis.io/collections/para-t/open-para-t-itemcategories-api/)
+- [Paraşüt - API V4 Accounts Products API](https://apis.io/collections/para-t/open-para-t-products-api/)
+- [Paraşüt - API V4 Accounts PurchaseBills API](https://apis.io/collections/para-t/open-para-t-purchasebills-api/)
+- [Paraşüt - API V4 Accounts Salaries API](https://apis.io/collections/para-t/open-para-t-salaries-api/)
+- [Paraşüt - API V4 Accounts SalesInvoices API](https://apis.io/collections/para-t/open-para-t-salesinvoices-api/)
+- [Paraşüt - API V4 Accounts SalesOffers API](https://apis.io/collections/para-t/open-para-t-salesoffers-api/)
+- [Paraşüt - API V4 Accounts ShipmentDocuments API](https://apis.io/collections/para-t/open-para-t-shipmentdocuments-api/)
+- [Paraşüt - API V4 Accounts StockMovements API](https://apis.io/collections/para-t/open-para-t-stockmovements-api/)
+- [Paraşüt - API V4 Accounts StockUpdates API](https://apis.io/collections/para-t/open-para-t-stockupdates-api/)
+- [Paraşüt - API V4 Accounts Tags API](https://apis.io/collections/para-t/open-para-t-tags-api/)
+- [Paraşüt - API V4 Accounts Taxes API](https://apis.io/collections/para-t/open-para-t-taxes-api/)
+- [Paraşüt - API V4 Accounts TrackableJobs API](https://apis.io/collections/para-t/open-para-t-trackablejobs-api/)
+- [Paraşüt - API V4 Accounts Transactions API](https://apis.io/collections/para-t/open-para-t-transactions-api/)
+- [Paraşüt - API V4 Accounts Warehouses API](https://apis.io/collections/para-t/open-para-t-warehouses-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Para T Openapi Overlay](https://apis.io/overlays/para-t/para-t-openapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Para T Authentication](https://apis.io/security/para-t/para-t-authentication/)
+- [Para T Domain Security](https://apis.io/security/para-t/para-t-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Para T Scopes](https://apis.io/scopes/para-t/para-t-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://parasut.com)
+- [Documentation](https://apidocs.parasut.com/)
+- [Getting started](https://www.parasut.com/kullanim-kilavuzu)
+- [API reference](https://apidocs.parasut.com/)
+- [Pricing](https://www.parasut.com/on-muhasebe-fiyatlari)
+- [Support](https://www.parasut.com/destek)
+- [Blog](https://www.parasut.com/blog)
+- [Terms of service](https://www.parasut.com/kullanim-kosullari)
+- [Privacy policy](https://www.parasut.com/politikalarimiz)
+- [GitHub](https://github.com/parasutcom)
+
+## API Evangelist rating
+
+**Kin Score 42.1** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 41.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 58.9 |
+| Access clarity | 38.2 |
+
+**Agent readiness 26.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/para-t/](https://apis.io/providers/para-t/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Paraşüt: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/para-t/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
